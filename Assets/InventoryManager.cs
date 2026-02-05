@@ -16,12 +16,12 @@ public class InventoryManager : MonoBehaviour
     {
         if(startingWeapon != null)
         {
-            PickupWeapon(startingWeapon);
+            PickupWeapon(startingWeapon, transform.position);
         } 
     }
 
 
-    void PickupWeapon(GameObject weapon)
+    public void PickupWeapon(GameObject weapon, Vector3 positionWeaponOnTheGround)
     {
         int emptySlotIndex = -1;
         for(int i=0; i < slots.Length; i++)
@@ -36,7 +36,7 @@ public class InventoryManager : MonoBehaviour
         //se abbiamo già tutti gli slot pieni devo droppare la mia arma attuale
         if(emptySlotIndex == -1)
         {
-            DropCurrentWeapon();
+            DropCurrentWeapon(positionWeaponOnTheGround);
             EquipWeapon(weapon, currentSlotIndex);
         }
         else
@@ -47,7 +47,7 @@ public class InventoryManager : MonoBehaviour
     }
 
 
-    void DropCurrentWeapon()
+    void DropCurrentWeapon(Vector3 positionWeaponOnTheGround)
     {
         GameObject currentWeapon = slots[currentSlotIndex];
         if (currentWeapon != null)
@@ -55,7 +55,7 @@ public class InventoryManager : MonoBehaviour
             WeaponInfo info = currentWeapon.GetComponent<WeaponInfo>();
             if (info != null && info.pickupPrefab != null)
             {
-                Instantiate(info.pickupPrefab, transform.position, Quaternion.identity);
+                Instantiate(info.pickupPrefab, positionWeaponOnTheGround, Quaternion.identity);
             }
             Destroy(currentWeapon);
             slots[currentSlotIndex] = null;
@@ -97,13 +97,40 @@ public class InventoryManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.WheelUp) || Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             SwitchToSlot(0);
         }
-        if (Input.GetKeyDown(KeyCode.WheelDown) || Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             SwitchToSlot(1);
+        }
+
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+
+        if (scroll > 0f) // Se giro in SU -> Prossima arma
+        {
+            int nextSlot = currentSlotIndex + 1;
+
+            // Se supero il limite, torno al primo (0)
+            if (nextSlot >= slots.Length)
+            {
+                nextSlot = 0;
+            }
+
+            SwitchToSlot(nextSlot);
+        }
+        else if (scroll < 0f) // Se giro in GIÙ -> Arma precedente
+        {
+            int prevSlot = currentSlotIndex - 1;
+
+            // Se vado sotto zero, vado all'ultimo slot disponibile
+            if (prevSlot < 0)
+            {
+                prevSlot = slots.Length - 1;
+            }
+
+            SwitchToSlot(prevSlot);
         }
     }
 }
