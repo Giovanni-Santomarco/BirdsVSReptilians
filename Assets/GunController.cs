@@ -2,20 +2,48 @@ using UnityEngine;
 
 public class GunController : MonoBehaviour
 {
-    //public GameObject bulletPrefab;
+    public GameObject bulletPrefab;
     public Transform firePoint;
     public float fireRate = 0.5f;
 
+    public bool isAutomatic = false;
+
+    private float nextShotTime;
+
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        bool shootInput;
+
+        if (isAutomatic)
+        {
+            shootInput = Input.GetButton("Fire1");
+        }
+
+        else
+        {
+            shootInput = Input.GetMouseButtonDown(0);
+        }
+
+        if (shootInput && Time.time >= nextShotTime)
         {
             Shoot();
+            nextShotTime = Time.time + fireRate;
         }
     }
 
     void Shoot()
     {
-        
+        Vector3 shootDirection = firePoint.right;
+
+        float angle = Mathf.Atan2(shootDirection.y, shootDirection.x) * Mathf.Rad2Deg;
+
+        Quaternion bulletRotation = Quaternion.Euler(0, 0, angle);
+
+        if (firePoint.lossyScale.x < 0)
+        {
+            bulletRotation = Quaternion.Euler(0, 0, angle+180);
+        }
+
+        Instantiate(bulletPrefab, firePoint.position, bulletRotation);
     }
 }
