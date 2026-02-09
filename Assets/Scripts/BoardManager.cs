@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BoardManager : MonoBehaviour
@@ -8,7 +9,7 @@ public class BoardManager : MonoBehaviour
     public int gridWidth;
     public int gridHeight;
     public int maxFloorCount; // How many floor tiles to create
-    public float tileSize = 1f;
+    public float tileSize = 2f;
 
     [Header("Generation Parameters")]
     [Range(0f, 1f)] public float chanceToChangeDir = 0.5f;
@@ -16,9 +17,8 @@ public class BoardManager : MonoBehaviour
     [Range(0f, 1f)] public float chanceToDestroyWalker = 0.05f;
 
     [Header("References")]
-    public GameObject floorPrefab;
+    public GameObject[] floorPrefab;
     public GameObject wallPrefab;
-    //public Transform levelParent; // Optional: to keep hierarchy clean
 
     // 0 = Wall, 1 = Floor
     private int[,] gridData;
@@ -133,7 +133,9 @@ public class BoardManager : MonoBehaviour
 
                 if (gridData[x, y] == 1) // Floor
                 {
-                    Instantiate(floorPrefab, pos, Quaternion.identity);
+                    //choose a random floor tale
+                    int randomInt = Random.Range(0, floorPrefab.Length);
+                    Instantiate(floorPrefab[randomInt], pos, Quaternion.identity);
                 }
                 else // Wall
                 {
