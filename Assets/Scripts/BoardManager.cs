@@ -9,6 +9,7 @@ public class BoardManager : MonoBehaviour
     public int gridWidth;
     public int gridHeight;
     public int maxFloorCount; // How many floor tiles to create
+    //at the moment, MUST be 2
     public float tileSize = 2f;
 
     [Header("Generation Parameters")]
@@ -124,12 +125,14 @@ public class BoardManager : MonoBehaviour
 
     void SpawnGeometry()
     {
+        int normalizerForX = gridWidth;
+        int normalizerForY = gridHeight;
         // Simple loop to instantiate prefabs based on grid data
         for (int x = 0; x < gridWidth; x++)
         {
             for (int y = 0; y < gridHeight; y++)
             {
-                Vector2 pos = new Vector2(x * tileSize, y * tileSize);
+                Vector2 pos = new Vector2(x * tileSize - normalizerForX, y * tileSize - normalizerForY);
 
                 if (gridData[x, y] == 1) // Floor
                 {
