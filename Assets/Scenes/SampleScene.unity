@@ -348,7 +348,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 30
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -373,7 +373,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 15, y: 15, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -754,18 +754,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18041f63c947e0240ba11e2dc7036cb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Width: 20
-  Height: 20
-  GroundTiles:
-  - {fileID: 11400000, guid: 4541c56819f73ca4cbce136a108f6b05, type: 2}
-  - {fileID: 11400000, guid: 26535746aa6f27c4891f37e1f7f46636, type: 2}
-  - {fileID: 11400000, guid: b0882e034c71ebf4e9b68672e90c2b80, type: 2}
-  - {fileID: 11400000, guid: 1dbcac4c07511144e992a69dd96a35ad, type: 2}
-  - {fileID: 11400000, guid: 107b0537411588648b11957b26107af5, type: 2}
-  - {fileID: 11400000, guid: 2121ed7d47685ff4d9d62a314a282b59, type: 2}
-  - {fileID: 11400000, guid: c3dcfe7f185c94a438f7a1e1fa2c49c4, type: 2}
-  - {fileID: 11400000, guid: fe27991486ad1d3489d9f22a811ece1a, type: 2}
-  - {fileID: 11400000, guid: 4b7442df86562a9488bebd64948651a7, type: 2}
+  gridWidth: 30
+  gridHeight: 30
+  tileSize: 1
+  maxFloorCount: 30
+  chanceToChangeDir: 0.5
+  chanceToSpawnWalker: 0.05
+  chanceToDestroyWalker: 0.05
+  floorPrefab: {fileID: 2225783831939720329, guid: 78aaae92118a03743b3d0b002f993ea6, type: 3}
+  wallPrefab: {fileID: 2202035980308196472, guid: 5bc04d927ffd58049b118da8f08c359c, type: 3}
 --- !u!156049354 &1124045886
 Grid:
   m_ObjectHideFlags: 0
@@ -1156,8 +1153,8 @@ Transform:
   m_GameObject: {fileID: 1972724196}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.74, y: 0.32, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 10, y: 10, z: 0}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1448179257}
