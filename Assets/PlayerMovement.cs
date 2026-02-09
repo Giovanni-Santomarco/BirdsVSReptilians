@@ -13,6 +13,9 @@ public class PlayerMovement : MonoBehaviour
     private Animator animator;
     private Vector2 moveInput;
 
+    public Transform WeaponHolder;
+    public float maxWristAngle = 20f;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -38,19 +41,16 @@ public class PlayerMovement : MonoBehaviour
         moveInput = value.Get<Vector2>();
     }
 
-    // --- NUOVA LOGICA UNIFICATA ---
+
     void HandleAimingAndTurning()
     {
-        // A. Troviamo dove è il mouse nel mondo
+        // A. TROVIAMO IL MOUSE
         Vector3 mouseScreenPosition = Mouse.current.position.ReadValue();
         mouseScreenPosition.z = Camera.main.nearClipPlane;
         Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
 
-        // B. GIRIAMO IL CORPO (Flip)
-        // Se il mouse è a destra del player (x > player.x) -> Guarda a destra
-        // Se il mouse è a sinistra del player (x < player.x) -> Guarda a sinistra
+        // B. FLIP DEL CORPO
         Vector3 direction = mouseWorldPosition - transform.position;
-
         if (direction.x > 0)
         {
             transform.localScale = new Vector3(1, 1, 1); // Faccia a Destra
@@ -60,20 +60,50 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = new Vector3(-1, 1, 1); // Faccia a Sinistra
         }
 
-        // C. RUOTIAMO IL BRACCIO
-        // Calcoliamo la direzione specifica dal perno del braccio al mouse
+        // C. ROTAZIONE SPALLA (Movimento principale)
+        // La spalla punta dritta al mouse (senza correzioni complesse)
         Vector3 armDirection = mouseWorldPosition - armTransform.position;
-        float angle = Mathf.Atan2(armDirection.y, armDirection.x) * Mathf.Rad2Deg;
+        float armAngle = Mathf.Atan2(armDirection.y, armDirection.x) * Mathf.Rad2Deg;
 
         // Correggiamo l'angolo se siamo specchiati
         if (transform.localScale.x < 0)
         {
             // Se guardiamo a sinistra, dobbiamo invertire la logica della rotazione
-            armTransform.rotation = Quaternion.Euler(0, 0, angle + 180);
+            armTransform.rotation = Quaternion.Euler(0, 0, armAngle + 180);
         }
         else
         {
-            armTransform.rotation = Quaternion.Euler(0, 0, angle);
+            armTransform.rotation = Quaternion.Euler(0, 0, armAngle);
         }
+
+
+        // D. ROTAZIONE POLSO 
+        // 1. Calcoliamo l'angolo PERFETTO che dovrebbe avere la mano per colpire il mouse
+        Vector3 handToMouse = mouseWorldPosition - WeaponHolder.position;
+        float idealHandAngle = Mathf.Atan2(handToMouse.y, handToMouse.x) * Mathf.Rad2Deg;
+
+        // 2. Calcoliamo la differenza tra l'angolo del braccio e l'angolo ideale della mano
+        // Mathf.DeltaAngle gestisce automaticamente il passaggio da 360 a 0 gradi
+        float angleDifference = Mathf.DeltaAngle(armAngle, idealHandAngle);
+
+        // 3. Limitiamo la rotazione (Clamp) tra -20 e +20 gradi
+        float wristRotation = Mathf.Clamp(angleDifference, -maxWristAngle, maxWristAngle);
+
+        // 4. Applichiamo la rotazione LOCALE alla mano
+        // Se siamo flippati, dobbiamo invertire la rotazione del polso
+        if (transform.localScale.x < 0)
+        {
+            WeaponHolder.localRotation = Quaternion.Euler(0, 0, -wristRotation);
+        }
+        else
+        {
+            WeaponHolder.localRotation = Quaternion.Euler(0, 0, wristRotation);
+        }
+
+        // ---------------- DEBUG ----------------
+        // Rosso: Direzione Spalla
+        Debug.DrawRay(armTransform.position, armTransform.right * 10, Color.red);
+        // Verde: Direzione Reale Sparo (Mano)
+        Debug.DrawRay(WeaponHolder.position, WeaponHolder.right * 10, Color.green);
     }
 }
