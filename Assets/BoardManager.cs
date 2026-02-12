@@ -134,14 +134,14 @@ public class BoardManager : MonoBehaviour
 
     void SpawnGeometry()
     {
-        int normalizerForX = gridWidth;
-        int normalizerForY = gridHeight;
+        int normalizerForX = gridWidth/2;
+        int normalizerForY = gridHeight/2;
         // Simple loop to instantiate prefabs based on grid data
         for (int x = 0; x < gridWidth; x++)
         {
             for (int y = 0; y < gridHeight; y++)
             {
-                Vector2 pos = new Vector2(x * tileSize - normalizerForX, y * tileSize - normalizerForY);
+                Vector2 pos = new Vector2((x - normalizerForX) * tileSize, (y - normalizerForY) * tileSize);
 
                 if (gridData[x, y] == 1) // Floor
                 {
@@ -203,10 +203,10 @@ public class BoardManager : MonoBehaviour
 
     void SpawnPlayer()
     {
-        int normalizerForX = gridWidth;
-        int normalizerForY = gridHeight;
+        int normalizerForX = gridWidth / 2;
+        int normalizerForY = gridHeight / 2;
         Vector2 startPos = getRandomFreeTale();
-        Vector2 startPosNormalaizaed = new Vector2(startPos.x * tileSize - normalizerForX, startPos.y * tileSize - normalizerForY);
+        Vector2 startPosNormalaizaed = new Vector2((startPos.x - normalizerForX) * tileSize, (startPos.y - normalizerForY) * tileSize);
         player.transform.position = startPosNormalaizaed;     
     }
 }
