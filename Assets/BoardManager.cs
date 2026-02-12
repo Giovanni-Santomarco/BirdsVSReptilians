@@ -19,7 +19,8 @@ public class BoardManager : MonoBehaviour
 
     [Header("References")]
     public GameObject[] floorPrefab;
-    public GameObject wallPrefab;
+    public GameObject[] nonPhysWallPrefab;
+    public GameObject[] physWallPrefab;
 
     // 0 = Wall, 1 = Floor
     private int[,] gridData;
@@ -150,12 +151,17 @@ public class BoardManager : MonoBehaviour
                 }
                 else // Wall
                 {
-                    // Optimization: Only spawn walls if they touch a floor
-                    // (This simulates the "Edge Wall" logic)
-                    //if (HasFloorNeighbor(x, y))
-                    //{
-                    Instantiate(wallPrefab, pos, Quaternion.identity);
-                    //}
+                    // Optimization: Only spawn physics walls if they touch a floor
+                    if (HasFloorNeighbor(x, y))
+                    {
+                        int r = Random.Range(0, physWallPrefab.Length);
+                        Instantiate(physWallPrefab[r], pos, Quaternion.identity);
+                    }
+                    else
+                    {
+                        int r = Random.Range(0, nonPhysWallPrefab.Length);
+                        Instantiate(nonPhysWallPrefab[r], pos, Quaternion.identity);
+                    }
                 }
             }
         }
