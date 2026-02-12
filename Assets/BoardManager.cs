@@ -23,6 +23,7 @@ public class BoardManager : MonoBehaviour
 
     // 0 = Wall, 1 = Floor
     private int[,] gridData;
+    private List<Vector2> freeTales = new List<Vector2>();
 
     // Simple class to track our miners
     private class Walker
@@ -40,10 +41,15 @@ public class BoardManager : MonoBehaviour
 
     void GenerateLevel()
     {
+        //map
         SetupGrid();
         RunWalkers();
         SpawnGeometry();
+        //characters
+        SpawnPlayer();
     }
+
+    //map region
 
     void SetupGrid()
     {
@@ -93,6 +99,8 @@ public class BoardManager : MonoBehaviour
                 {
                     gridData[walkers[i].position.x, walkers[i].position.y] = 1;
                     currentFloors++;
+                    //keep track of free positions
+                    freeTales.Add(new Vector2(walkers[i].position.x, walkers[i].position.y));
                 }
 
                 // 4. Change Direction?
@@ -156,8 +164,7 @@ public class BoardManager : MonoBehaviour
     // Helper to check neighbors
     bool HasFloorNeighbor(int x, int y)
     {
-        // Check 8 directions or just 4 (N,S,E,W)
-        // Here we check 4 cardinal directions
+        // check 4 cardinal directions
         if (x > 0 && gridData[x - 1, y] == 1) return true;
         if (x < gridWidth - 1 && gridData[x + 1, y] == 1) return true;
         if (y > 0 && gridData[x, y - 1] == 1) return true;
@@ -175,5 +182,25 @@ public class BoardManager : MonoBehaviour
             case 2: return Vector2Int.left;
             default: return Vector2Int.right;
         }
+    }
+
+    //characters region
+
+    public GameObject player;
+    public Vector2 getRandomFreeTale()
+    {
+        int randomInt = Random.Range(0, freeTales.Count);
+        Vector2 randomFreeTale = freeTales[randomInt];
+        freeTales.RemoveAt(randomInt);
+        return randomFreeTale;
+    }
+
+    void SpawnPlayer()
+    {
+        int normalizerForX = gridWidth;
+        int normalizerForY = gridHeight;
+        Vector2 startPos = getRandomFreeTale();
+        Vector2 startPosNormalaizaed = new Vector2(startPos.x * tileSize - normalizerForX, startPos.y * tileSize - normalizerForY);
+        player.transform.position = startPosNormalaizaed;     
     }
 }

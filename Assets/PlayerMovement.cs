@@ -53,11 +53,11 @@ public class PlayerMovement : MonoBehaviour
         Vector3 direction = mouseWorldPosition - transform.position;
         if (direction.x > 0)
         {
-            transform.localScale = new Vector3(1, 1, 1); // Faccia a Destra
+            transform.localScale = new Vector3(0.7f, 0.7f, 1); // Faccia a Destra
         }
         else if (direction.x < 0)
         {
-            transform.localScale = new Vector3(-1, 1, 1); // Faccia a Sinistra
+            transform.localScale = new Vector3(-0.7f, 0.7f, 1); // Faccia a Sinistra
         }
 
         // C. ROTAZIONE SPALLA (Movimento principale)
