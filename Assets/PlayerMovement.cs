@@ -1,5 +1,8 @@
+using System.Transactions;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -16,10 +19,14 @@ public class PlayerMovement : MonoBehaviour
     public Transform WeaponHolder;
     public float maxWristAngle = 20f;
 
+    private InventoryManager im;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        im = GetComponent<InventoryManager>();
+
     }
 
     void Update()
@@ -32,7 +39,8 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("isWalking", isMoving);
 
         // 3. MIRA E ROTAZIONE DEL CORPO (Tutto gestito dal mouse)
-        HandleAimingAndTurning();
+        //HandleAimingAndTurning();
+        HandleAimingAndTurning2();
     }
 
     // --- LOGICA INPUT ---
@@ -53,11 +61,11 @@ public class PlayerMovement : MonoBehaviour
         Vector3 direction = mouseWorldPosition - transform.position;
         if (direction.x > 0)
         {
-            transform.localScale = new Vector3(1, 1, 1); // Faccia a Destra
+            transform.localScale = new Vector3(0.6f, 0.6f, 0.6f); // Faccia a Destra
         }
         else if (direction.x < 0)
         {
-            transform.localScale = new Vector3(-1, 1, 1); // Faccia a Sinistra
+            transform.localScale = new Vector3(-0.6f, 0.6f, 0.6f); // Faccia a Sinistra
         }
 
         // C. ROTAZIONE SPALLA (Movimento principale)
@@ -105,5 +113,55 @@ public class PlayerMovement : MonoBehaviour
         Debug.DrawRay(armTransform.position, armTransform.right * 10, Color.red);
         // Verde: Direzione Reale Sparo (Mano)
         Debug.DrawRay(WeaponHolder.position, WeaponHolder.right * 10, Color.green);
+    }
+
+
+
+    void HandleAimingAndTurning2()
+    {
+        Vector3 mouseScreenPosition = Mouse.current.position.ReadValue();
+        mouseScreenPosition.z = Camera.main.nearClipPlane;
+        Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
+
+        // B. FLIP DEL CORPO
+        Vector3 direction = mouseWorldPosition - armTransform.position;
+        if (direction.x > 0)
+        {
+            transform.localScale = new Vector3(0.6f, 0.6f, 0.6f); // Faccia a Destra
+        }
+        else if (direction.x < 0)
+        {
+            transform.localScale = new Vector3(-0.6f, 0.6f, 0.6f); // Faccia a Sinistra
+        }
+
+        float gomito = WeaponHolder.localPosition.y * WeaponHolder.lossyScale.y;
+
+        float shoulderToMouse = (mouseWorldPosition - armTransform.position).magnitude;
+
+        float offsetAngle = Mathf.Asin(Mathf.Clamp(gomito / shoulderToMouse, -1f, 1f)) * Mathf.Rad2Deg;
+
+        float gomitoToMouse = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - offsetAngle;
+
+        Debug.DrawRay(armTransform.position, direction * 10, Color.red);
+        // Verde: Direzione Reale Sparo (Mano)
+        Debug.DrawRay(WeaponHolder.position, WeaponHolder.right * (10) * transform.localScale.x, Color.green);
+
+        Debug.Log(offsetAngle);
+
+        if (transform.localScale.x < 0)
+        {
+            // Se guardiamo a sinistra, dobbiamo invertire la logica della rotazione
+            armTransform.rotation = Quaternion.Euler(0, 0, gomitoToMouse + 180);
+        }
+        else
+        {
+            armTransform.rotation = Quaternion.Euler(0, 0, gomitoToMouse);
+        }
+
+
+
+
+
+
     }
 }
