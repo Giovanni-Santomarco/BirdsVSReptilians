@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem.Android;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,18 +13,20 @@ public class GameManager : MonoBehaviour
 
     void InitGame()
     {
-        boardScript.GenerateLevel(level);
+        counter = 1000;
+        boardScript.GenerateLevel(level); //Generate level includes cleaning of prev level
     }
-
-    /*
+    private int counter = 1000;
     void Update()
     {
-        if (!boardScript.isEnemies())
+        if (counter<=0)
         {
             level++;
-            Invoke("InitGame", 2f); // 2 second delay for transition
+            Invoke("InitGame", 0f); // 2 second delay for transition
         }
-
+        else
+        {
+            counter--;
+        }
     }
-    */
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static UnityEditor.PlayerSettings;
 
 public class BoardManager : MonoBehaviour
@@ -23,9 +24,12 @@ public class BoardManager : MonoBehaviour
     public GameObject[] nonPhysWallPrefab;
     public GameObject[] physWallPrefab;
 
+    //container
+    private GameObject boardHolder; // Reference to the current level container
+
     // 0 = Wall, 1 = Floor
     private int[,] gridData;
-    private List<Vector2> freeTales = new List<Vector2>();
+    private List<Vector2> freeTales;
 
     // Simple class to track our miners
     private class Walker
@@ -43,6 +47,9 @@ public class BoardManager : MonoBehaviour
 
     public void GenerateLevel(int level)
     {
+        //regarding cleaning
+        cleanLevel();
+        boardHolder = new GameObject("BoardHolder");
         //map
         SetupGrid();
         RunWalkers();
@@ -57,6 +64,7 @@ public class BoardManager : MonoBehaviour
     void SetupGrid()
     {
         gridData = new int[gridWidth, gridHeight];
+        freeTales = new List<Vector2>();
 
         // Initialize everything as a Wall (0)
         for (int x = 0; x < gridWidth; x++)
@@ -149,7 +157,9 @@ public class BoardManager : MonoBehaviour
                 {
                     //choose a random floor tale
                     int randomInt = Random.Range(0, floorPrefab.Length);
-                    Instantiate(floorPrefab[randomInt], pos, Quaternion.identity);
+
+                    GameObject instance = Instantiate(floorPrefab[randomInt], pos, Quaternion.identity);
+                    instance.transform.SetParent(boardHolder.transform);
                 }
                 else // Wall
                 {
@@ -157,12 +167,14 @@ public class BoardManager : MonoBehaviour
                     if (HasFloorNeighbor(x, y))
                     {
                         int r = Random.Range(0, physWallPrefab.Length);
-                        Instantiate(physWallPrefab[r], pos, Quaternion.identity);
+                        GameObject instance = Instantiate(physWallPrefab[r], pos, Quaternion.identity);
+                        instance.transform.SetParent(boardHolder.transform);
                     }
                     else
                     {
                         int r = Random.Range(0, nonPhysWallPrefab.Length);
-                        Instantiate(nonPhysWallPrefab[r], pos, Quaternion.identity);
+                        GameObject instance = Instantiate(nonPhysWallPrefab[r], pos, Quaternion.identity);
+                        instance.transform.SetParent(boardHolder.transform);
                     }
                 }
             }
@@ -210,6 +222,24 @@ public class BoardManager : MonoBehaviour
         return randomFreeTale;
     }
 
+    //clean region
+    public void cleanLevel()
+    {
+        if (boardHolder != null)
+        {
+            Destroy(boardHolder);
+        }
+    }
+
+    /*
+    public bool isEnemies()
+    {
+        if (enemies.length <= 0)
+            return false;
+        return true;
+    }
+    */
+
     //characters region
 
     public GameObject player;
@@ -231,6 +261,7 @@ public class BoardManager : MonoBehaviour
     void SpawnEnemies() 
     {
         Vector2 pos = getRandomFreeTale();
-        Instantiate(enemy1, new Vector2((pos.x - getNormalizerForX()) * tileSize, (pos.y - getNormalizerForY()) * tileSize), Quaternion.identity);
+        GameObject instance = Instantiate(enemy1, new Vector2((pos.x - getNormalizerForX()) * tileSize, (pos.y - getNormalizerForY()) * tileSize), Quaternion.identity);
+        instance.transform.SetParent(boardHolder.transform);
     }
 }
