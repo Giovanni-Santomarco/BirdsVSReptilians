@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class BoardManager : MonoBehaviour
 {
@@ -35,12 +36,12 @@ public class BoardManager : MonoBehaviour
 
     private List<Walker> walkers;
 
-    void Start()
-    {
-        GenerateLevel();
-    }
+    //void Start()
+    //{
+    //    GenerateLevel();
+    //}
 
-    void GenerateLevel()
+    public void GenerateLevel(int level)
     {
         //map
         SetupGrid();
@@ -48,6 +49,7 @@ public class BoardManager : MonoBehaviour
         SpawnGeometry();
         //characters
         SpawnPlayer();
+        SpawnEnemies();
     }
 
     //map region
@@ -190,9 +192,16 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    //characters region
+    public int getNormalizerForX()
+    {
+        return gridWidth / 2;
+    }
 
-    public GameObject player;
+    public int getNormalizerForY()
+    {
+        return gridHeight / 2;
+    }
+
     public Vector2 getRandomFreeTale()
     {
         int randomInt = Random.Range(0, freeTales.Count);
@@ -201,12 +210,27 @@ public class BoardManager : MonoBehaviour
         return randomFreeTale;
     }
 
+    //characters region
+
+    public GameObject player;
+    public GameObject enemy1;
+    private Vector2 playerPos;
+    private int howManyEnemy1;
+    private int howManyEnemy2;
+    private int howManyEnemy3;
+    private int howManyEnemy4;
+    private int howManyEnemy5;
+
     void SpawnPlayer()
     {
-        int normalizerForX = gridWidth / 2;
-        int normalizerForY = gridHeight / 2;
-        Vector2 startPos = getRandomFreeTale();
-        Vector2 startPosNormalaizaed = new Vector2((startPos.x - normalizerForX) * tileSize, (startPos.y - normalizerForY) * tileSize);
+        playerPos = getRandomFreeTale();
+        Vector2 startPosNormalaizaed = new Vector2((playerPos.x - getNormalizerForX()) * tileSize, (playerPos.y - getNormalizerForY()) * tileSize);
         player.transform.position = startPosNormalaizaed;
+    }
+
+    void SpawnEnemies() 
+    {
+        Vector2 pos = getRandomFreeTale();
+        Instantiate(enemy1, new Vector2((pos.x - getNormalizerForX()) * tileSize, (pos.y - getNormalizerForY()) * tileSize), Quaternion.identity);
     }
 }
