@@ -387,7 +387,7 @@ GameObject:
   - component: {fileID: 625211351}
   - component: {fileID: 625211350}
   m_Layer: 0
-  m_Name: Crossfade
+  m_Name: SwitchLevelAnim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -914,7 +914,7 @@ GameObject:
   - component: {fileID: 1267907844}
   - component: {fileID: 1267907843}
   m_Layer: 0
-  m_Name: BoardManager
+  m_Name: LevelManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -32,13 +33,19 @@ public class GameManager : MonoBehaviour
 
         // Optional: Add a tiny extra wait time here if you want the screen 
         // to stay covered for a split second after generating, just for pacing.
-        // yield return new WaitForSecondsRealtime(0.2f);
+        yield return new WaitForSecondsRealtime(0.2f);
 
         // 4. Play the second animation (Reveal the screen)
         transitionAnimator.SetTrigger("EndTransition");
     }
     void Update()
     {
+        // from game to main menu
+        if (Input.GetKeyDown(KeyCode.Escape)) //esc
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
+        // from a level to another
         if (counter<=0) //trigger for changing level (TODO)
         {
             level++;
@@ -47,7 +54,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            counter--;
+            //counter--;
         }
     }
 }
