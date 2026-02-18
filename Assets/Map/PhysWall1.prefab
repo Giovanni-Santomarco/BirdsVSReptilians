@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1066676077462433957}
   - component: {fileID: 5316574314343138620}
   - component: {fileID: 5047952428651570817}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PhysWall1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
