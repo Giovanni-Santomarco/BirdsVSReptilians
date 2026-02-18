@@ -21,6 +21,9 @@ public class PlayerMovement : MonoBehaviour
 
     private InventoryManager im;
 
+    private bool isTouchingWall = false;
+    private Vector2 currentWallNormal;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -29,24 +32,65 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        int wallLayerIndex = LayerMask.NameToLayer("Wall");
+
+        if (collision.gameObject.layer == wallLayerIndex)
+        {
+            isTouchingWall = true;
+            // Salviamo la direzione verso cui "guarda" la faccia del muro
+            currentWallNormal = collision.contacts[0].normal;
+        }
+    }
+
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        int wallLayerIndex = LayerMask.NameToLayer("Wall");
+
+        if (collision.gameObject.layer == wallLayerIndex)
+        {
+            // Appena ci stacchiamo dal muro, spegniamo la correzione
+            isTouchingWall = false;
+            currentWallNormal = Vector2.zero;
+        }
+    }
+
+
     void Update()
     {
-        // 1. MOVIMENTO (I tasti muovono solo la posizione, non la rotazione)
-        rb.linearVelocity = moveInput * speed;
-
         // 2. ANIMAZIONE
         bool isMoving = moveInput.magnitude > 0;
         animator.SetBool("isWalking", isMoving);
 
         // 3. MIRA E ROTAZIONE DEL CORPO (Tutto gestito dal mouse)
-        //HandleAimingAndTurning();
-        HandleAimingAndTurning2();
+        HandleAimingAndTurning();
+        //HandleAimingAndTurning2();
     }
 
     // --- LOGICA INPUT ---
     void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
+    }
+
+
+    //gestisce tutta la fisica (movimento e collisioni)
+    void FixedUpdate()
+    {
+        Vector2 actualMoveDirection = moveInput;
+
+        // CORREZIONE DEL MURO
+        if (isTouchingWall && Vector2.Dot(actualMoveDirection, currentWallNormal) < 0)
+        {
+            // Proiettiamo e normalizziamo il vettore temporaneo
+            actualMoveDirection = Vector3.ProjectOnPlane(actualMoveDirection, currentWallNormal).normalized;
+        }
+
+        // Applichiamo il vettore calcolato e corretto al Rigidbody
+        rb.linearVelocity = actualMoveDirection * speed;
     }
 
 
