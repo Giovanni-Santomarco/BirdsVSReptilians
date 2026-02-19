@@ -1,22 +1,22 @@
 using UnityEngine;
 
-public class BulletOfAk47 : Bullet
+public class BulletOfPistol : Bullet
 {
     public int damage = 25;
-    public float speed = 2.0f;
+    public float speed = 5.0f;
     public Rigidbody2D rigidBody;
     public override int getDamageAmount()
     {
-        throw new System.NotImplementedException();
+        return damage;
     }
 
     public override Rigidbody2D getRigidBody()
     {
-        throw new System.NotImplementedException();
+        return rigidBody;
     }
 
     public override float getSpeed()
     {
-        throw new System.NotImplementedException();
+        return speed;
     }
 }
