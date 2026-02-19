@@ -264,6 +264,7 @@ public class BoardManager : MonoBehaviour
         //spawn them
         Vector2 pos = getRandomFreeTale();
         GameObject instance = Instantiate(enemy1, new Vector2((pos.x - getNormalizerForX()) * tileSize, (pos.y - getNormalizerForY()) * tileSize), Quaternion.identity);
+        instance.GetComponent<EnemyLifeCycle>().levelManager = this;
         instance.transform.SetParent(boardHolder.transform);
         //how many enemies?
         nEnemies = 1;
