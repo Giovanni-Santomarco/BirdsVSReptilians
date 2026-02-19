@@ -193,4 +193,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 25
   speed: 10
-  rigidBody: {fileID: 0}
+  rigidBody: {fileID: 4074193731337640571}
