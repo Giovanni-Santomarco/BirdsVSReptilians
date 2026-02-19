@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviour
     private float transitionTime = 2f;
     private int level = 1;
     private int counter = 1000;
+    private bool isAnyEnemyInCurrentLevel = true;
 
     void Start()
     {
@@ -45,16 +47,22 @@ public class GameManager : MonoBehaviour
         {
             SceneManager.LoadScene("MainMenu");
         }
+
         // from a level to another
-        if (counter<=0) //trigger for changing level (TODO)
+        if (!isAnyEnemyInCurrentLevel) //trigger for changing level (TODO)
         {
             level++;
-            counter = 1000;
+            isAnyEnemyInCurrentLevel=true;
             StartCoroutine(InitGame1());
         }
         else
         {
             //counter--;
         }
+    }
+
+    public void noEnemiesInCurrentLevel()
+    {
+        isAnyEnemyInCurrentLevel = false;
     }
 }
