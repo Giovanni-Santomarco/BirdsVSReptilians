@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5178650101517937878}
   - component: {fileID: 3263446775216489213}
-  - component: {fileID: 6524492537617532293}
   - component: {fileID: 2666104572632480696}
   - component: {fileID: 4074193731337640571}
+  - component: {fileID: 958758432168603233}
+  - component: {fileID: 4052500201632101803}
   m_Layer: 0
   m_Name: RifleBullet
   m_TagString: Untagged
@@ -90,20 +91,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6524492537617532293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1804291477799477238}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4cae842555f8d4499648295c36062e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 4074193731337640571}
-  speed: 10
 --- !u!61 &2666104572632480696
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -177,3 +164,33 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &958758432168603233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1804291477799477238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e741851cba3ad425c91ecf922cc6b379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"declarations":{"Kind":"Object","collection":{"$content":[],"$version":"A"},"$version":"A"}}'
+    _objectReferences: []
+--- !u!114 &4052500201632101803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1804291477799477238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6068b8e176e24104ba852a0c41f91fd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 25
+  speed: 10
+  rigidBody: {fileID: 0}

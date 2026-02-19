@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7402501309592841649}
   - component: {fileID: 357078835631154373}
-  - component: {fileID: 2397611928338777463}
   - component: {fileID: 3126786164184943135}
   - component: {fileID: 4364632022292253233}
+  - component: {fileID: 6075159320482186953}
   m_Layer: 0
   m_Name: PistolBullet
   m_TagString: Untagged
@@ -90,20 +90,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2397611928338777463
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4250924652321560442}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4cae842555f8d4499648295c36062e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 4364632022292253233}
-  speed: 5
 --- !u!61 &3126786164184943135
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -177,3 +163,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &6075159320482186953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4250924652321560442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3124f17cc1f65ff4f90858cd84623084, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 25
+  speed: 5
+  rigidBody: {fileID: 0}
