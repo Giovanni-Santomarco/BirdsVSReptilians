@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BulletOfPistol : Bullet
 {
-    public int damage = 25;
+    public int damage = 50;
     public float speed = 5.0f;
     public Rigidbody2D rigidBody;
     public override int getDamageAmount()
