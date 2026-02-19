@@ -7,6 +7,10 @@ using static UnityEditor.PlayerSettings;
 
 public class BoardManager : MonoBehaviour
 {
+
+    ///////////////////////////////////////////////////
+    /// MAP REGION
+    ///////////////////////////////////////////////////
     [Header("Grid Settings")]
     public int gridWidth;
     public int gridHeight;
@@ -39,27 +43,6 @@ public class BoardManager : MonoBehaviour
     }
 
     private List<Walker> walkers;
-
-    //void Start()
-    //{
-    //    GenerateLevel();
-    //}
-
-    public void GenerateLevel(int level)
-    {
-        //regarding cleaning
-        cleanLevel();
-        boardHolder = new GameObject("BoardHolder");
-        //map
-        SetupGrid();
-        RunWalkers();
-        SpawnGeometry();
-        //characters
-        SpawnPlayer();
-        SpawnEnemies();
-    }
-
-    //map region
 
     void SetupGrid()
     {
@@ -222,7 +205,33 @@ public class BoardManager : MonoBehaviour
         return randomFreeTale;
     }
 
-    //clean region
+    private void generateMap()
+    {
+        SetupGrid();
+        RunWalkers();
+        SpawnGeometry();
+    }
+
+    ///////////////////////////////////////////////////
+    /// END-REGION
+    ///////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////
+    /// LEVEL MANAGER REGION
+    ///////////////////////////////////////////////////
+    
+    public GameObject player;
+    public GameObject enemy1;
+    public GameManager gameManager;
+    private Vector2 playerPos;
+
+    private int nEnemies;
+    private int howManyEnemy1;
+    private int howManyEnemy2;
+    private int howManyEnemy3;
+    private int howManyEnemy4;
+    private int howManyEnemy5;
+
     public void cleanLevel()
     {
         if (boardHolder != null)
@@ -231,25 +240,17 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    /*
-    public bool isEnemies()
+    public void GenerateLevel(int level)
     {
-        if (enemies.length <= 0)
-            return false;
-        return true;
+        //regarding cleaning
+        cleanLevel();
+        boardHolder = new GameObject("BoardHolder");
+        //map
+        generateMap();
+        //characters
+        SpawnPlayer();
+        SpawnEnemies();
     }
-    */
-
-    //characters region
-
-    public GameObject player;
-    public GameObject enemy1;
-    private Vector2 playerPos;
-    private int howManyEnemy1;
-    private int howManyEnemy2;
-    private int howManyEnemy3;
-    private int howManyEnemy4;
-    private int howManyEnemy5;
 
     void SpawnPlayer()
     {
@@ -258,10 +259,23 @@ public class BoardManager : MonoBehaviour
         player.transform.position = startPosNormalaizaed;
     }
 
-    void SpawnEnemies() 
+    void SpawnEnemies() //TODO
     {
+        //spawn them
         Vector2 pos = getRandomFreeTale();
         GameObject instance = Instantiate(enemy1, new Vector2((pos.x - getNormalizerForX()) * tileSize, (pos.y - getNormalizerForY()) * tileSize), Quaternion.identity);
+        instance.GetComponent<EnemyLifeCycle>().levelManager = this;
         instance.transform.SetParent(boardHolder.transform);
+        //how many enemies?
+        nEnemies = 1;
+    }
+
+    internal void decreaseEnemies()
+    {
+        nEnemies--;
+        if (nEnemies <= 0)
+        {
+            gameManager.noEnemiesInCurrentLevel();
+        }
     }
 }
