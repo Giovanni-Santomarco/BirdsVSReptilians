@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
         if (!isAnyEnemyInCurrentLevel) //trigger for changing level (TODO)
         {
             level++;
-            //counter = 1000;
+            isAnyEnemyInCurrentLevel=true;
             StartCoroutine(InitGame1());
         }
         else

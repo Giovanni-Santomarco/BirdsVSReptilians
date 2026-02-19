@@ -4,7 +4,7 @@ public class EnemyLifeCycle : MonoBehaviour
 {
     public int maxHealth = 100;
     private int currentHealth;
-    private BoardManager levelManager;
+    internal BoardManager levelManager;
 
     void Start()
     {
