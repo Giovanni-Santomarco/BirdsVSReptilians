@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy1_Movement : MonoBehaviour
 {
@@ -9,14 +10,21 @@ public class Enemy1_Movement : MonoBehaviour
     private Vector2 moveInput;
     private Vector2 currentWalkDirection; // Memorizza la direzione attuale della pattuglia
 
-    private bool isMoving; // La "Mente": il nemico ha intenzione di passeggiare?
+    private bool isMoving; //il nemico ha intenzione di passeggiare?
     private float waitTime;
+    private float nextPathUpdateTime;
+    private const float pathUpdateTime = 0.2f;
     private float distance;
 
     private Vector2 fleeDirection = Vector2.zero;
     private const float touchedDistance = 0.9f;
     private const float touchedDistanceWithPlayer = 2f;
-    private const float allertDistance = 25f;
+    private const float allertDistance = 15f;   //distanza da cui inizia l'aggro
+    private const float loseAggroDistance = 20f; // Distanza a cui smette di inseguire
+    private const float shootingDistance = 5f;
+
+    private NavMeshAgent agent;
+
 
     [SerializeField] private float speed = 2f;
     [SerializeField] private float chanceToChangeStateToMovement = 0.8f;
@@ -28,6 +36,12 @@ public class Enemy1_Movement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
+        agent.updatePosition = false;
+
         InitializeStartingMovement();
     }
 
@@ -84,7 +98,7 @@ public class Enemy1_Movement : MonoBehaviour
             }
             else
             {
-                //resta fermo, ma puÚ cambiare direzione dove guardare
+                //resta fermo, ma pu√≤ cambiare direzione dove guardare
                 Vector2 randomLookDirection = RandomDirection();
                 FlipSprite(randomLookDirection.x);
             }
@@ -110,14 +124,14 @@ public class Enemy1_Movement : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        // Se chi Ë entrato nel nostro spazio vitale Ë un altro nemico...
+        // Se chi √® entrato nel nostro spazio vitale √® un altro nemico...
         if (collision.CompareTag("Enemy") && collision.gameObject != this.gameObject)
         {
             // Calcola la direzione per allontanarci da lui
             Vector2 pushDirection = (transform.position - collision.transform.position).normalized;
             fleeDirection += pushDirection;
         }
-        // oppure se Ë il Player
+        // oppure se √® il Player
         else if (collision.CompareTag("Player"))
         {
             Vector2 pushDirection = (transform.position - collision.transform.position).normalized;
@@ -140,29 +154,66 @@ public class Enemy1_Movement : MonoBehaviour
 
     void Update()
     {
-        // 1. Logica di Pattuglia (si attiva solo a timer scaduto e se non Ë in allerta)
-        if (!allerted && Time.time > waitTime)
+        //per sincronizzare la posizione reale con quella dell'agent in modo continuo
+        agent.nextPosition = transform.position;
+
+        // 0. controllo della distanza con il Player
+        if (PlayerLocation != null)
         {
-            RandomWalk();
+            distance = Vector2.Distance(this.transform.position, PlayerLocation.position);
+
+            if(distance < allertDistance)
+            {
+                allerted = true;
+            }
+            else if(distance > loseAggroDistance)
+            {
+                allerted = false;   //se il player fugge via lontano, torner√≤ il mio randomWalk
+            }
         }
 
-        // 2. Controllo della Fuga (valutiamo i dati raccolti da OnTriggerStay2D)
+        //Calcoliamo la Direzione in cui vogliamo andare (Pattuglia o Inseguimento)
+        Vector2 targetDirection = Vector2.zero;
+
+        // 1. Logica Pathfinding
+        if (allerted && PlayerLocation!=null)
+        {
+            if (Time.time >= nextPathUpdateTime)
+            {
+                agent.SetDestination(PlayerLocation.position);
+
+                //nel caso pi√π nemici sono stati aggrati nello stesso tempo cerco di non uccidere la cpu
+                nextPathUpdateTime = Time.time + pathUpdateTime + Random.Range(-0.05f, 0.05f);
+            }
+            targetDirection = agent.desiredVelocity.normalized;
+            isMoving = true;
+        }
+        else
+        {
+            // 2. Logica di Pattuglia (si attiva solo a timer scaduto e se non √® in allerta)
+            if (!allerted && Time.time > waitTime)
+            {
+                RandomWalk();
+            }
+            targetDirection = currentWalkDirection;
+        }
+
+        // 3. Controllo della Fuga (valutiamo i dati raccolti da OnTriggerStay2D)
         if (fleeDirection != Vector2.zero)
         {
-            // Hackeriamo la mente: Dimentica la passeggiata, scappa!
-            currentWalkDirection = fleeDirection.normalized;
+            // dimentica il randomWalk e comincio a scappare
+            targetDirection = fleeDirection.normalized;
+            currentWalkDirection = targetDirection;
             isMoving = true;
 
             // Blocca il timer della pattuglia per 1 secondo
             waitTime = Time.time + 1f;
         }
 
-        // 3. Logica Pathfinding Futura...
-
         // 4. Applicazione diretta del Movimento
-        if (isMoving && currentWalkDirection != Vector2.zero)
+        if (isMoving && targetDirection != Vector2.zero)
         {
-            moveInput = currentWalkDirection * speed;
+            moveInput = targetDirection * speed;
             FlipSprite(moveInput.x);
         }
         else
@@ -175,8 +226,8 @@ public class Enemy1_Movement : MonoBehaviour
         animator.SetBool("isMoving", isMoving);
 
         // Azzeriamo la forza di fuga alla fine del frame
-        // Se nel frame successivo c'Ë ancora qualcuno nel trigger, OnTriggerStay2D la ricalcoler‡.
-        // Se non c'Ë pi˘ nessuno, rimarr‡ a zero e il nemico smetter‡ di fuggire.
+        // Se nel frame successivo c'√® ancora qualcuno nel trigger, OnTriggerStay2D la ricalcoler√†.
+        // Se non c'√® pi√π nessuno, rimarr√† a zero e il nemico smetter√† di fuggire.
         fleeDirection = Vector2.zero;
     }
 
@@ -191,15 +242,15 @@ public class Enemy1_Movement : MonoBehaviour
             // Otteniamo la "normale", ovvero la freccia che esce perpendicolare dal muro
             Vector2 wallNormal = collision.contacts[0].normal;
 
-            // Il Vector2.Dot ci d‡ un numero negativo se le due direzioni si "scontrano" (puntano una verso l'altra)
-            // Se Ë minore di 0, significa che il nemico sta cercando di camminare DENTRO il muro
+            // Il Vector2.Dot ci d√† un numero negativo se le due direzioni si "scontrano" (puntano una verso l'altra)
+            // Se √® minore di 0, significa che il nemico sta cercando di camminare DENTRO il muro
             if (Vector2.Dot(currentWalkDirection, wallNormal) < 0)
             {
                 // Rimbalziamo!
                 currentWalkDirection = Vector2.Reflect(currentWalkDirection, wallNormal).normalized;
                 FlipSprite(currentWalkDirection.x);
             }
-            // Se invece il Dot Ë maggiore di 0 (es. sta scivolando via o allontanandosi), 
+            // Se invece il Dot √® maggiore di 0 (es. sta scivolando via o allontanandosi), 
             // la funzione lo ignora e gli lascia continuare la sua strada liberamente.
         }
     }
@@ -211,5 +262,11 @@ public class Enemy1_Movement : MonoBehaviour
         // 1. Disegniamo un cerchio giallo enorme per l'allerta futura
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, allertDistance);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, shootingDistance);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, loseAggroDistance);
     }
 }

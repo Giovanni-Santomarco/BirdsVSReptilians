@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static UnityEditor.PlayerSettings;
+using NavMeshPlus.Components;
 
 public class BoardManager : MonoBehaviour
 {
@@ -43,6 +44,8 @@ public class BoardManager : MonoBehaviour
     }
 
     private List<Walker> walkers;
+
+    public GameObject navMeshManager;
 
     void SetupGrid()
     {
@@ -247,6 +250,18 @@ public class BoardManager : MonoBehaviour
         boardHolder = new GameObject("BoardHolder");
         //map
         generateMap();
+
+        //per il pathfinding: se devi modificare mantieni questa riga sopra lo spawn di nemici
+        if (navMeshManager != null)
+        {
+            // Il codice entra nell'oggetto, cerca il componente (che in C# mantiene il nome NavMeshSurface) e preme Bake!
+            navMeshManager.GetComponent<NavMeshSurface>().BuildNavMesh();
+        }
+        else
+        {
+            Debug.LogError("Ehi! Ti sei dimenticato di trascinare il NavMeshManager nello slot dell'Inspector!");
+        }
+
         //characters
         SpawnPlayer();
         SpawnEnemies();
