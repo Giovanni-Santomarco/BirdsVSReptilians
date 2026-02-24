@@ -1,3 +1,4 @@
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -17,11 +18,9 @@ public class Enemy1_Movement : MonoBehaviour
     private float distance;
 
     private Vector2 fleeDirection = Vector2.zero;
-    private const float touchedDistance = 0.9f;
-    private const float touchedDistanceWithPlayer = 2f;
-    private const float allertDistance = 15f;   //distanza da cui inizia l'aggro
-    private const float loseAggroDistance = 20f; // Distanza a cui smette di inseguire
-    private const float shootingDistance = 5f;
+    private const float allertDistance = 12f;   //distanza da cui inizia l'aggro
+    private const float loseAggroDistance = 16f; // Distanza a cui smette di inseguire
+    private const float combatDistance = 5f;
 
     private NavMeshAgent agent;
 
@@ -31,6 +30,7 @@ public class Enemy1_Movement : MonoBehaviour
     [SerializeField] private float chanceToChangeStateToIdle = 0.5f;
 
     private bool allerted = false;
+    private bool combatMode = false;
 
     void Start()
     {
@@ -63,7 +63,7 @@ public class Enemy1_Movement : MonoBehaviour
     }
 
     Vector2 RandomDirection()
-    {
+    {   
         int choice = Random.Range(0, 8);
         switch (choice)
         {
@@ -82,9 +82,17 @@ public class Enemy1_Movement : MonoBehaviour
     {
         if (isMoving)
         {
-            return Random.Range(0.5f, 1.5f);
+            if (!combatMode)
+            {
+                return Random.Range(0.5f, 1.5f);
+            }
+            return Random.Range(1f, 2f);    //se sono in movimento mentre combatto mi muovo più spesso
         }
-        return Random.Range(1.5f, 3.0f);
+        if (!combatMode)
+        {
+            return Random.Range(1.5f, 3.0f);
+        }
+        return Random.Range(0.5f, 1f);  //se sono fermo mentre combatto
     }
 
     void RandomWalk()
@@ -119,6 +127,117 @@ public class Enemy1_Movement : MonoBehaviour
 
         //timer per la prossima decisione
         waitTime = Time.time + ComputeWaitTime();
+    }
+
+
+
+    Vector2 RandomDirectionInCombatMode()
+    {
+        //più lontano siamo dal nemico più la possiblità di andare verso di lui sono alte
+        //però se siamo troppo vicino (shootingDistance o oltre) non mi muovo più verso il player
+        float sidewaysProb = 0.5f;
+        //float forwardOrBackwardProb = 0.67f;
+
+        if(Random.Range(0, 1f) < sidewaysProb)
+        {
+            Vector2 strafeDirection = Vector2.Perpendicular(transform.position - PlayerLocation.position).normalized;
+
+            if(Random.Range(0, 1f) < 0.5f)
+            {
+                strafeDirection = -strafeDirection;
+            }
+
+            return strafeDirection;
+        }
+        else
+        {
+            Vector2 forwarOrBackwards = (Vector2)(PlayerLocation.position - transform.position).normalized;
+
+            float roll = Random.Range(0f, 1f);
+
+            float f1 = (distance / (loseAggroDistance / 2));
+            float f2;
+            if(distance != 0)
+            {
+                f2 = ((loseAggroDistance / 2) / distance);
+            }
+            else
+            {
+                f2 = 1f;
+            }
+
+            float normalisingFactor = f1 + f2;
+
+            float p1 = f1 / normalisingFactor;
+            //float p2 = f2 / normalisingFactor;
+            //se siamo troppo vicini vale la funzione distance/(loseAggroDistance / 2) per andare avanti
+            //e (loseAggroDistance/2)/distance per andare indietro
+            
+            
+            //mi muovo verso il player (solo se non siamo troppo vicini al player)
+            if(roll <= p1 && distance > combatDistance && distance < loseAggroDistance)
+            {
+                //prova ad usare agent.setDestination() per andare verso il player
+                agent.SetDestination(PlayerLocation.position);
+
+                return agent.desiredVelocity.normalized;
+            }
+            else
+            {
+                //mi allontano dal player
+                return -forwarOrBackwards;
+            }
+         
+        }
+    }
+
+
+    void CombatMovement()
+    {
+        if(isMoving == false)
+        {
+            if(Random.Range(0f, 1f) <= chanceToChangeStateToMovement)
+            {
+                isMoving = true;
+                currentWalkDirection = RandomDirectionInCombatMode();
+            }
+        }
+        else
+        {
+            if (Random.Range(0f, 1f) <= chanceToChangeStateToIdle)
+            {
+                isMoving = false;
+                currentWalkDirection = Vector2.zero;
+            }
+            else
+            {
+                //continua a muoversi, ma cambia direzione
+                currentWalkDirection = RandomDirectionInCombatMode();
+            }
+        }
+        waitTime = Time.time + ComputeWaitTime();
+    }
+
+
+    private bool hasLineOfSight()
+    //ritorna false se tra il nemico e il player c'è un muro, altrimenti torna true
+    {
+        if(PlayerLocation != null && distance < allertDistance)
+        {
+            Vector2 directionToPlayer = (PlayerLocation.position - transform.position).normalized;
+
+            int wallLayer = LayerMask.GetMask("Wall");
+
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToPlayer, distance, wallLayer);
+
+            if(hit.collider != null)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        return false;
     }
 
 
@@ -162,21 +281,23 @@ public class Enemy1_Movement : MonoBehaviour
         {
             distance = Vector2.Distance(this.transform.position, PlayerLocation.position);
 
-            if(distance < allertDistance)
+            //è allertato se siamo nella zona di allerta e se ci vede, ma se siamo troppo vicini si allerta comunque
+            if((distance < allertDistance && hasLineOfSight()) || distance < combatDistance)
             {
                 allerted = true;
             }
             else if(distance > loseAggroDistance)
             {
                 allerted = false;   //se il player fugge via lontano, tornerò il mio randomWalk
+                combatMode = false;
             }
         }
 
         //Calcoliamo la Direzione in cui vogliamo andare (Pattuglia o Inseguimento)
         Vector2 targetDirection = Vector2.zero;
 
-        // 1. Logica Pathfinding
-        if (allerted && PlayerLocation!=null)
+        // 1. Logica Pathfinding (per avvicinarmi al player fino alla distanza di combattimento)
+        if (allerted && PlayerLocation!=null && !combatMode)
         {
             if (Time.time >= nextPathUpdateTime)
             {
@@ -187,13 +308,29 @@ public class Enemy1_Movement : MonoBehaviour
             }
             targetDirection = agent.desiredVelocity.normalized;
             isMoving = true;
+
+            if(distance < combatDistance)
+            {
+                combatMode = true;
+            }
         }
         else
-        {
-            // 2. Logica di Pattuglia (si attiva solo a timer scaduto e se non è in allerta)
-            if (!allerted && Time.time > waitTime)
+        {   
+            // Logica di Combattimento (mi muovo random ma posso anche sparare)
+            if (allerted && combatMode && Time.time > waitTime)
             {
-                RandomWalk();
+                CombatMovement();
+
+                
+                //tocca capire come fare la meccanica di shooting
+            }
+            else
+            {
+                // 2. Logica di Pattuglia (si attiva solo a timer scaduto e se non è in allerta)
+                if (!allerted && Time.time > waitTime && !combatMode)
+                {
+                    RandomWalk();
+                }
             }
             targetDirection = currentWalkDirection;
         }
@@ -214,11 +351,23 @@ public class Enemy1_Movement : MonoBehaviour
         if (isMoving && targetDirection != Vector2.zero)
         {
             moveInput = targetDirection * speed;
-            FlipSprite(moveInput.x);
         }
         else
         {
             moveInput = Vector2.zero;
+        }
+
+        // --- GESTIONE DELLO SGUARDO (Sempre attiva) ---
+        if (allerted && PlayerLocation != null)
+        {
+            // Se è allertato, guarda SEMPRE il player, anche se è fermo
+            Vector2 d = PlayerLocation.position - transform.position;
+            FlipSprite(d.x);
+        }
+        else if (isMoving && targetDirection != Vector2.zero)
+        {
+            // Se sta solo pattugliando, guarda dove cammina
+            FlipSprite(moveInput.x);
         }
 
         // Muovi fisicamente il nemico
@@ -264,7 +413,7 @@ public class Enemy1_Movement : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, allertDistance);
 
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, shootingDistance);
+        Gizmos.DrawWireSphere(transform.position, combatDistance);
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, loseAggroDistance);

@@ -239,8 +239,19 @@ public class BoardManager : MonoBehaviour
     {
         if (boardHolder != null)
         {
+            // sposto la vecchia mappa a 10.000 coordinate di distanza.
+            // Spostando il "padre", tutti i muri vecchi lo seguiranno all'istante.
+            boardHolder.transform.position = new Vector3(10000f, 10000f, 0f);
+
+            // 2. La spegniamo
+            boardHolder.SetActive(false);
+
+            // 3. Sincronizziamo i calcoli di Unity FORZATAMENTE in questo esatto millisecondo
+            Physics.SyncTransforms();
+
             Destroy(boardHolder);
         }
+        navMeshManager.GetComponent<NavMeshSurface>().RemoveData();
     }
 
     public void GenerateLevel(int level)
@@ -254,12 +265,11 @@ public class BoardManager : MonoBehaviour
         //per il pathfinding: se devi modificare mantieni questa riga sopra lo spawn di nemici
         if (navMeshManager != null)
         {
-            // Il codice entra nell'oggetto, cerca il componente (che in C# mantiene il nome NavMeshSurface) e preme Bake!
             navMeshManager.GetComponent<NavMeshSurface>().BuildNavMesh();
         }
         else
         {
-            Debug.LogError("Ehi! Ti sei dimenticato di trascinare il NavMeshManager nello slot dell'Inspector!");
+            Debug.LogError("problems");
         }
 
         //characters

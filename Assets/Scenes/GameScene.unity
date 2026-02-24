@@ -1157,6 +1157,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1759327260405139691, guid: 5bc7334fb0bed64429acb754f68f3478, type: 3}
+      propertyPath: m_NavMeshData
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6113896468179877843, guid: 5bc7334fb0bed64429acb754f68f3478, type: 3}
       propertyPath: m_Name
       value: NavMeshManager
