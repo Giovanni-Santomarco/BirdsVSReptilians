@@ -2,11 +2,38 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
-public class AudioSettings : MonoBehaviour
+public class PauseManager : MonoBehaviour
 {
     public AudioMixer mainMixer;
+    public GameObject pauseMenuUI;
     public Slider musicSlider;
     public Slider sfxSlider;
+
+    private bool isPaused = false;
+
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            if (isPaused) Resume();
+            else Pause();
+        }
+    }
+
+    public void Resume()
+    {
+        pauseMenuUI.SetActive(false);
+        Time.timeScale = 1f; // Resumes game physics and timers
+        isPaused = false;
+    }
+
+    void Pause()
+    {
+        pauseMenuUI.SetActive(true);
+        Time.timeScale = 0f; // Freezes the game
+        isPaused = true;
+    }
 
     public void SetMusicVolume()
     {
