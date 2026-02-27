@@ -1,14 +1,23 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class GunController : MonoBehaviour
 {
     public GameObject bulletPrefab;
     public Transform firePoint;
     public float fireRate = 0.5f;
+    public AudioClip shootSound;
+    private AudioSource audioSource;
 
     public bool isAutomatic = false;
 
     private float nextShotTime;
+
+    void Start()
+    {
+        // Get the AudioSource component from the weapon
+        audioSource = GetComponent<AudioSource>();
+    }
 
     void Update()
     {
@@ -45,5 +54,10 @@ public class GunController : MonoBehaviour
         }
 
         Instantiate(bulletPrefab, firePoint.position, bulletRotation);
+        if (isAutomatic)
+        {
+            audioSource.pitch = Random.Range(0.9f, 1.1f);
+        }
+        audioSource.PlayOneShot(shootSound);
     }
 }
