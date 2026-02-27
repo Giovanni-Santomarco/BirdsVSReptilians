@@ -21,13 +21,14 @@ public class GunController : MonoBehaviour
 
     void Update()
     {
+        // If Time.timeScale is 0, the game is paused. Don't shoot!
+        if (Time.timeScale == 0) return;
         bool shootInput;
 
         if (isAutomatic)
         {
             shootInput = Input.GetButton("Fire1");
         }
-
         else
         {
             shootInput = Input.GetMouseButtonDown(0);
