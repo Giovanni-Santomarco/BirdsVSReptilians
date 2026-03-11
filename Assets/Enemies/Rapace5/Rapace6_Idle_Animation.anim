@@ -20,7 +20,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: 0, y: -0.01, z: 0}
+        value: {x: 0, y: -0.008, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -28,7 +28,7 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 4.016667
+        time: 4
         value: {x: 0, y: 0, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
@@ -38,7 +38,7 @@ AnimationClip:
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 8
-        value: {x: 0, y: -0.01, z: 0}
+        value: {x: 0, y: -0.008, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -48,13 +48,13 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Enemy6_testa_corpo
+    path: Enemy5_testa_corpo
   - curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: 0.09, y: 0.035000026, z: 0}
+        value: {x: 0.054, y: 0.1085, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -62,8 +62,8 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 4.016667
-        value: {x: 0.09, y: 0.045, z: 0}
+        time: 4
+        value: {x: 0.054, y: 0.1165, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -72,7 +72,7 @@ AnimationClip:
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 8
-        value: {x: 0.09, y: 0.035000026, z: 0}
+        value: {x: 0.054, y: 0.1085, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -82,13 +82,13 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Enemy6_braccia_sx
+    path: Enemy5_braccio_sx
   - curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: -0.056, y: 0.037000023, z: 0}
+        value: {x: -0.1135, y: 0.09255, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -96,8 +96,8 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 4.016667
-        value: {x: -0.056, y: 0.047, z: 0}
+        time: 4
+        value: {x: -0.1135, y: 0.10055, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -106,7 +106,7 @@ AnimationClip:
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 8
-        value: {x: -0.056, y: 0.037000023, z: 0}
+        value: {x: -0.1135, y: 0.09255, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -116,7 +116,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Enemy6_braccia_dx
+    path: Enemy5_braccio_dx
   m_ScaleCurves: []
   m_FloatCurves: []
   m_PPtrCurves: []
@@ -128,7 +128,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 189238563
+      path: 3062751725
       attribute: 1
       script: {fileID: 0}
       typeID: 4
@@ -137,7 +137,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 398803138
+      path: 2156193025
       attribute: 1
       script: {fileID: 0}
       typeID: 4
@@ -146,7 +146,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 306627668
+      path: 2231853463
       attribute: 1
       script: {fileID: 0}
       typeID: 4
@@ -190,7 +190,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 4.016667
+        time: 4
         value: 0
         inSlope: 0
         outSlope: 0
@@ -211,7 +211,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: Enemy6_testa_corpo
+    path: Enemy5_testa_corpo
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -221,7 +221,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -0.01
+        value: -0.008
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -229,7 +229,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 4.016667
+        time: 4
         value: 0
         inSlope: 0
         outSlope: 0
@@ -239,7 +239,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 8
-        value: -0.01
+        value: -0.008
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -250,7 +250,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: Enemy6_testa_corpo
+    path: Enemy5_testa_corpo
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -268,7 +268,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 4.016667
+        time: 4
         value: 0
         inSlope: 0
         outSlope: 0
@@ -289,7 +289,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: Enemy6_testa_corpo
+    path: Enemy5_testa_corpo
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -299,7 +299,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.09
+        value: 0.054
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -307,8 +307,8 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 4.016667
-        value: 0.09
+        time: 4
+        value: 0.054
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -317,7 +317,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 8
-        value: 0.09
+        value: 0.054
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -328,7 +328,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: Enemy6_braccia_sx
+    path: Enemy5_braccio_sx
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -338,7 +338,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.035000026
+        value: 0.1085
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -346,8 +346,8 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 4.016667
-        value: 0.045
+        time: 4
+        value: 0.1165
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -356,7 +356,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 8
-        value: 0.035000026
+        value: 0.1085
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -367,7 +367,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: Enemy6_braccia_sx
+    path: Enemy5_braccio_sx
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -385,7 +385,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 4.016667
+        time: 4
         value: 0
         inSlope: 0
         outSlope: 0
@@ -406,7 +406,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: Enemy6_braccia_sx
+    path: Enemy5_braccio_sx
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -416,7 +416,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -0.056
+        value: -0.1135
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -424,8 +424,8 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 4.016667
-        value: -0.056
+        time: 4
+        value: -0.1135
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -434,7 +434,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 8
-        value: -0.056
+        value: -0.1135
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -445,7 +445,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: Enemy6_braccia_dx
+    path: Enemy5_braccio_dx
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -455,7 +455,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.037000023
+        value: 0.09255
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -463,8 +463,8 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 4.016667
-        value: 0.047
+        time: 4
+        value: 0.10055
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -473,7 +473,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 8
-        value: 0.037000023
+        value: 0.09255
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -484,7 +484,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: Enemy6_braccia_dx
+    path: Enemy5_braccio_dx
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -502,7 +502,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 4.016667
+        time: 4
         value: 0
         inSlope: 0
         outSlope: 0
@@ -523,7 +523,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: Enemy6_braccia_dx
+    path: Enemy5_braccio_dx
     classID: 4
     script: {fileID: 0}
     flags: 0

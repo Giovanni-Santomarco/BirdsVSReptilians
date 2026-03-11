@@ -1,19 +1,24 @@
+using TMPro;
 using Unity.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem;
 
 public class Enemy1_Movement : MonoBehaviour
 {
     private Transform PlayerLocation;
     private Rigidbody2D rb;
     private Animator animator;
+    public Transform armTransform;
+    public Transform Enemy1_WeaponHolder;
 
     private Vector2 moveInput;
     private Vector2 currentWalkDirection; // Memorizza la direzione attuale della pattuglia
+    private Vector2 currentLookDirection = Vector2.right;
 
     private bool isMoving; //il nemico ha intenzione di passeggiare?
     private float waitTime;
-    private float nextPathUpdateTime;
+    private float nextPathUpdateTime;   //uso una variabile differente da waitTime per essere più veloce con le transizioni da Patrol a Chase e da Chase a Combat
     private const float pathUpdateTime = 0.2f;
     private float distance;
 
@@ -23,7 +28,6 @@ public class Enemy1_Movement : MonoBehaviour
     private const float combatDistance = 5f;
 
     private NavMeshAgent agent;
-
 
     [SerializeField] private float speed = 2f;
     [SerializeField] private float chanceToChangeStateToMovement = 0.8f;
@@ -95,6 +99,42 @@ public class Enemy1_Movement : MonoBehaviour
         return Random.Range(0.5f, 1f);  //se sono fermo mentre combatto
     }
 
+    //void RandomWalk()
+    //{
+    //    if (isMoving == false)
+    //    {
+    //        if (Random.Range(0f, 1f) <= chanceToChangeStateToMovement)
+    //        {
+    //            isMoving = true;
+    //            currentWalkDirection = RandomDirection();
+    //        }
+    //        else
+    //        {
+    //            //resta fermo, ma può cambiare direzione dove guardare
+    //            Vector2 randomLookDirection = RandomDirection();
+    //            HandleAiming(randomLookDirection - (Vector2)transform.position);
+    //            //FlipSprite(randomLookDirection.x);
+    //        }
+    //    }
+    //    else
+    //    {
+    //        if (Random.Range(0f, 1f) <= chanceToChangeStateToIdle)
+    //        {
+    //            isMoving = false;
+    //            currentWalkDirection = Vector2.zero;
+    //        }
+    //        else
+    //        {
+    //            //continua a muoversi, ma cambia direzione di pattuglia
+    //            currentWalkDirection = RandomDirection();
+    //        }
+    //    }
+
+    //    //timer per la prossima decisione
+    //    waitTime = Time.time + ComputeWaitTime();
+    //}
+
+
     void RandomWalk()
     {
         if (isMoving == false)
@@ -103,12 +143,12 @@ public class Enemy1_Movement : MonoBehaviour
             {
                 isMoving = true;
                 currentWalkDirection = RandomDirection();
+                currentLookDirection = currentWalkDirection; // Guarda verso dove inizia a camminare
             }
             else
             {
-                //resta fermo, ma può cambiare direzione dove guardare
-                Vector2 randomLookDirection = RandomDirection();
-                FlipSprite(randomLookDirection.x);
+                // Resta fermo, ma cambia direzione dello sguardo a caso
+                currentLookDirection = RandomDirection();
             }
         }
         else
@@ -116,19 +156,20 @@ public class Enemy1_Movement : MonoBehaviour
             if (Random.Range(0f, 1f) <= chanceToChangeStateToIdle)
             {
                 isMoving = false;
-                currentWalkDirection = Vector2.zero;
+                currentWalkDirection = Vector2.zero; // Si ferma fisicamente
+                                                     // Quando si ferma, mantiene l'ultimo currentLookDirection (quindi guarda dritto)
             }
             else
             {
-                //continua a muoversi, ma cambia direzione di pattuglia
+                // Continua a muoversi cambiando strada
                 currentWalkDirection = RandomDirection();
+                currentLookDirection = currentWalkDirection; // Guarda verso la nuova strada
             }
         }
 
-        //timer per la prossima decisione
+        //timer per la prossima decisionez
         waitTime = Time.time + ComputeWaitTime();
     }
-
 
 
     Vector2 RandomDirectionInCombatMode()
@@ -241,6 +282,66 @@ public class Enemy1_Movement : MonoBehaviour
     }
 
 
+    void HandleAiming(Vector2 targetDirection)
+    {
+        // --- GESTIONE DELLO SGUARDO ---
+        Vector2 directionFromCenter = targetDirection - (Vector2)transform.position;
+        FlipSprite(directionFromCenter.x);
+
+        Vector2 aimDirection = targetDirection - (Vector2)armTransform.position;
+        //distanza dalla spalla alla y del muzzle dell'arma
+        Transform muzzle = null;
+        for (int i = 0; i < Enemy1_WeaponHolder.childCount; i++)
+        {
+            Transform arma = Enemy1_WeaponHolder.GetChild(i);
+            if (arma.gameObject.activeInHierarchy && arma.childCount > 0)
+            {
+                muzzle = arma.GetChild(0);
+                break;
+            }
+        }
+        float y = 0f;
+        if (muzzle != null)
+        {
+            //ricorda che funziona solo se l'arma ha coordinate (0,0,0)
+            y = Enemy1_WeaponHolder.localPosition.y * Enemy1_WeaponHolder.lossyScale.y + muzzle.localPosition.y * muzzle.lossyScale.y;
+        }
+        else
+        {
+            y = Enemy1_WeaponHolder.localPosition.y * Enemy1_WeaponHolder.lossyScale.y;
+        }
+
+        float diagonale = (aimDirection).magnitude;
+
+        //distanza da gomito al mouse
+        float x = Mathf.Sqrt(Mathf.Max(0, (diagonale * diagonale) - (y * y)));
+
+        float offsetAngle = Mathf.Atan2(y, x) * Mathf.Rad2Deg;
+
+        float gomitoToMouse;
+
+        //Debug.DrawRay(armTransform.position, direction * 10, Color.red);
+        // Verde: Direzione Reale Sparo (Mano)
+        //Debug.DrawRay(Enemy1_WeaponHolder.position, Enemy1_WeaponHolder.right * (10) * transform.localScale.x, Color.green);
+
+        Debug.Log(x);
+
+        if (transform.localScale.x < 0)
+        {
+            //dobbiamo aggiungere l'offset invece di sottrarlo dato che siamo nel semisfero sinistro
+            gomitoToMouse = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - offsetAngle * (-1);
+            // Se guardiamo a sinistra, dobbiamo invertire la logica della rotazione
+            armTransform.rotation = Quaternion.Euler(0, 0, gomitoToMouse + 180);
+        }
+        else
+        {
+            gomitoToMouse = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - offsetAngle;
+            armTransform.rotation = Quaternion.Euler(0, 0, gomitoToMouse);
+        }
+
+    }
+
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         // Se chi è entrato nel nostro spazio vitale è un altro nemico...
@@ -302,6 +403,7 @@ public class Enemy1_Movement : MonoBehaviour
             if (Time.time >= nextPathUpdateTime)
             {
                 agent.SetDestination(PlayerLocation.position);
+                HandleAiming((Vector2)PlayerLocation.position);
 
                 //nel caso più nemici sono stati aggrati nello stesso tempo cerco di non uccidere la cpu
                 nextPathUpdateTime = Time.time + pathUpdateTime + Random.Range(-0.05f, 0.05f);
@@ -317,11 +419,11 @@ public class Enemy1_Movement : MonoBehaviour
         else
         {   
             // Logica di Combattimento (mi muovo random ma posso anche sparare)
-            if (allerted && combatMode && Time.time > waitTime)
+            if (allerted && combatMode && Time.time > waitTime && PlayerLocation != null)
             {
                 CombatMovement();
+                HandleAiming((Vector2)PlayerLocation.position);
 
-                
                 //tocca capire come fare la meccanica di shooting
             }
             else
@@ -330,6 +432,7 @@ public class Enemy1_Movement : MonoBehaviour
                 if (!allerted && Time.time > waitTime && !combatMode)
                 {
                     RandomWalk();
+                    HandleAiming((Vector2)transform.position + currentLookDirection * 5f); //se mi muovo randomicamente guardo miro verso dove mi sto muovendo
                 }
             }
             targetDirection = currentWalkDirection;
@@ -357,18 +460,19 @@ public class Enemy1_Movement : MonoBehaviour
             moveInput = Vector2.zero;
         }
 
+        //da fare in una funzione dipendente da HandleAiming
         // --- GESTIONE DELLO SGUARDO (Sempre attiva) ---
-        if (allerted && PlayerLocation != null)
-        {
-            // Se è allertato, guarda SEMPRE il player, anche se è fermo
-            Vector2 d = PlayerLocation.position - transform.position;
-            FlipSprite(d.x);
-        }
-        else if (isMoving && targetDirection != Vector2.zero)
-        {
-            // Se sta solo pattugliando, guarda dove cammina
-            FlipSprite(moveInput.x);
-        }
+        //if (allerted && PlayerLocation != null)
+        //{
+        //    // Se è allertato, guarda SEMPRE il player, anche se è fermo
+        //    Vector2 d = PlayerLocation.position - transform.position;
+        //    FlipSprite(d.x);
+        //}
+        //else if (isMoving && targetDirection != Vector2.zero)
+        //{
+        //    // Se sta solo pattugliando, guarda dove cammina
+        //    FlipSprite(moveInput.x);
+        //}
 
         // Muovi fisicamente il nemico
         rb.linearVelocity = moveInput;
@@ -397,7 +501,15 @@ public class Enemy1_Movement : MonoBehaviour
             {
                 // Rimbalziamo!
                 currentWalkDirection = Vector2.Reflect(currentWalkDirection, wallNormal).normalized;
-                FlipSprite(currentWalkDirection.x);
+                if (!combatMode && !allerted && PlayerLocation!=null)
+                {
+                    HandleAiming(currentWalkDirection * 15);
+                }
+                else
+                {
+                    HandleAiming((Vector2)PlayerLocation.position);
+                }
+                //FlipSprite(currentWalkDirection.x);
             }
             // Se invece il Dot è maggiore di 0 (es. sta scivolando via o allontanandosi), 
             // la funzione lo ignora e gli lascia continuare la sua strada liberamente.
