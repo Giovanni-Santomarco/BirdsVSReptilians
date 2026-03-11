@@ -150,7 +150,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 4250924652321560442, guid: 56b899423d4c44e45840172de0abdc94, type: 3}
   firePoint: {fileID: 8786693436853250253}
   fireRate: 0.5
-  shootSound: {fileID: 8300000, guid: 07b5acb87d163c14bbf7d8f59485f620, type: 3}
+  shootSound: {fileID: 8300000, guid: 4850ac259b5a8f446a2e0f672d678f0b, type: 3}
   isAutomatic: 0
 --- !u!82 &7615209829936178827
 AudioSource:

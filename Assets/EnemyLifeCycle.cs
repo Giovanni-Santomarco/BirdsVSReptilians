@@ -5,6 +5,7 @@ public class EnemyLifeCycle : MonoBehaviour
     public int maxHealth = 100;
     private int currentHealth;
     internal BoardManager levelManager;
+    public GameObject Rapace_morto;
 
     void Start()
     {
@@ -24,10 +25,17 @@ public class EnemyLifeCycle : MonoBehaviour
     {
         // Add death animation or sound here TODO
 
+        // destroy the object
+        Transform spotOfDeath = gameObject.transform;
+
+        Destroy(gameObject);
+
+        if(Rapace_morto != null)
+        {
+            Instantiate(Rapace_morto, spotOfDeath.position, spotOfDeath.rotation);
+        }
+
         //tell current level about the death, a death triggers a check by LevelManager, i.e. isNewLevel?
         levelManager.decreaseEnemies();
-
-        // destroy the object
-        Destroy(gameObject);
     }
 }
