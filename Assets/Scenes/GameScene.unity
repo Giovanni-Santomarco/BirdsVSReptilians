@@ -1570,6 +1570,7 @@ GameObject:
   - component: {fileID: 1972724202}
   - component: {fileID: 1972724203}
   - component: {fileID: 1972724204}
+  - component: {fileID: 1972724205}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -1592,7 +1593,6 @@ MonoBehaviour:
   speed: 7
   armTransform: {fileID: 755595616}
   WeaponHolder: {fileID: 877008110}
-  maxWristAngle: 20
 --- !u!114 &1972724198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1859,7 +1859,6 @@ MonoBehaviour:
   slots:
   - {fileID: 0}
   - {fileID: 0}
-  currentSlotIndex: 0
 --- !u!61 &1972724204
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1906,6 +1905,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.47, y: 1.6}
   m_EdgeRadius: 0
+--- !u!114 &1972724205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1972724196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4665cb5e1b3c70944b21403e8c0ee9b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryManagerOfPlayer: {fileID: 1972724203}
 --- !u!1001 &3419678080795889335
 PrefabInstance:
   m_ObjectHideFlags: 0
