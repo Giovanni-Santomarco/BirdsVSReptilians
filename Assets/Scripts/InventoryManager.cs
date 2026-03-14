@@ -65,6 +65,7 @@ public class InventoryManager : MonoBehaviour
 
     void EquipWeapon(GameObject weapon, int indexSlot)
     {
+        weapon.GetComponent<GunController>().setShooter("player");
         GameObject newWeapon = Instantiate(weapon, weaponHolder);
         newWeapon.transform.localPosition = Vector3.zero;
         newWeapon.transform.localRotation = Quaternion.identity;
