@@ -9,7 +9,7 @@ public class InventoryManager : MonoBehaviour
     public GameObject startingWeapon;
 
     public GameObject[] slots = new GameObject[2];  //quante armi posso avere in mano
-    public int currentSlotIndex = 0;    //arma che ho in mano attualmente
+    private int currentSlotIndex = 0;    //arma che ho in mano attualmente
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -36,13 +36,13 @@ public class InventoryManager : MonoBehaviour
         //se abbiamo già tutti gli slot pieni devo droppare la mia arma attuale
         if(emptySlotIndex == -1)
         {
-            DropCurrentWeapon(positionWeaponOnTheGround);
-            EquipWeapon(weapon, currentSlotIndex);
+            DropCurrentWeapon(positionWeaponOnTheGround); // does not effect currentSlotIndex
+            EquipWeapon(weapon, currentSlotIndex);        // does not effect currentSlotIndex
         }
         else
         {
-            EquipWeapon(weapon, emptySlotIndex);
-            SwitchToSlot(emptySlotIndex);
+            EquipWeapon(weapon, emptySlotIndex);          
+            SwitchToSlot(emptySlotIndex);                 //effects currentSlotIndex
         }
     }
 
@@ -65,6 +65,7 @@ public class InventoryManager : MonoBehaviour
 
     void EquipWeapon(GameObject weapon, int indexSlot)
     {
+        weapon.GetComponent<GunController>().setShooter("player");
         GameObject newWeapon = Instantiate(weapon, weaponHolder);
         newWeapon.transform.localPosition = Vector3.zero;
         newWeapon.transform.localRotation = Quaternion.identity;
@@ -132,5 +133,10 @@ public class InventoryManager : MonoBehaviour
 
             SwitchToSlot(prevSlot);
         }
+    }
+
+    public GameObject getCurrentWeapon()
+    {
+        return this.slots[currentSlotIndex];
     }
 }

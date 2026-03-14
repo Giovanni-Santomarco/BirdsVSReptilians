@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Audio;
 
+//this class stores some properties of the gun and basing on them, allowa the gun owner to shoot
 public class GunController : MonoBehaviour
 {
     public GameObject bulletPrefab;
@@ -13,36 +14,19 @@ public class GunController : MonoBehaviour
 
     private float nextShotTime;
 
+    private string shooter;
+
     void Start()
     {
         // Get the AudioSource component from the weapon
         audioSource = GetComponent<AudioSource>();
     }
 
-    void Update()
+    //shoots only if the fire rate allows to
+    public void Shoot()
     {
-        // If Time.timeScale is 0, the game is paused. Don't shoot!
-        if (Time.timeScale == 0) return;
-        bool shootInput;
-
-        if (isAutomatic)
-        {
-            shootInput = Input.GetButton("Fire1");
-        }
-        else
-        {
-            shootInput = Input.GetMouseButtonDown(0);
-        }
-
-        if (shootInput && Time.time >= nextShotTime)
-        {
-            Shoot();
-            nextShotTime = Time.time + fireRate;
-        }
-    }
-
-    void Shoot()
-    {
+        if (!(Time.time >= nextShotTime))
+            return;
         Vector3 shootDirection = firePoint.right;
 
         float angle = Mathf.Atan2(shootDirection.y, shootDirection.x) * Mathf.Rad2Deg;
@@ -54,11 +38,21 @@ public class GunController : MonoBehaviour
             bulletRotation = Quaternion.Euler(0, 0, angle+180);
         }
 
-        Instantiate(bulletPrefab, firePoint.position, bulletRotation);
+        // I want to instantiate this by telling if it comes from an enemy or a player
+        // ==> bullet does not collide with the same character who shoot it
+        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, bulletRotation);
+        bullet.GetComponent<Bullet>().setShooter(this.shooter);
+        nextShotTime = Time.time + fireRate;
         if (isAutomatic)
         {
             audioSource.pitch = Random.Range(0.9f, 1.1f);
         }
         audioSource.PlayOneShot(shootSound);
+    }
+
+    internal void setShooter(string typeOfShooter)
+    {
+        if (shooter != null) return;
+        this.shooter = typeOfShooter;
     }
 }
