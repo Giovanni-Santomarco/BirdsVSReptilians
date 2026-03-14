@@ -8,7 +8,7 @@ public class Enemy_Movement : MonoBehaviour
 {
     public enum EnemyState { Patrol, Chase, Combat, Flee }
     [Header("Stato Attuale")]
-    public EnemyState currentState = EnemyState.Patrol;
+    private EnemyState currentState = EnemyState.Patrol;
     public EnemyState previousState = EnemyState.Patrol; //traccia cosa stavamo facendo
 
     [Header("Riferimenti")]
@@ -546,5 +546,10 @@ public class Enemy_Movement : MonoBehaviour
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, loseAggroDistance);
+    }
+
+    internal EnemyState getCurrentState()
+    {
+        return currentState;
     }
 }

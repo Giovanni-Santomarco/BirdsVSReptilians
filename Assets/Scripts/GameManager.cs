@@ -9,7 +9,6 @@ public class GameManager : MonoBehaviour
     public Animator transitionAnimator;
     private float transitionTime = 2f;
     private int level = 1;
-    private int counter = 1000;
     private bool isAnyEnemyInCurrentLevel = true;
 
     void Start()
@@ -54,10 +53,6 @@ public class GameManager : MonoBehaviour
             level++;
             isAnyEnemyInCurrentLevel=true;
             StartCoroutine(InitGame1());
-        }
-        else
-        {
-            //counter--;
         }
     }
 
