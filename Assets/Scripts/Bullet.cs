@@ -2,9 +2,6 @@ using UnityEngine;
 
 public abstract class Bullet : MonoBehaviour
 {
-    //public Rigidbody2D rb;
-    //public float speed = 2.0f;
-    //public int damageAmount = 25;
 
     abstract public int getDamageAmount();
     abstract public Rigidbody2D getRigidBody();
@@ -20,6 +17,8 @@ public abstract class Bullet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // if the bullet hits an enemy (or the player, TODO), enemy (or player, TODO) loses hp
+
+        //need to change the following line!
         if (collision.tag == "Enemy")
         {
             EnemyLifeCycle enemy = collision.GetComponent<EnemyLifeCycle>();
