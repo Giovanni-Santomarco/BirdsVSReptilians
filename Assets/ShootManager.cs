@@ -4,17 +4,18 @@ using static UnityEngine.Android.AndroidGame;
 public class ShootManager : MonoBehaviour
 {
     public InventoryManager inventoryManagerOfPlayer;
-    void Start()
-    {
-        
-    }
+    private GunController gunControllerOfCurrentWeapon;
 
     // Update is called once per frame
     void Update()
     {
         // If Time.timeScale is 0, the game is paused. Don't shoot!
         if (Time.timeScale == 0) return;
-        GunController gunControllerOfCurrentWeapon = inventoryManagerOfPlayer.getCurrentWeapon().GetComponent<GunController>();
+
+        if (gunControllerOfCurrentWeapon == null)
+        {
+            gunControllerOfCurrentWeapon = inventoryManagerOfPlayer.getCurrentWeapon().GetComponent<GunController>();
+        }
 
         bool shootInput = false;
         if (gunControllerOfCurrentWeapon.isAutomatic)
