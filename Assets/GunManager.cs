@@ -11,6 +11,7 @@ public class SingleGunManager : MonoBehaviour
     {
         if (weapon != null)
         {
+            weapon.GetComponent<GunController>().setShooter("enemy");
             GameObject newWeapon = Instantiate(weapon, weaponHolder);
             newWeapon.transform.localPosition = Vector3.zero;
             newWeapon.transform.localRotation = Quaternion.identity;

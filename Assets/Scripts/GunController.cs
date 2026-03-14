@@ -14,6 +14,8 @@ public class GunController : MonoBehaviour
 
     private float nextShotTime;
 
+    private string shooter;
+
     void Start()
     {
         // Get the AudioSource component from the weapon
@@ -36,12 +38,21 @@ public class GunController : MonoBehaviour
             bulletRotation = Quaternion.Euler(0, 0, angle+180);
         }
 
-        Instantiate(bulletPrefab, firePoint.position, bulletRotation);
+        // I want to instantiate this by telling if it comes from an enemy or a player
+        // ==> bullet does not collide with the same character who shoot it
+        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, bulletRotation);
+        bullet.GetComponent<Bullet>().setShooter(this.shooter);
         nextShotTime = Time.time + fireRate;
         if (isAutomatic)
         {
             audioSource.pitch = Random.Range(0.9f, 1.1f);
         }
         audioSource.PlayOneShot(shootSound);
+    }
+
+    internal void setShooter(string typeOfShooter)
+    {
+        if (shooter != null) return;
+        this.shooter = typeOfShooter;
     }
 }
