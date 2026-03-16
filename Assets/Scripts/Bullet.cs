@@ -29,8 +29,11 @@ public abstract class Bullet : MonoBehaviour
                 enemy.TakeDamage(getDamageAmount());
             }
         }
-        // destroy the bullet
-        if (collision.tag != "Player")
+        // don't destroy the bullet if it was shoot by the same one who shoot it
+        // don't destroy the bulet if it collides with another bullet
+        bool shooterAndHitAreTheSame = collision.tag == "Player" && this.shooter.Equals("player") || collision.tag == "Enemy" && this.shooter.Equals("enemy");
+        bool bulletsHitsBullet = collision.tag == "Bullet";
+        if (!shooterAndHitAreTheSame && !bulletsHitsBullet)
         {
             Destroy(gameObject);
         }
