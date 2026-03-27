@@ -41,12 +41,6 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
-        // from game to main menu
-        if (Input.GetKeyDown(KeyCode.Escape)) //esc
-        {
-            SceneManager.LoadScene("MainMenu");
-        }
-
         // from a level to another
         if (!isAnyEnemyInCurrentLevel) //trigger for changing level (TODO)
         {
