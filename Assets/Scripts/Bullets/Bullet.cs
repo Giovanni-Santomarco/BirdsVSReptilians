@@ -19,19 +19,23 @@ public abstract class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // if the bullet hits an enemy (or the player, TODO), enemy (or player, TODO) loses hp
         bool shooterAndHitAreTheSame = collision.tag == "Player" && this.shooter.Equals("player") || collision.tag == "Enemy" && this.shooter.Equals("enemy");
         bool bulletsHitsBullet = collision.tag == "Bullet";
         bool aCharacterWasHit = collision.tag == "Player" || collision.tag == "Enemy";
-        // don't destroy the bullet if it collides with the same one who shoot it &&
-        // don't destroy the bulet if it collides with another bullet &&
-        // someone loses life if previous conditions are respected
-        if (!bulletsHitsBullet && !shooterAndHitAreTheSame) 
+
+        if (!shooterAndHitAreTheSame && aCharacterWasHit)
         {
-            if (aCharacterWasHit)
+            LifeCycle enemy = collision.GetComponent<LifeCycle>();
+            if (enemy != null)
             {
-                LifeCycle hit = collision.GetComponent<LifeCycle>();
-                hit.TakeDamage(getDamageAmount());
+                enemy.TakeDamage(getDamageAmount());
             }
+        }
+        // don't destroy the bullet if it was shoot by the same one who shoot it
+        // don't destroy the bulet if it collides with another bullet
+        if (!shooterAndHitAreTheSame && !bulletsHitsBullet)
+        {
             Destroy(gameObject);
         }
     }
