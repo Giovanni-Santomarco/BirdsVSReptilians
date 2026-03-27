@@ -146,7 +146,7 @@ public class PlayerMovement : MonoBehaviour
         // Verde: Direzione Reale Sparo (Mano)
         Debug.DrawRay(WeaponHolder.position, WeaponHolder.right * (10) * transform.localScale.x, Color.green);
 
-        Debug.Log(x);
+        //Debug.Log(x);
 
         if (transform.localScale.x < 0)
         {
