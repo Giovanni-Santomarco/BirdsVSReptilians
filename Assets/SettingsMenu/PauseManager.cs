@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PauseManager : MonoBehaviour
@@ -14,7 +15,7 @@ public class PauseManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (isPaused) Resume();
             else Pause();
@@ -46,5 +47,14 @@ public class PauseManager : MonoBehaviour
     {
         float volume = sfxSlider.value;
         mainMixer.SetFloat("SfxVol", Mathf.Log10(volume) * 20);
+    }
+
+    public void onExitButton()
+    {
+        // the following two lines will allow the gamer to play again
+        Time.timeScale = 1f; 
+        isPaused = false;
+
+        SceneManager.LoadScene("MainMenu");
     }
 }
