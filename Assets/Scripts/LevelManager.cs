@@ -282,6 +282,11 @@ public class BoardManager : MonoBehaviour
         playerPos = getRandomFreeTale();
         Vector2 startPosNormalaizaed = new Vector2((playerPos.x - getNormalizerForX()) * tileSize, (playerPos.y - getNormalizerForY()) * tileSize);
         player.transform.position = startPosNormalaizaed;
+        if (player.GetComponent<PlayerLifeCycle>().levelManager == null)
+        {
+            player.GetComponent<PlayerLifeCycle>().levelManager = this;
+        }
+        player.GetComponent<PlayerLifeCycle>().resetLife();
     }
 
     void SpawnEnemies() //TODO
