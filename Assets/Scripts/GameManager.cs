@@ -52,18 +52,11 @@ public class GameManager : MonoBehaviour
 
         // 3. Perform the heavy lifting while the screen is covered
         SceneManager.LoadScene("MainMenu");
-
-        // Optional: Add a tiny extra wait time here if you want the screen 
-        // to stay covered for a split second after generating, just for pacing.
-        yield return new WaitForSecondsRealtime(0.2f);
-
-        // 4. Play the second animation (Reveal the screen)
-        transitionAnimator.SetTrigger("EndTransition");
     }
     void Update()
     {
         // level completed, animation + level switch
-        if (!isAnyEnemyInCurrentLevel) //trigger for changing level (TODO)
+        if (!isAnyEnemyInCurrentLevel) 
         {
             level++;
             isAnyEnemyInCurrentLevel=true;
