@@ -188,11 +188,11 @@ GameObject:
   - component: {fileID: 150088157495232051}
   - component: {fileID: 337048615858712534}
   - component: {fileID: 8342456617238774997}
-  - component: {fileID: 4008786646935158282}
   - component: {fileID: 504953075704672636}
   - component: {fileID: 6313500279159754803}
   - component: {fileID: 8314878933970877863}
   - component: {fileID: 345649502366777635}
+  - component: {fileID: 8806613343127297874}
   m_Layer: 8
   m_Name: Enemy1
   m_TagString: Enemy
@@ -410,20 +410,6 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.45
---- !u!114 &4008786646935158282
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2602001929783954537}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8945c2dbcda027c4fbd48f6bd40a90bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  Rapace_morto: {fileID: 6880594893584925456, guid: cd7d5bf42e0b9b3408520d90ab239895, type: 3}
 --- !u!195 &504953075704672636
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -492,6 +478,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunManager: {fileID: 8314878933970877863}
   enemyMovement: {fileID: 6313500279159754803}
+--- !u!114 &8806613343127297874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2602001929783954537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b5f5e8e4b1ad254e94126936772ae92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  Rapace_morto: {fileID: 6880594893584925456, guid: cd7d5bf42e0b9b3408520d90ab239895, type: 3}
 --- !u!1 &3570359023834143459
 GameObject:
   m_ObjectHideFlags: 0

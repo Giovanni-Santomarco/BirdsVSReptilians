@@ -303,4 +303,9 @@ public class BoardManager : MonoBehaviour
             gameManager.noEnemiesInCurrentLevel();
         }
     }
+
+    internal void playerDies()
+    {
+        gameManager.playerIsDead();
+    }
 }
