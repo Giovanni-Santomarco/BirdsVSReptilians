@@ -3,7 +3,7 @@ using UnityEngine;
 public abstract class LifeCycle : MonoBehaviour
 {
     public int maxHealth = 100;
-    private int currentHealth;
+    protected int currentHealth;
     internal BoardManager levelManager;
 
     void Start()
