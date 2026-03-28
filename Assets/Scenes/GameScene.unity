@@ -469,7 +469,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 00000000
+  m_ApplyToSortingLayers: 00000000016cb897
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -1390,6 +1390,78 @@ PrefabInstance:
     - target: {fileID: 1835892918884123227, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2054283686977442780, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2054283686977442780, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1749521407
+      objectReference: {fileID: 0}
+    - target: {fileID: 2054283686977442780, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+    - target: {fileID: 2621190405173459873, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2621190405173459873, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1749521407
+      objectReference: {fileID: 0}
+    - target: {fileID: 2621190405173459873, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+    - target: {fileID: 5946929207232595955, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5946929207232595955, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5946929207232595955, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1749521407
+      objectReference: {fileID: 0}
+    - target: {fileID: 5946929207232595955, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+    - target: {fileID: 6279280501904132381, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6279280501904132381, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
+      propertyPath: m_SortingOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 6279280501904132381, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1749521407
+      objectReference: {fileID: 0}
+    - target: {fileID: 6279280501904132381, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+    - target: {fileID: 7169008493156105276, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169008493156105276, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1749521407
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169008493156105276, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+    - target: {fileID: 7566459933505683817, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
+      propertyPath: maxHealth
+      value: 300000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
