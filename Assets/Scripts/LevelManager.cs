@@ -300,6 +300,15 @@ public class BoardManager : MonoBehaviour
         nEnemies = 1;
     }
 
+    public void SpawnDeathEnemy(GameObject Rapace_morto, Transform spotOfDeath)
+    {
+        if (Rapace_morto != null && boardHolder != null)
+        {
+            GameObject deadBody = Instantiate(Rapace_morto, spotOfDeath.position, spotOfDeath.rotation);
+            deadBody.transform.SetParent(boardHolder.transform);
+        }
+    }
+
     internal void decreaseEnemies()
     {
         nEnemies--;
