@@ -14,7 +14,7 @@ public class ShootManagerForEnemy : MonoBehaviour
         {
             gunController = gunManager.weapon.GetComponent<GunController>();
         }
-        if (enemyMovement.getCurrentState() == Enemy_Movement.EnemyState.Combat)
+        if (enemyMovement.getCurrentState() == Enemy_Movement.EnemyState.Combat && enemyMovement.hasLineOfSight())  //the enemy has to see the enmy in order to shoot
         {
             gunController.Shoot();
         }
