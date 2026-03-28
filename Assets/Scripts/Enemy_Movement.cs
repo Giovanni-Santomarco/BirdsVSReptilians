@@ -165,7 +165,7 @@ public class Enemy_Movement : MonoBehaviour
     }
 
 
-    private bool hasLineOfSight()
+    public bool hasLineOfSight()
     //ritorna false se tra il nemico e il player c'è un muro, altrimenti torna true
     {
         if (PlayerLocation != null)
