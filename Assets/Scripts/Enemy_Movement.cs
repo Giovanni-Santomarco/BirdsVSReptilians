@@ -8,42 +8,42 @@ public class Enemy_Movement : MonoBehaviour
 {
     public enum EnemyState { Patrol, Chase, Combat, Flee }
     [Header("Stato Attuale")]
-    private EnemyState currentState = EnemyState.Patrol;
+    protected EnemyState currentState = EnemyState.Patrol;
     public EnemyState previousState = EnemyState.Patrol; //traccia cosa stavamo facendo
 
     [Header("Riferimenti")]
     public Transform armTransform;
     public Transform Enemy_WeaponHolder;
-    private Transform PlayerLocation;
-    private Rigidbody2D rb;
-    private Animator animator;
-    private NavMeshAgent agent;
+    protected Transform PlayerLocation;
+    protected Rigidbody2D rb;
+    protected Animator animator;
+    protected NavMeshAgent agent;
 
     [Header("Parametri Scala")]
-    private const float scale = 1.7f;
+    protected const float scale = 1.7f;
 
     [Header("Parametri Movimento")]
-    [SerializeField] private float speed = 2f;
-    [SerializeField] private float chanceToChangeStateToMovement = 0.8f;
-    [SerializeField] private float chanceToChangeStateToIdle = 0.5f;
+    [SerializeField] protected float speed = 2f;
+    [SerializeField] protected float chanceToChangeStateToMovement = 0.8f;
+    [SerializeField] protected float chanceToChangeStateToIdle = 0.5f;
 
     [Header("Parametri IA")]
-    private const float allertDistance = 12f;
-    private const float loseAggroDistance = 16f;
-    private const float combatDistance = 5f;
-    private const float pathUpdateTime = 0.2f;
+    protected const float allertDistance = 12f;
+    protected const float loseAggroDistance = 16f;
+    protected const float combatDistance = 5f;
+    protected const float pathUpdateTime = 0.2f;
 
-    private float distanceToPlayer;
-    private float waitTime;
-    private float nextPathUpdateTime;   //uso una variabile differente da waitTime per essere più veloce con le transizioni da Patrol a Chase e da Chase a Combat
-    private float aimUpdateInFleeState;
-    private float weaponOffsetY;
+    protected float distanceToPlayer;
+    protected float waitTime;
+    protected float nextPathUpdateTime;   //uso una variabile differente da waitTime per essere più veloce con le transizioni da Patrol a Chase e da Chase a Combat
+    protected float aimUpdateInFleeState;
+    protected float weaponOffsetY;
 
-    private Vector2 moveInput;
-    private Vector2 lookTarget;
-    private Vector2 currentWalkDirection;
-    private Vector2 fleeDirection = Vector2.zero;   //è diverso da Vector2.zero se non ci sono collisioni con altri nemici o con il player
-    private bool isMoving;
+    protected Vector2 moveInput;
+    protected Vector2 lookTarget;
+    protected Vector2 currentWalkDirection;
+    protected Vector2 fleeDirection = Vector2.zero;   //è diverso da Vector2.zero se non ci sono collisioni con altri nemici o con il player
+    protected bool isMoving;
 
 
     void Start()
@@ -68,7 +68,7 @@ public class Enemy_Movement : MonoBehaviour
         HandlePatrol();
     }
 
-    void Update()
+    protected virtual void Update()
     {
         //per sincronizzare la posizione reale con quella dell'agent in modo continuo
         agent.nextPosition = transform.position;
@@ -107,7 +107,7 @@ public class Enemy_Movement : MonoBehaviour
     }
 
 
-    private void DetermineState()
+    protected virtual void DetermineState()
     {
         //nel caso il vettore fleeDirection non è il vettore nullo signifaca abbiamo colliso con il Player o con un altro nemico
         if (fleeDirection != Vector2.zero)
@@ -187,7 +187,7 @@ public class Enemy_Movement : MonoBehaviour
     }
 
 
-    private void ChangeState(EnemyState newState)
+    protected void ChangeState(EnemyState newState)
     {
         if (currentState == newState) return; //non fare nulla se è già in questo stato
 
@@ -196,7 +196,7 @@ public class Enemy_Movement : MonoBehaviour
     }
 
 
-    private void PrecalculateWeaponOffset()
+    protected void PrecalculateWeaponOffset()
     {
         //mi trovo la posizione del muzzle
         Transform muzzle = null;
@@ -222,7 +222,7 @@ public class Enemy_Movement : MonoBehaviour
     }
 
 
-    private void HandlePatrol()
+    protected virtual void HandlePatrol()
     {
         if (isMoving == false)
         {
@@ -266,7 +266,7 @@ public class Enemy_Movement : MonoBehaviour
     }
 
 
-    private void HandleChase()
+    protected virtual void HandleChase()
     {
         agent.SetDestination(PlayerLocation.position);
 
@@ -284,7 +284,7 @@ public class Enemy_Movement : MonoBehaviour
     }
 
 
-    private void HandleCombat()
+    protected virtual void HandleCombat()
     {
         if (isMoving == false)
         {
@@ -318,7 +318,7 @@ public class Enemy_Movement : MonoBehaviour
     }
 
 
-    private void HandleFlee()
+    protected virtual void HandleFlee()
     {
         currentWalkDirection = fleeDirection.normalized;
         moveInput = currentWalkDirection * speed;
@@ -354,7 +354,7 @@ public class Enemy_Movement : MonoBehaviour
     }
 
 
-    private void OnTriggerStay2D(Collider2D collision)
+    protected void OnTriggerStay2D(Collider2D collision)
     {
         // Se chi è entrato nel nostro spazio vitale è un altro nemico o il player
         if ((collision.CompareTag("Enemy") && collision.gameObject != this.gameObject) || collision.CompareTag("Player"))
@@ -366,7 +366,7 @@ public class Enemy_Movement : MonoBehaviour
     }
 
 
-    private void OnCollisionStay2D(Collision2D collision)
+    protected void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
@@ -385,7 +385,7 @@ public class Enemy_Movement : MonoBehaviour
                 }
                 moveInput = currentWalkDirection * speed;
 
-                // Urto contro un muro? Aggiorna istantaneamente la fisica!
+                // Urto contro un muro? Aggiorna istantaneamente la fisica
                 ApplyMovement();
                 UpdateAim();
             }
@@ -393,7 +393,7 @@ public class Enemy_Movement : MonoBehaviour
     }
 
 
-    private float ComputeWaitTime()
+    protected virtual float ComputeWaitTime()
     {
         if (isMoving)
         {
@@ -411,7 +411,7 @@ public class Enemy_Movement : MonoBehaviour
     }
 
 
-    Vector2 RandomDirection()
+    protected Vector2 RandomDirection()
     {
         int choice = Random.Range(0, 8);
         switch (choice)
@@ -428,7 +428,7 @@ public class Enemy_Movement : MonoBehaviour
     }
 
 
-    Vector2 RandomDirectionInCombatMode()
+    protected virtual Vector2 RandomDirectionInCombatMode()
     {
         //più lontano siamo dal nemico più la possiblità di andare verso di lui sono alte
         //però se siamo troppo vicino (shootingDistance o oltre) non mi muovo più verso il player
@@ -487,14 +487,14 @@ public class Enemy_Movement : MonoBehaviour
     }
 
 
-    private void ApplyMovement()
+    protected void ApplyMovement()
     {
         // Si occupa SOLO di far camminare/scivolare il nemico
         rb.linearVelocity = moveInput;
         animator.SetBool("isMoving", isMoving);
     }
 
-    private void UpdateAim()
+    protected void UpdateAim()
     {
         // Si occupa SOLO di girare il corpo e ruotare il braccio
         Vector2 directionFromCenter = lookTarget - (Vector2)transform.position;
@@ -522,7 +522,7 @@ public class Enemy_Movement : MonoBehaviour
     }
 
 
-    void FlipSprite(float directionX)
+    protected void FlipSprite(float directionX)
     {
         if (directionX > 0)
         {
@@ -535,7 +535,7 @@ public class Enemy_Movement : MonoBehaviour
     }
 
 
-    private void OnDrawGizmosSelected()
+    protected void OnDrawGizmosSelected()
     {
         // 1. Disegniamo un cerchio giallo enorme per l'allerta futura
         Gizmos.color = Color.yellow;

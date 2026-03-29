@@ -23,10 +23,10 @@ public class GunController : MonoBehaviour
     }
 
     //shoots only if the fire rate allows to
-    public void Shoot()
+    public bool Shoot()
     {
         if (!(Time.time >= nextShotTime))
-            return;
+            return false;
         Vector3 shootDirection = firePoint.right;
 
         float angle = Mathf.Atan2(shootDirection.y, shootDirection.x) * Mathf.Rad2Deg;
@@ -48,6 +48,8 @@ public class GunController : MonoBehaviour
             audioSource.pitch = Random.Range(0.9f, 1.1f);
         }
         audioSource.PlayOneShot(shootSound);
+
+        return true;
     }
 
     internal void setShooter(string typeOfShooter)
