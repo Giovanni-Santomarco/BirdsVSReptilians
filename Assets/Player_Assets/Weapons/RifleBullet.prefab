@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4074193731337640571}
   - component: {fileID: 958758432168603233}
   - component: {fileID: 4052500201632101803}
+  - component: {fileID: 5483578313483332075}
   m_Layer: 0
   m_Name: RifleBullet
   m_TagString: Bullet
@@ -77,8 +78,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1454952315
+  m_SortingLayer: 2
   m_SortingOrder: 10
   m_Sprite: {fileID: 1338953142075498392, guid: 47247153e2939a74c8ec1629c621a7ab, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -194,3 +195,15 @@ MonoBehaviour:
   damage: 25
   speed: 10
   rigidBody: {fileID: 4074193731337640571}
+--- !u!210 &5483578313483332075
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1804291477799477238}
+  m_Enabled: 1
+  m_SortingLayerID: -1454952315
+  m_SortingLayer: 2
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
