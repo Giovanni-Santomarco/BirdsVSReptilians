@@ -479,6 +479,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunManager: {fileID: 8314878933970877863}
   enemyMovement: {fileID: 6313500279159754803}
+  reloadTime: 10
+  magazine: 10
 --- !u!114 &8806613343127297874
 MonoBehaviour:
   m_ObjectHideFlags: 0
