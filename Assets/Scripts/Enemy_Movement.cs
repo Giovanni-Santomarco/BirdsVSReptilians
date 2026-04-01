@@ -494,7 +494,7 @@ public class Enemy_Movement : MonoBehaviour
         animator.SetBool("isMoving", isMoving);
     }
 
-    protected void UpdateAim()
+    protected virtual void UpdateAim()
     {
         // Si occupa SOLO di girare il corpo e ruotare il braccio
         Vector2 directionFromCenter = lookTarget - (Vector2)transform.position;

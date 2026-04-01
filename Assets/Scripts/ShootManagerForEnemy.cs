@@ -15,7 +15,7 @@ public class ShootManagerForEnemy : MonoBehaviour
     protected int magazine = 5;
     protected int bulletCounter = 0;
 
-    protected void Start()
+    protected virtual void Start()
     {
         if (gunManager != null && gunManager.weapon != null)
         {
