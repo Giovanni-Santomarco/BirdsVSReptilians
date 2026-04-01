@@ -1075,7 +1075,7 @@ MonoBehaviour:
   - {fileID: 1093584978533650080, guid: 2464e19a686ab9541998995898257c17, type: 3}
   navMeshManager: {fileID: 1714946999}
   player: {fileID: 1972724196}
-  enemy1: {fileID: 2602001929783954537, guid: ca5c573be06edb04f8948d3efa6013a5, type: 3}
+  enemy1: {fileID: 3887826559819806324, guid: cb2421fce1ff7944a8bf8da8e53c2d71, type: 3}
   gameManager: {fileID: 1156004051}
 --- !u!4 &1267907844
 Transform:
@@ -1403,6 +1403,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+    - target: {fileID: 2083683913443830006, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
+      propertyPath: startingWeapon
+      value: 
+      objectReference: {fileID: 7324827779930673786, guid: f3e8c7edc6c2f964b9119c98227da322, type: 3}
     - target: {fileID: 2621190405173459873, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
       propertyPath: m_SortingLayer
       value: 1
@@ -1461,7 +1465,19 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
     - target: {fileID: 7566459933505683817, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
       propertyPath: maxHealth
-      value: 300
+      value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 9209525259375318797, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9209525259375318797, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9209525259375318797, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
