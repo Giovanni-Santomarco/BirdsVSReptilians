@@ -448,9 +448,12 @@ MonoBehaviour:
   previousState: 0
   armTransform: {fileID: 8855142658231631134}
   Enemy_WeaponHolder: {fileID: 1213654838102953885}
-  speed: 2
+  speed: 2.4
   chanceToChangeStateToMovement: 0.8
   chanceToChangeStateToIdle: 0.5
+  loseAggroDistance: 16
+  closerFactor: 1.7
+  minDistanceToPlayer: 4
 --- !u!114 &8314878933970877863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -463,7 +466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5ffa101cd0db854f870e9f4feaf869e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 7415653943187453357, guid: cda094f5310909d46bedefa514b4959f, type: 3}
+  weapon: {fileID: 3561517346289674847, guid: b54320d3969a60642ac5457f7bf88439, type: 3}
   weaponHolder: {fileID: 1213654838102953885}
 --- !u!114 &345649502366777635
 MonoBehaviour:
@@ -479,7 +482,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunManager: {fileID: 8314878933970877863}
   enemyMovement: {fileID: 6313500279159754803}
-  reloadTime: 10
+  reloadTime: 7
   magazine: 10
 --- !u!114 &8806613343127297874
 MonoBehaviour:
@@ -493,7 +496,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b5f5e8e4b1ad254e94126936772ae92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 150
   Rapace_morto: {fileID: 6880594893584925456, guid: cd7d5bf42e0b9b3408520d90ab239895, type: 3}
 --- !u!210 &5325394937742035766
 SortingGroup:
