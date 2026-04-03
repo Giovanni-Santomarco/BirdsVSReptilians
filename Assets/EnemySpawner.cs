@@ -51,7 +51,7 @@ public class EnemySpawner : MonoBehaviour
     public float arEnemyStrenth = 5f;
     public float bossEnemyStrenth = 8f;
 
-    void Start()
+    private void prepareForExecution()
     {
         //create the EnemyProfiles for common enemies
         List<float> strenghts = new List<float> { basicEnemyStrenth, nonBasicEnemyStrenth, shotgunEnemyStrenth, sniperEnemyStrenth,
@@ -69,7 +69,8 @@ public class EnemySpawner : MonoBehaviour
     /// Generates and instantiates the enemies for the given level.
     /// </summary>
     public void SpawnEnemiesForLevel(int level)
-    {
+    {        
+        prepareForExecution();  
         // 1. Calculate Target Count & Strength based on level scaling
         int targetEnemyCount = Mathf.RoundToInt(baseEnemyCountLevel1 * Mathf.Pow(1f + countIncreasePercentage, level - 1));
         boardManager.setNenemies(targetEnemyCount);
