@@ -1075,7 +1075,9 @@ MonoBehaviour:
   - {fileID: 1093584978533650080, guid: 2464e19a686ab9541998995898257c17, type: 3}
   navMeshManager: {fileID: 1714946999}
   player: {fileID: 1972724196}
-  enemy1: {fileID: 3305549402613063066, guid: a6185cb63778f5f498421d6996786f97, type: 3}
+
+  enemySpawner: {fileID: 1339477912}
+
   gameManager: {fileID: 1156004051}
 --- !u!4 &1267907844
 Transform:
@@ -1089,7 +1091,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1339477913}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1271912421 stripped
@@ -1108,6 +1111,68 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5765867664851443171, guid: ee1b3e129a5a58f4788be7ec2f355765, type: 3}
   m_PrefabInstance: {fileID: 3945722238918721821}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1339477911
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1339477913}
+  - component: {fileID: 1339477912}
+  m_Layer: 0
+  m_Name: EnemySpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1339477912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1339477911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fb7d90882b72c4409ef07f685ee543b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boardManager: {fileID: 1267907843}
+  standardEnemiesAsGameObjects:
+  - {fileID: 2602001929783954537, guid: ca5c573be06edb04f8948d3efa6013a5, type: 3}
+  - {fileID: 787609682188632355, guid: e784d23ad9207c04ca43a121bb75456e, type: 3}
+  - {fileID: 4004366207801845431, guid: 916fb9996e138d2419a2e8c6b26b52dd, type: 3}
+  - {fileID: 3887826559819806324, guid: cb2421fce1ff7944a8bf8da8e53c2d71, type: 3}
+  - {fileID: 7246991954694227996, guid: f259723b244f93445b8861f863f09822, type: 3}
+  bossEnemyAsGameObject: {fileID: 3305549402613063066, guid: a6185cb63778f5f498421d6996786f97, type: 3}
+  baseEnemyCountLevel1: 2
+  countIncreasePercentage: 0.5
+  strengthIncreasePercentage: 0.5
+  chanceToSpawnRandomEnemy: 0.3
+  basicEnemyStrenth: 1
+  nonBasicEnemyStrenth: 2
+  shotgunEnemyStrenth: 3
+  sniperEnemyStrenth: 4
+  arEnemyStrenth: 5
+  bossEnemyStrenth: 8
+--- !u!4 &1339477913
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1339477911}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1267907844}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1429177532 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1777948092894945047, guid: 87027075c49cb234d8d5aa37d3b59f43, type: 3}

@@ -208,6 +208,17 @@ public class BoardManager : MonoBehaviour
         return randomFreeTale;
     }
 
+    public Vector2 getRandomFreeTaleNormalized()
+    {
+        Vector2 pos = getRandomFreeTale();
+        return new Vector2((pos.x - getNormalizerForX()) * tileSize, (pos.y - getNormalizerForY()) * tileSize);
+    }
+
+    internal GameObject getBoardHolder()
+    {
+        return this.boardHolder;
+    }
+
     private void generateMap()
     {
         SetupGrid();
@@ -224,16 +235,12 @@ public class BoardManager : MonoBehaviour
     ///////////////////////////////////////////////////
     
     public GameObject player;
-    public GameObject enemy1;
+    public EnemySpawner enemySpawner;
+    //public GameObject enemy1;
     public GameManager gameManager;
     private Vector2 playerPos;
 
     private int nEnemies;
-    private int howManyEnemy1;
-    private int howManyEnemy2;
-    private int howManyEnemy3;
-    private int howManyEnemy4;
-    private int howManyEnemy5;
 
     public void cleanLevel()
     {
@@ -274,7 +281,8 @@ public class BoardManager : MonoBehaviour
 
         //characters
         SpawnPlayer();
-        SpawnEnemies();
+        //SpawnEnemies();
+        enemySpawner.SpawnEnemiesForLevel(level);
     }
 
     void SpawnPlayer()
@@ -288,8 +296,8 @@ public class BoardManager : MonoBehaviour
         }
         player.GetComponent<PlayerLifeCycle>().resetLife();
     }
-
-    void SpawnEnemies() //TODO
+    /*
+    void SpawnEnemies() //OBSOLETE, IGNORE
     {
         //spawn them
         Vector2 pos = getRandomFreeTale();
@@ -299,6 +307,7 @@ public class BoardManager : MonoBehaviour
         //how many enemies?
         nEnemies = 1;
     }
+    */
 
     public void SpawnDeathEnemy(GameObject Rapace_morto, Transform spotOfDeath)
     {
@@ -321,5 +330,10 @@ public class BoardManager : MonoBehaviour
     internal void playerDies()
     {
         gameManager.playerIsDead();
+    }
+
+    internal void setNenemies(int targetEnemyCount)
+    {
+        this.nEnemies = targetEnemyCount;
     }
 }
