@@ -4,7 +4,7 @@ public class EnemyLifeCycleOld : MonoBehaviour
 {
     public int maxHealth = 100;
     private int currentHealth;
-    internal BoardManager levelManager;
+    internal LevelManager levelManager;
     public GameObject Rapace_morto;
 
     void Start()
