@@ -7,10 +7,19 @@ public class MapManager : MonoBehaviour
     public LevelManager levelManager;
 
     [Header("Grid Settings")]
-    public int gridWidth;
-    public int gridHeight;
-    public int maxFloorCount; // How many floor tiles to create
-    //at the moment, MUST be 2
+    //base cases
+    public int baseCaseGridWidth;
+    public int baseCaseGridHeight;
+    [Header("from 0 to 1 notation, same for other percentages")]
+    public float floorPercentage;
+    //percentage increases
+    public float widthIncreasePercentage;
+    public float heightIncreasePercentage;
+    //current level variables
+    private int gridWidth;
+    private int gridHeight;
+    private int maxFloorCount;
+    [Header("at the moment, MUST be 2")]
     public float tileSize = 2f;
 
     [Header("Generation Parameters")]
@@ -35,6 +44,21 @@ public class MapManager : MonoBehaviour
     }
 
     private List<Walker> walkers;
+
+    public void generateMap(int level)
+    {
+        setSpawnParameters(level); 
+        SetupGrid();
+        RunWalkers();
+        SpawnGeometry();
+    }
+
+    private void setSpawnParameters(int level)
+    {
+        gridWidth = Mathf.RoundToInt(baseCaseGridWidth * Mathf.Pow(1f + widthIncreasePercentage, level - 1));
+        gridHeight = Mathf.RoundToInt(baseCaseGridWidth * Mathf.Pow(1f + heightIncreasePercentage, level - 1));
+        maxFloorCount = Mathf.RoundToInt(gridHeight*gridWidth*floorPercentage);
+    }
 
     void SetupGrid()
     {
@@ -201,12 +225,5 @@ public class MapManager : MonoBehaviour
     {
         Vector2 pos = getRandomFreeTale();
         return new Vector2((pos.x - getNormalizerForX()) * tileSize, (pos.y - getNormalizerForY()) * tileSize);
-    }
-
-    public void generateMap()
-    {
-        SetupGrid();
-        RunWalkers();
-        SpawnGeometry();
     }
 }
