@@ -4,7 +4,7 @@ public abstract class LifeCycle : MonoBehaviour
 {
     public int maxHealth = 100;
     protected int currentHealth;
-    internal BoardManager levelManager;
+    internal LevelManager levelManager;
 
     void Start()
     {
