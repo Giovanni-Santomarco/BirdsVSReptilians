@@ -367,6 +367,8 @@ GameObject:
   - component: {fileID: 8086599881407291128}
   - component: {fileID: 3972419880675005760}
   - component: {fileID: 7932986941765471824}
+  - component: {fileID: 9193609875746509451}
+  - component: {fileID: -5041163906083128976}
   m_Layer: 8
   m_Name: WarOwl
   m_TagString: Enemy
@@ -625,6 +627,9 @@ MonoBehaviour:
   speed: 2
   chanceToChangeStateToMovement: 0.8
   chanceToChangeStateToIdle: 0.5
+  loseAggroDistance: 16
+  closerFactor: 1.2
+  minDistanceToPlayer: 5
 --- !u!210 &3972419880675005760
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -649,8 +654,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b5f5e8e4b1ad254e94126936772ae92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 750
   Rapace_morto: {fileID: 6880594893584925456, guid: cd7d5bf42e0b9b3408520d90ab239895, type: 3}
+--- !u!114 &9193609875746509451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3305549402613063066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5ffa101cd0db854f870e9f4feaf869e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon: {fileID: 2177328310145022655, guid: 079721efca11f7c4697cd064750649f7, type: 3}
+  weaponHolder: {fileID: 6985013310491392672}
+--- !u!114 &-5041163906083128976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3305549402613063066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dccf4227fddba5a4daacd2ce71c2f1f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gunManager: {fileID: 9193609875746509451}
+  enemyMovement: {fileID: 8086599881407291128}
+  reloadTime: 4
+  magazine: 15
 --- !u!1 &7308546083219523952
 GameObject:
   m_ObjectHideFlags: 0
