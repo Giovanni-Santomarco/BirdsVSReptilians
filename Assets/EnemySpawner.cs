@@ -15,7 +15,8 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    public BoardManager boardManager;
+    public LevelManager levelManager;
+    public MapManager mapManager;
 
     [Header("Standard Enemies (MUST be ordered by strength ascending)")]
     [Tooltip("Include basicEnemy, nonBasicEnemy, shotgunEnemy, sniperEnemy, arEnemy")]
@@ -74,7 +75,7 @@ public class EnemySpawner : MonoBehaviour
         prepareForExecution();  
         // 1. Calculate Target Count & Strength based on level scaling
         int targetEnemyCount = Mathf.RoundToInt(baseEnemyCountLevel1 * Mathf.Pow(1f + countIncreasePercentage, level - 1));
-        boardManager.setNenemies(targetEnemyCount);
+        levelManager.setNenemies(targetEnemyCount);
         float targetAvgStrength = BaseAverageStrength * Mathf.Pow(1f + strengthIncreasePercentage, level - 1);
 
         // Total "strength budget" we want to spend on this level
@@ -168,9 +169,9 @@ public class EnemySpawner : MonoBehaviour
     private void InstantiateEnemy(GameObject prefab)
     {
         if (prefab == null) return;
-        Vector2 spawnPosition = boardManager.getRandomFreeTaleNormalized();
+        Vector2 spawnPosition = mapManager.getRandomFreeTaleNormalized();
         GameObject instance = Instantiate(prefab, spawnPosition, Quaternion.identity);
-        instance.GetComponent<EnemyLifeCycle>().levelManager = boardManager;
-        instance.transform.SetParent(boardManager.getBoardHolder().transform);
+        instance.GetComponent<EnemyLifeCycle>().levelManager = levelManager;
+        instance.transform.SetParent(levelManager.getBoardHolder().transform);
     }
 }
