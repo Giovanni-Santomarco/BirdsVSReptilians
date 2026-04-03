@@ -1075,7 +1075,9 @@ MonoBehaviour:
   - {fileID: 1093584978533650080, guid: 2464e19a686ab9541998995898257c17, type: 3}
   navMeshManager: {fileID: 1714946999}
   player: {fileID: 1972724196}
+
   enemySpawner: {fileID: 1339477912}
+
   gameManager: {fileID: 1156004051}
 --- !u!4 &1267907844
 Transform:
@@ -1469,7 +1471,7 @@ PrefabInstance:
     - target: {fileID: 2083683913443830006, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
       propertyPath: startingWeapon
       value: 
-      objectReference: {fileID: 7324827779930673786, guid: f3e8c7edc6c2f964b9119c98227da322, type: 3}
+      objectReference: {fileID: 2177328310145022655, guid: 079721efca11f7c4697cd064750649f7, type: 3}
     - target: {fileID: 2621190405173459873, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
       propertyPath: m_SortingLayer
       value: 1
