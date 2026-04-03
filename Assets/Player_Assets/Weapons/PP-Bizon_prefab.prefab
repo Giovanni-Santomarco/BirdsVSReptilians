@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8acb64ffb9a859419ff236a11a49e86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponToEquip: {fileID: 3608643438682292365}
+  weaponToEquip: {fileID: 3561517346289674847, guid: b54320d3969a60642ac5457f7bf88439, type: 3}
   nomeArma: PP-Bizon
   messageText: {fileID: 2577864632715285546}
 --- !u!1001 &7659857243030367813
