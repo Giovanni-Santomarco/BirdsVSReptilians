@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public BoardManager boardScript;
+    public LevelManager boardScript;
     public Animator transitionAnimator;
     private float transitionTime = 2f;
     private int level = 1;
