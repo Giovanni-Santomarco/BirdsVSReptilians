@@ -308,9 +308,11 @@ GameObject:
   - component: {fileID: 3192027998450859699}
   - component: {fileID: 2292499543617174985}
   - component: {fileID: 5858188329012225836}
-  - component: {fileID: 4551824221315970063}
-  - component: {fileID: 9124795610027844805}
-  - component: {fileID: 8383920607804551285}
+  - component: {fileID: 3473525090417304381}
+  - component: {fileID: 7012131269829527043}
+  - component: {fileID: 7953124557698460296}
+  - component: {fileID: 7893453005097763298}
+  - component: {fileID: 9090496718741027778}
   m_Layer: 8
   m_Name: Enemy5
   m_TagString: Enemy
@@ -551,7 +553,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &4551824221315970063
+--- !u!114 &3473525090417304381
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -569,7 +571,37 @@ MonoBehaviour:
   speed: 2
   chanceToChangeStateToMovement: 0.8
   chanceToChangeStateToIdle: 0.5
---- !u!114 &9124795610027844805
+--- !u!114 &7012131269829527043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7246991954694227996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5ffa101cd0db854f870e9f4feaf869e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon: {fileID: 2573384855557751439, guid: 3d3373d70d8a9994698c8e7f6a2ea3e4, type: 3}
+  weaponHolder: {fileID: 8879454062683844740}
+--- !u!114 &7953124557698460296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7246991954694227996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dccf4227fddba5a4daacd2ce71c2f1f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gunManager: {fileID: 7012131269829527043}
+  enemyMovement: {fileID: 3473525090417304381}
+  reloadTime: 7
+  magazine: 8
+--- !u!114 &7893453005097763298
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -581,9 +613,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b5f5e8e4b1ad254e94126936772ae92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 200
   Rapace_morto: {fileID: 6880594893584925456, guid: cd7d5bf42e0b9b3408520d90ab239895, type: 3}
---- !u!210 &8383920607804551285
+--- !u!210 &9090496718741027778
 SortingGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
