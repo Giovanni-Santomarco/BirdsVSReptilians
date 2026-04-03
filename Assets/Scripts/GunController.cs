@@ -16,6 +16,10 @@ public class GunController : MonoBehaviour
 
     private string shooter;
 
+    public float bloom = 2f;
+
+    public int numberOfBulletsFiredTogether = 1;
+
     void Start()
     {
         // Get the AudioSource component from the weapon
@@ -31,17 +35,23 @@ public class GunController : MonoBehaviour
 
         float angle = Mathf.Atan2(shootDirection.y, shootDirection.x) * Mathf.Rad2Deg;
 
-        Quaternion bulletRotation = Quaternion.Euler(0, 0, angle);
-
-        if (firePoint.lossyScale.x < 0)
+        for(int i = 0; i<numberOfBulletsFiredTogether; i++)
         {
-            bulletRotation = Quaternion.Euler(0, 0, angle+180);
+            float imprecision = Random.Range(-bloom, bloom);
+
+            Quaternion bulletRotation = Quaternion.Euler(0, 0, angle + imprecision);
+
+            if (firePoint.lossyScale.x < 0)
+            {
+                bulletRotation = Quaternion.Euler(0, 0, angle + 180 + imprecision);
+            }
+
+            // I want to instantiate this by telling if it comes from an enemy or a player
+            // ==> bullet does not collide with the same character who shoot it
+            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, bulletRotation);
+            bullet.GetComponent<Bullet>().setShooter(this.shooter);
         }
 
-        // I want to instantiate this by telling if it comes from an enemy or a player
-        // ==> bullet does not collide with the same character who shoot it
-        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, bulletRotation);
-        bullet.GetComponent<Bullet>().setShooter(this.shooter);
         nextShotTime = Time.time + fireRate;
         if (isAutomatic)
         {
