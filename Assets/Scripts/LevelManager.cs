@@ -51,7 +51,7 @@ public class LevelManager : MonoBehaviour
         cleanLevel();
         boardHolder = new GameObject("BoardHolder");
         //map
-        mapManager.generateMap();
+        mapManager.generateMap(level);
 
         //per il pathfinding: se devi modificare mantieni questa riga sopra lo spawn di nemici
         if (navMeshManager != null)

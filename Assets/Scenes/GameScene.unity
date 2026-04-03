@@ -546,9 +546,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelManager: {fileID: 1267907843}
-  gridWidth: 30
-  gridHeight: 30
-  maxFloorCount: 300
+  baseCaseGridWidth: 10
+  baseCaseGridHeight: 10
+  floorPercentage: 0.5
+  widthIncreasePercentage: 0.1
+  heightIncreasePercentage: 0.1
   tileSize: 2
   chanceToChangeDir: 0.5
   chanceToSpawnWalker: 0.05
