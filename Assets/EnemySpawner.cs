@@ -53,6 +53,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void prepareForExecution()
     {
+        if (standardEnemies != null && bossEnemy != null) { return; }
         //create the EnemyProfiles for common enemies
         List<float> strenghts = new List<float> { basicEnemyStrenth, nonBasicEnemyStrenth, shotgunEnemyStrenth, sniperEnemyStrenth,
         arEnemyStrenth};
