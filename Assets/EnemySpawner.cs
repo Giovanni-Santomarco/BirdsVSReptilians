@@ -4,20 +4,28 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [System.Serializable]
-    public struct EnemyProfile
+    private class EnemyProfile
     {
-        public string name;
         public GameObject prefab;
         public float strength;
+        public EnemyProfile(float strength, GameObject prefeab)
+        {
+            this.strength = strength;
+            this.prefab = prefeab;
+        }
     }
+
+    public BoardManager boardManager;
 
     [Header("Standard Enemies (MUST be ordered by strength ascending)")]
     [Tooltip("Include basicEnemy, nonBasicEnemy, shotgunEnemy, sniperEnemy, arEnemy")]
-    public List<EnemyProfile> standardEnemies;
+    public List<GameObject> standardEnemiesAsGameObjects;
+    private List<EnemyProfile> standardEnemies;
 
     [Header("Boss Enemy")]
     [Tooltip("The bossEnemy profile")]
-    public EnemyProfile bossEnemy;
+    public GameObject bossEnemyAsGameObject;
+    private EnemyProfile bossEnemy;
 
     [Header("Spawn Parameters")]
     [Tooltip("Specific 3: The base amount of enemies for Level 1")]
@@ -27,21 +35,33 @@ public class EnemySpawner : MonoBehaviour
     public float countIncreasePercentage = 0.20f;
 
     [Tooltip("Specific 1: Percentage increase in average strength per level (e.g., 0.15 = +15%)")]
-    public float strengthIncreasePercentage = 0.15f;
+    public float strengthIncreasePercentage = 0.50f;
 
     // Specific 4: Base average strength is NOT parametric (hardcoded constant).
-    // Assuming basicEnemy strength is ~1.0 and nonBasic is ~2.0, 
-    // an average of 1.25 guarantees mostly basicEnemies and a few nonBasicEnemies.
-    private const float BaseAverageStrength = 1.25f;
+    private float BaseAverageStrength;
 
 
     [Header("Strength Parameters, use these parameter to balance the spawn")]
-    public float basicEnemyStrenth;
-    public float nonBasicEnemyStrenth;
-    public float shotgunEnemyStrenth;
-    public float sniperEnemyStrenth;
-    public float arEnemyStrenth;
-    public float bossEnemyStrenth;
+    public float basicEnemyStrenth = 1f;
+    public float nonBasicEnemyStrenth = 2f;
+    public float shotgunEnemyStrenth= 3f;
+    public float sniperEnemyStrenth = 4f;
+    public float arEnemyStrenth = 5f;
+    public float bossEnemyStrenth = 8f;
+
+    void Start()
+    {
+        //create the EnemyProfiles for common enemies
+        List<float> strenghts = new List<float> { basicEnemyStrenth, nonBasicEnemyStrenth, shotgunEnemyStrenth, sniperEnemyStrenth,
+        arEnemyStrenth};
+        standardEnemies = new List<EnemyProfile>();
+        for(int i = 0; i<5; i++)
+            standardEnemies.Insert(i, new EnemyProfile(strenghts[i], standardEnemiesAsGameObjects[i]));
+        //EnemyProfile for the boss
+        bossEnemy = new EnemyProfile(bossEnemyStrenth, bossEnemyAsGameObject);
+        //initialize BaseAverageStrength, THIS LINE SETS THE BASE FOR STRENGTH AVG
+        BaseAverageStrength = 0.75f * basicEnemyStrenth + 0.25f * nonBasicEnemyStrenth;
+    }
 
     /// <summary>
     /// Generates and instantiates the enemies for the given level.
@@ -50,6 +70,7 @@ public class EnemySpawner : MonoBehaviour
     {
         // 1. Calculate Target Count & Strength based on level scaling
         int targetEnemyCount = Mathf.RoundToInt(baseEnemyCountLevel1 * Mathf.Pow(1f + countIncreasePercentage, level - 1));
+        boardManager.setNenemies(targetEnemyCount);
         float targetAvgStrength = BaseAverageStrength * Mathf.Pow(1f + strengthIncreasePercentage, level - 1);
 
         // Total "strength budget" we want to spend on this level
@@ -131,9 +152,9 @@ public class EnemySpawner : MonoBehaviour
     private void InstantiateEnemy(GameObject prefab)
     {
         if (prefab == null) return;
-
-        // Replace with your game's actual spawn-point logic (e.g., finding a valid floor tile)
-        Vector2 spawnPosition = Random.insideUnitCircle * 10f;
-        Instantiate(prefab, spawnPosition, Quaternion.identity);
+        Vector2 spawnPosition = boardManager.getRandomFreeTaleNormalized();
+        GameObject instance = Instantiate(prefab, spawnPosition, Quaternion.identity);
+        instance.GetComponent<EnemyLifeCycle>().levelManager = boardManager;
+        instance.transform.SetParent(boardManager.getBoardHolder().transform);
     }
 }
