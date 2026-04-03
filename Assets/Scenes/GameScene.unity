@@ -516,6 +516,76 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &808172876
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 808172878}
+  - component: {fileID: 808172877}
+  m_Layer: 0
+  m_Name: MapManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &808172877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 808172876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c47ff4885eefc094485ca186a384ef42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelManager: {fileID: 1267907843}
+  baseCaseGridWidth: 10
+  baseCaseGridHeight: 10
+  floorPercentage: 0.5
+  widthIncreasePercentage: 0.1
+  heightIncreasePercentage: 0.1
+  tileSize: 2
+  chanceToChangeDir: 0.5
+  chanceToSpawnWalker: 0.05
+  chanceToDestroyWalker: 0.05
+  floorPrefab:
+  - {fileID: 5733802015014950961, guid: 092ab90032c9b474289797132198b238, type: 3}
+  - {fileID: 6651718835011497400, guid: e778213668ee27b45807643ada12322b, type: 3}
+  - {fileID: 6699971822751562164, guid: a9811cca5f22632409a0f9509aebed99, type: 3}
+  - {fileID: 3777022646605114737, guid: 3ecbc82f429466b46b73f963cd3c1510, type: 3}
+  - {fileID: 3777022646605114737, guid: edd04c2a014807a4a95cfa152f998ad8, type: 3}
+  - {fileID: 6302734374699276746, guid: b99c10825a8ca72439f2fa5d316be20f, type: 3}
+  - {fileID: 4286510715989379977, guid: 3afbf5fd18aa1e04099825314b73f504, type: 3}
+  - {fileID: 7970274231696906735, guid: fde98a0f9756d734ca9a3b989821bf5f, type: 3}
+  - {fileID: 3139317918120009247, guid: 5d765236c6c7cda4f9961f1f83e53e31, type: 3}
+  nonPhysWallPrefab:
+  - {fileID: 6272670408160083574, guid: 6f3bf3020b5b1344299fece53d86ab3d, type: 3}
+  - {fileID: 7719396348410690022, guid: f21ac03f33d82544faf92a8bbf0af2f4, type: 3}
+  physWallPrefab:
+  - {fileID: 8050567395331852311, guid: 8377cabf9dac7b344927af4c012ced20, type: 3}
+  - {fileID: 1093584978533650080, guid: 2464e19a686ab9541998995898257c17, type: 3}
+--- !u!4 &808172878
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 808172876}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1267907844}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &851773539
 GameObject:
   m_ObjectHideFlags: 0
@@ -1050,34 +1120,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 023cf893696b51a4ab650643cd4007b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridWidth: 15
-  gridHeight: 15
-  maxFloorCount: 60
-  tileSize: 2
-  chanceToChangeDir: 0.5
-  chanceToSpawnWalker: 0.05
-  chanceToDestroyWalker: 0.05
-  floorPrefab:
-  - {fileID: 5733802015014950961, guid: 092ab90032c9b474289797132198b238, type: 3}
-  - {fileID: 6651718835011497400, guid: e778213668ee27b45807643ada12322b, type: 3}
-  - {fileID: 6699971822751562164, guid: a9811cca5f22632409a0f9509aebed99, type: 3}
-  - {fileID: 3777022646605114737, guid: 3ecbc82f429466b46b73f963cd3c1510, type: 3}
-  - {fileID: 3777022646605114737, guid: edd04c2a014807a4a95cfa152f998ad8, type: 3}
-  - {fileID: 6302734374699276746, guid: b99c10825a8ca72439f2fa5d316be20f, type: 3}
-  - {fileID: 4286510715989379977, guid: 3afbf5fd18aa1e04099825314b73f504, type: 3}
-  - {fileID: 7970274231696906735, guid: fde98a0f9756d734ca9a3b989821bf5f, type: 3}
-  - {fileID: 3139317918120009247, guid: 5d765236c6c7cda4f9961f1f83e53e31, type: 3}
-  nonPhysWallPrefab:
-  - {fileID: 6272670408160083574, guid: 6f3bf3020b5b1344299fece53d86ab3d, type: 3}
-  - {fileID: 7719396348410690022, guid: f21ac03f33d82544faf92a8bbf0af2f4, type: 3}
-  physWallPrefab:
-  - {fileID: 8050567395331852311, guid: 8377cabf9dac7b344927af4c012ced20, type: 3}
-  - {fileID: 1093584978533650080, guid: 2464e19a686ab9541998995898257c17, type: 3}
   navMeshManager: {fileID: 1714946999}
   player: {fileID: 1972724196}
-
   enemySpawner: {fileID: 1339477912}
-
+  mapManager: {fileID: 808172877}
   gameManager: {fileID: 1156004051}
 --- !u!4 &1267907844
 Transform:
@@ -1093,6 +1139,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1339477913}
+  - {fileID: 808172878}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1271912421 stripped
@@ -1140,7 +1187,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fb7d90882b72c4409ef07f685ee543b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boardManager: {fileID: 1267907843}
+  levelManager: {fileID: 1267907843}
+  mapManager: {fileID: 808172877}
   standardEnemiesAsGameObjects:
   - {fileID: 2602001929783954537, guid: ca5c573be06edb04f8948d3efa6013a5, type: 3}
   - {fileID: 787609682188632355, guid: e784d23ad9207c04ca43a121bb75456e, type: 3}
