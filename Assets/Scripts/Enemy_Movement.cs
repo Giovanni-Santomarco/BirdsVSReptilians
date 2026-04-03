@@ -29,9 +29,12 @@ public class Enemy_Movement : MonoBehaviour
 
     [Header("Parametri IA")]
     protected const float allertDistance = 12f;
-    protected const float loseAggroDistance = 16f;
+    [SerializeField] protected float loseAggroDistance = 16f;
     protected const float combatDistance = 5f;
     protected const float pathUpdateTime = 0.2f;
+
+    [SerializeField] protected float closerFactor = 1f;
+    [SerializeField] protected float minDistanceToPlayer = 5f; 
 
     protected float distanceToPlayer;
     protected float waitTime;
@@ -44,7 +47,6 @@ public class Enemy_Movement : MonoBehaviour
     protected Vector2 currentWalkDirection;
     protected Vector2 fleeDirection = Vector2.zero;   //è diverso da Vector2.zero se non ci sono collisioni con altri nemici o con il player
     protected bool isMoving;
-
 
     void Start()
     {
@@ -135,9 +137,14 @@ public class Enemy_Movement : MonoBehaviour
         //se sto camminando e vedo o sento il nemico (perché è troppo vicino) allora entro in chase
         if (currentState == EnemyState.Patrol)
         {
-            if ((distanceToPlayer < allertDistance && hasLineOfSight()) || distanceToPlayer < combatDistance)
+            if ((distanceToPlayer < allertDistance && hasLineOfSight()) && distanceToPlayer > combatDistance)
             {
                 ChangeState(EnemyState.Chase);
+                return;
+            }
+            else if (distanceToPlayer < combatDistance)
+            {
+                ChangeState(EnemyState.Combat);
                 return;
             }
         }
@@ -451,7 +458,7 @@ public class Enemy_Movement : MonoBehaviour
 
             float roll = Random.Range(0f, 1f);
 
-            float f1 = (distanceToPlayer / (loseAggroDistance / 2));
+            float f1 = ((distanceToPlayer*closerFactor) / (loseAggroDistance / 2));
             float f2;
             if (distanceToPlayer != 0)
             {
@@ -470,7 +477,7 @@ public class Enemy_Movement : MonoBehaviour
             //e (loseAggroDistance/2)/distance per andare indietro
 
             //mi muovo verso il player (solo se non siamo troppo vicini al player)
-            if (roll <= p1 && distanceToPlayer > combatDistance && distanceToPlayer < loseAggroDistance)
+            if (roll <= p1 && distanceToPlayer > minDistanceToPlayer && distanceToPlayer < loseAggroDistance)
             {
                 //prova ad usare agent.setDestination() per andare verso il player
                 agent.SetDestination(PlayerLocation.position);
