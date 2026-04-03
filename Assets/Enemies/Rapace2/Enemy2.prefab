@@ -520,6 +520,9 @@ MonoBehaviour:
   speed: 1
   chanceToChangeStateToMovement: 0.8
   chanceToChangeStateToIdle: 0.5
+  loseAggroDistance: 50
+  closerFactor: 1
+  minDistanceToPlayer: 5
 --- !u!1 &5092695313876331858
 GameObject:
   m_ObjectHideFlags: 0
@@ -650,7 +653,7 @@ GameObject:
   - component: {fileID: 2966665615709281283}
   - component: {fileID: 3187630136049970989}
   m_Layer: 8
-  m_Name: LaserVisivo
+  m_Name: LaserView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
