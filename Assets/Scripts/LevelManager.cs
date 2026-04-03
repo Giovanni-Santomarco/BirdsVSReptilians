@@ -236,7 +236,7 @@ public class BoardManager : MonoBehaviour
     
     public GameObject player;
     public EnemySpawner enemySpawner;
-    public GameObject enemy1;
+    //public GameObject enemy1;
     public GameManager gameManager;
     private Vector2 playerPos;
 
@@ -296,8 +296,8 @@ public class BoardManager : MonoBehaviour
         }
         player.GetComponent<PlayerLifeCycle>().resetLife();
     }
-
-    void SpawnEnemies() //TODO
+    /*
+    void SpawnEnemies() //OBSOLETE, IGNORE
     {
         //spawn them
         Vector2 pos = getRandomFreeTale();
@@ -307,6 +307,7 @@ public class BoardManager : MonoBehaviour
         //how many enemies?
         nEnemies = 1;
     }
+    */
 
     public void SpawnDeathEnemy(GameObject Rapace_morto, Transform spotOfDeath)
     {

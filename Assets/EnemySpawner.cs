@@ -40,6 +40,8 @@ public class EnemySpawner : MonoBehaviour
     // Specific 4: Base average strength is NOT parametric (hardcoded constant).
     private float BaseAverageStrength;
 
+    [Header("Allows to randomly spawn an enemy; regardless of needed strenthAvg")]
+    public float chanceToSpawnRandomEnemy;
 
     [Header("Strength Parameters, use these parameter to balance the spawn")]
     public float basicEnemyStrenth = 1f;
@@ -85,8 +87,8 @@ public class EnemySpawner : MonoBehaviour
             targetEnemyCount--;
             targetTotalStrength -= bossEnemy.strength;
 
-            // Safety clamp: Prevent the boss from consuming so much strength budget 
-            // that the remaining enemies require negative strength.
+            // Safety clamp: The boss must spawn but it may consume too much strength -> no  strength enough to spawn needed enemies.
+            // If it is so, set targetTotalStrength so that it is possible to spawn other enemies.
             float minRequiredStrength = targetEnemyCount * standardEnemies[0].strength;
             targetTotalStrength = Mathf.Max(targetTotalStrength, minRequiredStrength);
         }
@@ -97,6 +99,18 @@ public class EnemySpawner : MonoBehaviour
 
         for (int i = 0; i < targetEnemyCount; i++)
         {
+            // To improve diversification, there is a chanche to return a random enemy, regardless of the avg strength needed
+            if (Random.value <= chanceToSpawnRandomEnemy)
+            {
+                int randomIndexNormalized = (int)(Random.value * 100 % standardEnemies.Count);
+                enemiesToSpawn.Add(standardEnemies[randomIndexNormalized]);
+                remainingCount--;
+                // Safety clamp: Choosing randomly may consume too much strength -> no  strength enough to spawn needed enemies.
+                // If it is so, set remainingStrength so that it is possible to spawn other enemies.
+                float minRequiredStrength = targetEnemyCount * standardEnemies[0].strength;
+                remainingStrength = Mathf.Max(remainingStrength, minRequiredStrength);
+                continue;
+            }
             float neededAvg = remainingStrength / remainingCount;
             EnemyProfile selectedEnemy = SelectStandardEnemy(neededAvg);
 
