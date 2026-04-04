@@ -362,6 +362,9 @@ MonoBehaviour:
   speed: 3
   chanceToChangeStateToMovement: 0.85
   chanceToChangeStateToIdle: 0.4
+  loseAggroDistance: 16
+  closerFactor: 1
+  minDistanceToPlayer: 5
 --- !u!114 &7896336335618396311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -376,6 +379,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   Rapace_morto: {fileID: 6880594893584925456, guid: cd7d5bf42e0b9b3408520d90ab239895, type: 3}
+  chanceToDropAMedikit: 0.05
+  medikit: {fileID: 5224596743304994958, guid: c0b2fb762813a0e4a86f87368fe66e37, type: 3}
 --- !u!210 &4249835902638120173
 SortingGroup:
   m_ObjectHideFlags: 0
