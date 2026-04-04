@@ -13,4 +13,14 @@ public class PlayerLifeCycle : LifeCycle
     {      
         this.currentHealth = maxHealth;  
     }
+
+    public void Heal(int heal)
+    {
+        if (currentHealth + heal > maxHealth)
+        {
+            currentHealth = maxHealth;
+            return;
+        }
+        currentHealth += heal;
+    }
 }

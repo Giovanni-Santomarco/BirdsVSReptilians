@@ -515,6 +515,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   Rapace_morto: {fileID: 6880594893584925456, guid: cd7d5bf42e0b9b3408520d90ab239895, type: 3}
+  chanceToDropAMedikit: 0.05
+  medikit: {fileID: 5224596743304994958, guid: c0b2fb762813a0e4a86f87368fe66e37, type: 3}
 --- !u!114 &6035225162061555330
 MonoBehaviour:
   m_ObjectHideFlags: 0
