@@ -103,11 +103,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 790c1699fba05ff469928101a2401f24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 1804291477799477238, guid: 3e7751b7b999a9041a9d275f17ea99b5, type: 3}
+  bulletPrefab: {fileID: 4250924652321560442, guid: 56b899423d4c44e45840172de0abdc94, type: 3}
   firePoint: {fileID: 6837148448788584735}
   fireRate: 0.1
   shootSound: {fileID: 8300000, guid: 8646eb3828ceee64a81677580c755d88, type: 3}
   isAutomatic: 1
+  damage: 10
+  bulletSpeed: 10
   bloom: 10
   numberOfBulletsFiredTogether: 1
 --- !u!114 &6444638525834882785
@@ -122,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b808fb26bbd0c0d43ada12aab4a1d5b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupPrefab: {fileID: 3561517346289674847}
+  pickupPrefab: {fileID: 3608643438682292365, guid: c51db6a64591f2140bcf661250c9a2ec, type: 3}
 --- !u!82 &2773853167001130599
 AudioSource:
   m_ObjectHideFlags: 0
