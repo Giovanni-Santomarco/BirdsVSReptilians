@@ -79,11 +79,11 @@ public class LevelManager : MonoBehaviour
         player.GetComponent<PlayerLifeCycle>().resetLife();
     }
 
-    public void SpawnDeathEnemy(GameObject Rapace_morto, Transform spotOfDeath)
+    public void SpawnDeathEnemy(GameObject objectToDrop, Transform spotOfDeath)
     {
-        if (Rapace_morto != null && boardHolder != null)
+        if (objectToDrop != null && boardHolder != null)
         {
-            GameObject deadBody = Instantiate(Rapace_morto, spotOfDeath.position, spotOfDeath.rotation);
+            GameObject deadBody = Instantiate(objectToDrop, spotOfDeath.position, spotOfDeath.rotation);
             deadBody.transform.SetParent(boardHolder.transform);
         }
     }
