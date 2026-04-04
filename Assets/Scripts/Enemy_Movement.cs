@@ -30,7 +30,7 @@ public class Enemy_Movement : MonoBehaviour
     [Header("Parametri IA")]
     protected const float allertDistance = 12f;
     [SerializeField] protected float loseAggroDistance = 16f;
-    protected const float combatDistance = 5f;
+    protected const float combatDistance = 9f;
     protected const float pathUpdateTime = 0.2f;
 
     [SerializeField] protected float closerFactor = 1f;

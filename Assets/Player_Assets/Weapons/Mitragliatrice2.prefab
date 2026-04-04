@@ -108,6 +108,8 @@ MonoBehaviour:
   fireRate: 0.17
   shootSound: {fileID: 8300000, guid: 0f0b4acde3421a142bf1499f3a9752f6, type: 3}
   isAutomatic: 1
+  damage: 45
+  bulletSpeed: 11
   bloom: 6
   numberOfBulletsFiredTogether: 1
 --- !u!114 &7079782235261524119

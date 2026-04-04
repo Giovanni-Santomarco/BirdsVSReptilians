@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 357078835631154373}
   - component: {fileID: 3126786164184943135}
   - component: {fileID: 4364632022292253233}
-  - component: {fileID: 6075159320482186953}
   - component: {fileID: -3998955167116480223}
+  - component: {fileID: -547610935291134463}
   m_Layer: 0
   m_Name: PistolBullet
   m_TagString: Bullet
@@ -164,21 +164,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &6075159320482186953
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4250924652321560442}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3124f17cc1f65ff4f90858cd84623084, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 25
-  speed: 5
-  rigidBody: {fileID: 4364632022292253233}
 --- !u!210 &-3998955167116480223
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -191,3 +176,15 @@ SortingGroup:
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_SortAtRoot: 0
+--- !u!114 &-547610935291134463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4250924652321560442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4cae842555f8d4499648295c36062e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
