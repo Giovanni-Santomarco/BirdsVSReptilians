@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 2974436765090139705}
   - component: {fileID: 8920066647728948004}
   - component: {fileID: 1546657764899827483}
-  - component: {fileID: 4727895426567424099}
   - component: {fileID: 7549047393598569583}
+  - component: {fileID: 5125398055005384609}
   m_Layer: 0
   m_Name: SniperRifleBullet
   m_TagString: Bullet
@@ -180,21 +180,6 @@ MonoBehaviour:
   _data:
     _json: '{"declarations":{"Kind":"Object","collection":{"$content":[],"$version":"A"},"$version":"A"}}'
     _objectReferences: []
---- !u!114 &4727895426567424099
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7805068417031288734}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6068b8e176e24104ba852a0c41f91fd3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 100
-  speed: 10
-  rigidBody: {fileID: 8920066647728948004}
 --- !u!210 &7549047393598569583
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -207,3 +192,15 @@ SortingGroup:
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_SortAtRoot: 0
+--- !u!114 &5125398055005384609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7805068417031288734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4cae842555f8d4499648295c36062e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

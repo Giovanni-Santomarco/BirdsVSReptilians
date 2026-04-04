@@ -16,9 +16,14 @@ public class GunController : MonoBehaviour
 
     private string shooter;
 
-    public float bloom = 2f;
 
+    [Header("Statistiche Proiettile")]
+    public int damage = 20;
+    public float bulletSpeed = 10f;
+    public float bloom = 2f;
     public int numberOfBulletsFiredTogether = 1;
+
+
 
     void Start()
     {
@@ -49,7 +54,7 @@ public class GunController : MonoBehaviour
             // I want to instantiate this by telling if it comes from an enemy or a player
             // ==> bullet does not collide with the same character who shoot it
             GameObject bullet = Instantiate(bulletPrefab, firePoint.position, bulletRotation);
-            bullet.GetComponent<Bullet>().setShooter(this.shooter);
+            bullet.GetComponent<Bullet>().Setup(this.shooter, damage, bulletSpeed);
         }
 
         nextShotTime = Time.time + fireRate;
