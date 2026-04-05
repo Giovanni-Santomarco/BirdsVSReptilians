@@ -8,7 +8,10 @@ public class GunController : MonoBehaviour
     public Transform firePoint;
     public float fireRate = 0.5f;
     public AudioClip shootSound;
-    private AudioSource audioSource;
+
+    [Header("Impostazioni Audio")]
+    [Range(0f, 1f)]
+    public float shootingVolume = 1f;
 
     public bool isAutomatic = false;
 
@@ -23,13 +26,6 @@ public class GunController : MonoBehaviour
     public float bloom = 2f;
     public int numberOfBulletsFiredTogether = 1;
 
-
-
-    void Awake()
-    {
-        // Get the AudioSource component from the weapon
-        audioSource = GetComponent<AudioSource>();
-    }
 
     //shoots only if the fire rate allows to
     public bool Shoot()
@@ -58,11 +54,7 @@ public class GunController : MonoBehaviour
         }
 
         nextShotTime = Time.time + fireRate;
-        if (isAutomatic)
-        {
-            audioSource.pitch = Random.Range(0.9f, 1.1f);
-        }
-        audioSource.PlayOneShot(shootSound);
+        AudioManager.instance.PlaySFX(shootSound, firePoint.position, isAutomatic, shootingVolume);
 
         return true;
     }
