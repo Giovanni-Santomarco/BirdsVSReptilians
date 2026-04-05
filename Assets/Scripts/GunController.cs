@@ -25,7 +25,7 @@ public class GunController : MonoBehaviour
 
 
 
-    void Start()
+    void Awake()
     {
         // Get the AudioSource component from the weapon
         audioSource = GetComponent<AudioSource>();

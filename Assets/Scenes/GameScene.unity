@@ -1519,7 +1519,7 @@ PrefabInstance:
     - target: {fileID: 2083683913443830006, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
       propertyPath: startingWeapon
       value: 
-      objectReference: {fileID: 5203043244769487366, guid: 69e0f1b248ee4fa4fae8f3951bfb38c5, type: 3}
+      objectReference: {fileID: 7324827779930673786, guid: f3e8c7edc6c2f964b9119c98227da322, type: 3}
     - target: {fileID: 2621190405173459873, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
       propertyPath: m_SortingLayer
       value: 1
