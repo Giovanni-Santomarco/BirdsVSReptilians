@@ -91,7 +91,6 @@ public class InventoryManager : MonoBehaviour
         {
             slots[currentSlotIndex].SetActive(true);
         }
-
     }
 
 
