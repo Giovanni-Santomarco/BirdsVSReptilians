@@ -17,9 +17,9 @@ public class ShootManagerForEnemy : MonoBehaviour
 
     protected virtual void Start()
     {
-        if (gunManager != null && gunManager.weapon != null)
+        if (gunManager != null && gunManager.getWeapon() != null)
         {
-            gunController = gunManager.weapon.GetComponent<GunController>();
+            gunController = gunManager.getWeapon().GetComponent<GunController>();
         }
     }
 

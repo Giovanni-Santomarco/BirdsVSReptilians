@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 //this function instantiates the gun of an ENEMY, the choise of the gun is done runtime.
@@ -5,17 +6,32 @@ using UnityEngine;
 public class SingleGunManager : MonoBehaviour
 
 {
-    public GameObject weapon;
+    public List<GameObject> weapons;
     public Transform weaponHolder;
-    void Start()
+    private GameObject weapon;
+    
+
+    void Awake()
     {
-        if (weapon != null)
+        if(weapons != null && weapons.Count > 0)
         {
-            GameObject newWeapon = Instantiate(weapon, weaponHolder);
-            newWeapon.GetComponent<GunController>().setShooter("enemy");
-            newWeapon.transform.localPosition = Vector3.zero;
-            newWeapon.transform.localRotation = Quaternion.identity;
-            weapon = newWeapon;
+            int indiceCasuale = Random.Range(0, weapons.Count);
+
+            initWeapon(indiceCasuale);
         }
+    }
+
+    private void initWeapon(int i)
+    {
+        GameObject newWeapon = Instantiate(weapons[i], weaponHolder);
+        newWeapon.GetComponent<GunController>().setShooter("enemy");
+        newWeapon.transform.localPosition = Vector3.zero;
+        newWeapon.transform.localRotation = Quaternion.identity;
+        weapon = newWeapon;
+    }
+
+    public GameObject getWeapon()
+    {
+        return weapon;
     }
 }
