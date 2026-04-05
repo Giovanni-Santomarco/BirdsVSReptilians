@@ -656,8 +656,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 800
   Rapace_morto: {fileID: 6880594893584925456, guid: cd7d5bf42e0b9b3408520d90ab239895, type: 3}
-  chanceToDropAMedikit: 0.5
   medikit: {fileID: 5224596743304994958, guid: c0b2fb762813a0e4a86f87368fe66e37, type: 3}
+  weaponHolder: {fileID: 8449267284628474362}
+  chanceToDropAMedikit: 0.5
+  chanceToDropAGun: 0.5
 --- !u!114 &9193609875746509451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -670,7 +672,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5ffa101cd0db854f870e9f4feaf869e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 2177328310145022655, guid: 079721efca11f7c4697cd064750649f7, type: 3}
+  weapons:
+  - {fileID: 2177328310145022655, guid: 079721efca11f7c4697cd064750649f7, type: 3}
+  - {fileID: 103772694711354843, guid: b9a62cba8b0cce64d97bc3410f5fbf47, type: 3}
+  - {fileID: 5760019660229597983, guid: 4c62bd4d6d8704d4dad749e23d12d842, type: 3}
   weaponHolder: {fileID: 6985013310491392672}
 --- !u!114 &-5041163906083128976
 MonoBehaviour:

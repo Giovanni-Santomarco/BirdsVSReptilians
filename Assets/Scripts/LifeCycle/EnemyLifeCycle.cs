@@ -4,20 +4,34 @@ public class EnemyLifeCycle : LifeCycle
 {
     public GameObject Rapace_morto;
 
-    public float chanceToDropAMedikit = 0.5f;
     public GameObject medikit;
+
+    public GameObject weaponHolder;
+
+    public float chanceToDropAMedikit = 0.05f;
+    public float chanceToDropAGun = 0.07f;
+
 
     public override void Die()
     {
         // destroy the object
         Transform spotOfDeath = gameObject.transform;
 
+        GameObject weaponPrefabToDrop = weaponHolder.transform.GetChild(0).GetComponent<WeaponInfo>().pickupPrefab;
+
         Destroy(gameObject);
 
-        if(Random.value < chanceToDropAMedikit)
+        float roll = Random.value;
+
+        if (roll < chanceToDropAMedikit)
         {
             //tell the current level to spawn a medikit
             levelManager.SpawnDeathEnemy(medikit, spotOfDeath);
+        }
+        else if(roll < chanceToDropAMedikit + chanceToDropAGun)
+        {
+            //tell the current level to spawn the enemy's gun
+            levelManager.SpawnDeathEnemy(weaponPrefabToDrop, spotOfDeath);
         }
         else
         {
