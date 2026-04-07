@@ -11,17 +11,21 @@ public class InventoryManager : MonoBehaviour
     public GameObject[] slots = new GameObject[2];  //quante armi posso avere in mano
     private int currentSlotIndex = 0;    //arma che ho in mano attualmente
 
+    private LevelManager levelManager;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if(startingWeapon != null)
+        levelManager = FindFirstObjectByType<LevelManager>();
+
+        if (startingWeapon != null)
         {
-            PickupWeapon(startingWeapon, transform.position);
+            PickupWeapon(startingWeapon, transform);
         } 
     }
 
 
-    public void PickupWeapon(GameObject weapon, Vector3 positionWeaponOnTheGround)
+    public void PickupWeapon(GameObject weapon, Transform positionWeaponOnTheGround)
     {
         int emptySlotIndex = -1;
         for(int i=0; i < slots.Length; i++)
@@ -47,7 +51,7 @@ public class InventoryManager : MonoBehaviour
     }
 
 
-    void DropCurrentWeapon(Vector3 positionWeaponOnTheGround)
+    void DropCurrentWeapon(Transform positionWeaponOnTheGround)
     {
         GameObject currentWeapon = slots[currentSlotIndex];
         if (currentWeapon != null)
@@ -55,7 +59,15 @@ public class InventoryManager : MonoBehaviour
             WeaponInfo info = currentWeapon.GetComponent<WeaponInfo>();
             if (info != null && info.pickupPrefab != null)
             {
-                Instantiate(info.pickupPrefab, positionWeaponOnTheGround, Quaternion.identity);
+                if (levelManager != null)
+                {
+                    levelManager.SpawnDrop(info.pickupPrefab, positionWeaponOnTheGround);
+                }
+                else
+                {
+                    
+                    Instantiate(info.pickupPrefab, positionWeaponOnTheGround.position, Quaternion.identity);
+                }
             }
             Destroy(currentWeapon);
             slots[currentSlotIndex] = null;
