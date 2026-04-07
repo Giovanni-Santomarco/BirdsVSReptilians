@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 
 //tutti gli audio saranno creati da questa classe: nel momento in cui ci serve istanziare un audio, questa classe crea
@@ -10,6 +11,7 @@ public class AudioManager : MonoBehaviour
     // Creiamo un "Singleton". Questo ci permette di chiamare l'AudioManager 
     // da QUALSIASI script del gioco semplicemente scrivendo AudioManager.instance
     public static AudioManager instance;
+    public AudioMixer mainMixer;
 
     void Awake()
     {
@@ -40,7 +42,13 @@ public class AudioManager : MonoBehaviour
         // Lo configuriamo
         audioSource.clip = clip;
 
-        audioSource.volume = volume;
+        float currentSfxAudioVolumeDbNotation;
+        mainMixer.GetFloat("SfxVol", out currentSfxAudioVolumeDbNotation);
+        // currentSfxAudioVolume stores a value in DB notation (-80 - 0) but audioSource.play()
+        // expects a 0-1 notation
+        float currentSfxAudioVolume0to1Notation = Mathf.Pow(10f, currentSfxAudioVolumeDbNotation / 20f);
+        float currentSfxAudioVolumeNormalized = currentSfxAudioVolume0to1Notation * volume;
+        audioSource.volume = currentSfxAudioVolumeNormalized;
 
         //Trasforma il suono da "piatto" a "direzionale"
         audioSource.spatialBlend = 1f; // 0 significa 2D, 1 significa 100% 3D!
