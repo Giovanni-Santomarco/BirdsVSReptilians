@@ -60,6 +60,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        // If Time.timeScale is 0, the game is paused.
+        if (Time.timeScale == 0) return;
         // 2. ANIMAZIONE
         bool isMoving = moveInput.magnitude > 0;
         animator.SetBool("isWalking", isMoving);
