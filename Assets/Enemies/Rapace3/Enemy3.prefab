@@ -107,6 +107,7 @@ GameObject:
   - component: {fileID: 4249835902638120173}
   - component: {fileID: 4862393403378983223}
   - component: {fileID: 6270611446356405528}
+  - component: {fileID: 8563708957260498513}
   m_Layer: 8
   m_Name: Enemy3
   m_TagString: Enemy
@@ -436,6 +437,22 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   laserDistance: 50
+--- !u!114 &8563708957260498513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 787609682188632355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ced616c409926f4f90b9e51d3e61e01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  feedbackDurationForHit: 0.1
+  healColor: {r: 0, g: 1, b: 0, a: 1}
+  feedbackDurationForHeal: 0.2
 --- !u!1 &4397992936671809202
 GameObject:
   m_ObjectHideFlags: 0
