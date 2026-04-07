@@ -31,7 +31,7 @@ public class EnemyLifeCycleOld : MonoBehaviour
         Destroy(gameObject);
 
         //tell the current level to spawn a dead enemy at the spot in which its health went down to 0
-        levelManager.SpawnDeathEnemy(Rapace_morto, spotOfDeath);
+        levelManager.SpawnDrop(Rapace_morto, spotOfDeath);
 
         //tell current level about the death, a death triggers a check by LevelManager, i.e. isNewLevel?
         levelManager.decreaseEnemies();
