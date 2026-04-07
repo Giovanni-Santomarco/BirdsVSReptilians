@@ -194,6 +194,7 @@ GameObject:
   - component: {fileID: -989275296701977954}
   - component: {fileID: 3832239999294613956}
   - component: {fileID: 9118259494553120741}
+  - component: {fileID: 6645212915733382789}
   m_Layer: 8
   m_Name: Enemy2
   m_TagString: Enemy
@@ -530,6 +531,22 @@ MonoBehaviour:
   loseAggroDistance: 50
   closerFactor: 1
   minDistanceToPlayer: 5
+--- !u!114 &6645212915733382789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3887826559819806324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ced616c409926f4f90b9e51d3e61e01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  feedbackDurationForHit: 0.1
+  healColor: {r: 0, g: 1, b: 0, a: 1}
+  feedbackDurationForHeal: 0.2
 --- !u!1 &5092695313876331858
 GameObject:
   m_ObjectHideFlags: 0

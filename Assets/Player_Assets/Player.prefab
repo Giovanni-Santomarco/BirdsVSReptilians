@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 1761093719426508488}
   - component: {fileID: 7566459933505683817}
   - component: {fileID: 6456960167757654539}
+  - component: {fileID: -6656849977014919616}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -478,6 +479,22 @@ SortingGroup:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_SortAtRoot: 0
+--- !u!114 &-6656849977014919616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 645636196919982891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ced616c409926f4f90b9e51d3e61e01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  feedbackDurationForHit: 0.1
+  healColor: {r: 0, g: 1, b: 0, a: 1}
+  feedbackDurationForHeal: 0.2
 --- !u!1 &1628383746063471892
 GameObject:
   m_ObjectHideFlags: 0

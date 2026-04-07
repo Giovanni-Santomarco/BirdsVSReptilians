@@ -369,6 +369,7 @@ GameObject:
   - component: {fileID: 7932986941765471824}
   - component: {fileID: 9193609875746509451}
   - component: {fileID: -5041163906083128976}
+  - component: {fileID: 7980525364583787043}
   m_Layer: 8
   m_Name: WarOwl
   m_TagString: Enemy
@@ -693,6 +694,22 @@ MonoBehaviour:
   enemyMovement: {fileID: 8086599881407291128}
   reloadTime: 4
   magazine: 15
+--- !u!114 &7980525364583787043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3305549402613063066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ced616c409926f4f90b9e51d3e61e01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  feedbackDurationForHit: 0.1
+  healColor: {r: 0, g: 1, b: 0, a: 1}
+  feedbackDurationForHeal: 0.2
 --- !u!1 &7308546083219523952
 GameObject:
   m_ObjectHideFlags: 0
