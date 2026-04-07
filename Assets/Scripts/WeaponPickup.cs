@@ -33,7 +33,7 @@ public class WeaponPickup : MonoBehaviour
         {
             if(playerInventory != null)
             {
-                playerInventory.PickupWeapon(weaponToEquip, transform.position);
+                playerInventory.PickupWeapon(weaponToEquip, transform);
                 Destroy(gameObject);    //gameObject si intende l'oggetto in cui si trova lo script da non confondere con GameObject
             }
         }
