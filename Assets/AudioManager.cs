@@ -27,7 +27,7 @@ public class AudioManager : MonoBehaviour
     }
 
     // Questa è la funzione magica che chiameremo dalle nostre armi
-    public void PlaySFX(AudioClip clip, Vector3 position, bool useRandomPitch = false, float volume = 1f) // volume is unused
+    public void PlaySFX(AudioClip clip, Vector3 position, bool useRandomPitch = false, float volume = 1f)
     {
         if (clip == null) return;
 
@@ -42,11 +42,12 @@ public class AudioManager : MonoBehaviour
         // Lo configuriamo
         audioSource.clip = clip;
 
-        float currentSfxAudioVolume;
-        mainMixer.GetFloat("SfxVol", out currentSfxAudioVolume);
+        float currentSfxAudioVolumeDbNotation;
+        mainMixer.GetFloat("SfxVol", out currentSfxAudioVolumeDbNotation);
         // currentSfxAudioVolume stores a value in DB notation (-80 - 0) but audioSource.play()
         // expects a 0-1 notation
-        float currentSfxAudioVolumeNormalized = Mathf.Pow(10f, currentSfxAudioVolume / 20f);
+        float currentSfxAudioVolume0to1Notation = Mathf.Pow(10f, currentSfxAudioVolumeDbNotation / 20f);
+        float currentSfxAudioVolumeNormalized = currentSfxAudioVolume0to1Notation * volume;
         audioSource.volume = currentSfxAudioVolumeNormalized;
 
         //Trasforma il suono da "piatto" a "direzionale"
