@@ -26,17 +26,17 @@ public class EnemyLifeCycle : LifeCycle
         if (roll < chanceToDropAMedikit)
         {
             //tell the current level to spawn a medikit
-            levelManager.SpawnDeathEnemy(medikit, spotOfDeath);
+            levelManager.SpawnDrop(medikit, spotOfDeath);
         }
         else if(roll < chanceToDropAMedikit + chanceToDropAGun)
         {
             //tell the current level to spawn the enemy's gun
-            levelManager.SpawnDeathEnemy(weaponPrefabToDrop, spotOfDeath);
+            levelManager.SpawnDrop(weaponPrefabToDrop, spotOfDeath);
         }
         else
         {
             //tell the current level to spawn a dead enemy at the spot in which its health went down to 0
-            levelManager.SpawnDeathEnemy(Rapace_morto, spotOfDeath);
+            levelManager.SpawnDrop(Rapace_morto, spotOfDeath);
         }
 
 
