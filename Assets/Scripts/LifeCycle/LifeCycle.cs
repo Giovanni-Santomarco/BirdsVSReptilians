@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public abstract class LifeCycle : MonoBehaviour
@@ -21,4 +22,9 @@ public abstract class LifeCycle : MonoBehaviour
     }
 
     public abstract void Die();
+
+    internal float GetLifePercentage()
+    {
+        return 1f - ((float)this.currentHealth / (float)this.maxHealth);
+    }
 }
