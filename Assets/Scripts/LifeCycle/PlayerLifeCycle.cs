@@ -22,5 +22,7 @@ public class PlayerLifeCycle : LifeCycle
             return;
         }
         currentHealth += heal;
+
+        feedback.StartHealAnimation();
     }
 }

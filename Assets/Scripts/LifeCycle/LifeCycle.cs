@@ -5,13 +5,13 @@ public abstract class LifeCycle : MonoBehaviour
     public int maxHealth = 100;
     protected int currentHealth;
     internal LevelManager levelManager;
-    internal DamageFeedback damageFeedback;
+    internal HealAndDamageFeedback feedback;
 
     void Start()
     {
         currentHealth = maxHealth;
 
-        damageFeedback = GetComponent<DamageFeedback>();
+        feedback = GetComponent<HealAndDamageFeedback>();
     }
 
     public void TakeDamage(int damage)
@@ -22,7 +22,7 @@ public abstract class LifeCycle : MonoBehaviour
             Die();
         }
 
-        damageFeedback.StartHitAnimation();
+        feedback.StartHitAnimation();
     }
 
     public abstract void Die();
