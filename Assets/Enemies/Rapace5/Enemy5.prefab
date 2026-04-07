@@ -313,6 +313,7 @@ GameObject:
   - component: {fileID: 7953124557698460296}
   - component: {fileID: 7893453005097763298}
   - component: {fileID: 9090496718741027778}
+  - component: {fileID: -4487450626509740432}
   m_Layer: 8
   m_Name: Enemy5
   m_TagString: Enemy
@@ -638,6 +639,22 @@ SortingGroup:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_SortAtRoot: 0
+--- !u!114 &-4487450626509740432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7246991954694227996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ced616c409926f4f90b9e51d3e61e01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  feedbackDurationForHit: 0.1
+  healColor: {r: 0, g: 1, b: 0, a: 1}
+  feedbackDurationForHeal: 0.2
 --- !u!1 &7679057212472343570
 GameObject:
   m_ObjectHideFlags: 0

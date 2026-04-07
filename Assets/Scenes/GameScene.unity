@@ -1504,6 +1504,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -6656849977014919616, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
+      propertyPath: healColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6656849977014919616, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
+      propertyPath: damageColor.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 645636196919982891, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
       propertyPath: m_Name
       value: Player
