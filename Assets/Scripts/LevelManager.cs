@@ -76,15 +76,15 @@ public class LevelManager : MonoBehaviour
         {
             player.GetComponent<PlayerLifeCycle>().levelManager = this;
         }
-        player.GetComponent<PlayerLifeCycle>().resetLife();
+        //player.GetComponent<PlayerLifeCycle>().resetLife(); il player non deve recuperare tutta la vita a fine livello
     }
 
-    public void SpawnDeathEnemy(GameObject objectToDrop, Transform spotOfDeath)
+    public void SpawnDrop(GameObject objectToDrop, Transform spotOfDrop)
     {
         if (objectToDrop != null && boardHolder != null)
         {
-            GameObject deadBody = Instantiate(objectToDrop, spotOfDeath.position, spotOfDeath.rotation);
-            deadBody.transform.SetParent(boardHolder.transform);
+            GameObject drop = Instantiate(objectToDrop, spotOfDrop.position, spotOfDrop.rotation);
+            drop.transform.SetParent(boardHolder.transform);
         }
     }
 
