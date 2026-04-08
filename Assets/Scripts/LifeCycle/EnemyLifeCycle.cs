@@ -11,6 +11,9 @@ public class EnemyLifeCycle : LifeCycle
     public float chanceToDropAMedikit = 0.05f;
     public float chanceToDropAGun = 0.07f;
 
+    [Header("Impostazioni Boss")]
+    public bool isBoss = false;
+
 
     public override void Die()
     {
@@ -42,5 +45,10 @@ public class EnemyLifeCycle : LifeCycle
 
         //tell current level about the death, a death triggers a check by LevelManager, i.e. isNewLevel?
         levelManager.decreaseEnemies();
+
+        if (isBoss)
+        {
+            levelManager.decreaseBosses();
+        }
     }
 }

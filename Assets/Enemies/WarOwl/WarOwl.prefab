@@ -661,6 +661,7 @@ MonoBehaviour:
   weaponHolder: {fileID: 8449267284628474362}
   chanceToDropAMedikit: 0.5
   chanceToDropAGun: 0.5
+  isBoss: 1
 --- !u!114 &9193609875746509451
 MonoBehaviour:
   m_ObjectHideFlags: 0
