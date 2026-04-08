@@ -112,6 +112,7 @@ MonoBehaviour:
   bulletSpeed: 10
   bloom: 7.5
   numberOfBulletsFiredTogether: 1
+  currentAmmo: 200
 --- !u!114 &3395983937927174823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,6 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupPrefab: {fileID: 3342737679746243810, guid: 3ac428cb77613274d960e22b6992544a, type: 3}
+  category: 1
 --- !u!1 &6523816571431123087
 GameObject:
   m_ObjectHideFlags: 0
