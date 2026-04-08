@@ -2016,6 +2016,26 @@ PrefabInstance:
     - target: {fileID: 2083683913443830006, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
       propertyPath: startingWeapon
       value: 
+      objectReference: {fileID: 7415653943187453357, guid: cda094f5310909d46bedefa514b4959f, type: 3}
+    - target: {fileID: 2083683913443830006, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
+      propertyPath: sidearmUpgrades.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083683913443830006, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
+      propertyPath: 'sidearmUpgrades.Array.data[0]'
+      value: 
+      objectReference: {fileID: 7415653943187453357, guid: cda094f5310909d46bedefa514b4959f, type: 3}
+    - target: {fileID: 2083683913443830006, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
+      propertyPath: 'sidearmUpgrades.Array.data[1]'
+      value: 
+      objectReference: {fileID: 3961208141839627750, guid: 269362a4ba31ad743a1bed517f1ee216, type: 3}
+    - target: {fileID: 2083683913443830006, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
+      propertyPath: 'sidearmUpgrades.Array.data[2]'
+      value: 
+      objectReference: {fileID: 6487913716134917624, guid: 7c62c2cd5cc0a2e48add0f5e703e04dd, type: 3}
+    - target: {fileID: 2083683913443830006, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
+      propertyPath: 'sidearmUpgrades.Array.data[3]'
+      value: 
       objectReference: {fileID: 5457891620495391742, guid: 68f50b6017b501b4f9bcf0bca60f80bb, type: 3}
     - target: {fileID: 2621190405173459873, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
       propertyPath: m_SortingLayer

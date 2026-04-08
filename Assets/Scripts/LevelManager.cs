@@ -26,6 +26,8 @@ public class LevelManager : MonoBehaviour
 
     private int nEnemies;
 
+    private int nBosses;
+
     public void cleanLevel()
     {
         if (boardHolder != null)
@@ -110,6 +112,19 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    internal void decreaseBosses()
+    {
+        nBosses--;
+        if(nBosses <= 0)
+        {
+            InventoryManager playerInventory = FindFirstObjectByType<InventoryManager>();
+            if (playerInventory != null)
+            {
+                playerInventory.UpgradeSidearm();
+            }
+        }
+    }
+
     internal void playerDies()
     {
         gameManager.playerIsDead();
@@ -118,5 +133,10 @@ public class LevelManager : MonoBehaviour
     internal void setNenemies(int targetEnemyCount)
     {
         this.nEnemies = targetEnemyCount;
+    }
+
+    public void setNBosses(int targetBossCount)
+    {
+        this.nBosses = targetBossCount;
     }
 }
