@@ -391,10 +391,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponHolder: {fileID: 9209525259375318797}
-  startingWeapon: {fileID: 2573384855557751439, guid: 3d3373d70d8a9994698c8e7f6a2ea3e4, type: 3}
+  startingWeapon: {fileID: 7415653943187453357, guid: cda094f5310909d46bedefa514b4959f, type: 3}
   slots:
   - {fileID: 0}
   - {fileID: 0}
+  sidearmUpgrades:
+  - {fileID: 7415653943187453357, guid: cda094f5310909d46bedefa514b4959f, type: 3}
+  - {fileID: 3961208141839627750, guid: 269362a4ba31ad743a1bed517f1ee216, type: 3}
+  - {fileID: 6487913716134917624, guid: 7c62c2cd5cc0a2e48add0f5e703e04dd, type: 3}
+  - {fileID: 5457891620495391742, guid: 68f50b6017b501b4f9bcf0bca60f80bb, type: 3}
 --- !u!61 &8923058237579258200
 BoxCollider2D:
   m_ObjectHideFlags: 0
