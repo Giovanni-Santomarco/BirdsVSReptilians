@@ -26,6 +26,18 @@ public class GunController : MonoBehaviour
     public float bloom = 2f;
     public int numberOfBulletsFiredTogether = 1;
 
+    [Header("Munizioni")]
+    public int currentAmmo = 100;
+    private WeaponInfo weaponInfo;
+    private InventoryManager inventory; // Per dirgli quando ci rompiamo
+
+
+    void Awake()
+    {
+        weaponInfo = GetComponent<WeaponInfo>();
+        inventory = FindFirstObjectByType<InventoryManager>();
+    }
+
 
     //shoots only if the fire rate allows to
     public bool Shoot()
@@ -55,6 +67,25 @@ public class GunController : MonoBehaviour
 
         nextShotTime = Time.time + fireRate;
         AudioManager.instance.PlaySFX(shootSound, firePoint.position, isAutomatic, shootingVolume);
+
+
+        // GESTIONE MUNIZIONI: Si attiva SOLO se a sparare è il player
+        if (shooter == "player")
+        {
+            if (weaponInfo != null && weaponInfo.category == WeaponCategory.Primary)
+            {
+                currentAmmo--;
+
+                if (currentAmmo <= 0)
+                {
+                    // L'arma è finita! Diciamo all'inventario di buttarla via.
+                    if (inventory != null)
+                    {
+                        inventory.BreakCurrentWeapon();
+                    }
+                }
+            }
+        }
 
         return true;
     }

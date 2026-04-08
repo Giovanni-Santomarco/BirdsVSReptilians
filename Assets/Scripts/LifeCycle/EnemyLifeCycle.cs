@@ -31,7 +31,7 @@ public class EnemyLifeCycle : LifeCycle
         else if(roll < chanceToDropAMedikit + chanceToDropAGun)
         {
             //tell the current level to spawn the enemy's gun
-            levelManager.SpawnDrop(weaponPrefabToDrop, spotOfDeath);
+            levelManager.SpawnDropGun(weaponPrefabToDrop, spotOfDeath.position);
         }
         else
         {
