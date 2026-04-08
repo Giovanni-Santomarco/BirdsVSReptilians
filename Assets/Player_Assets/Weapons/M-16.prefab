@@ -106,12 +106,13 @@ MonoBehaviour:
   firePoint: {fileID: 7136101675859537963}
   fireRate: 0.18
   shootSound: {fileID: 8300000, guid: 5cfb4da2c1f31794e836b0aca1358ece, type: 3}
-  volumeSparo: 1
+  shootingVolume: 1
   isAutomatic: 1
   damage: 25
   bulletSpeed: 12
   bloom: 1.8
   numberOfBulletsFiredTogether: 1
+  currentAmmo: 100
 --- !u!114 &744099867310873798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,6 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupPrefab: {fileID: 1184799443995084508, guid: 8a6281a1622d1c8418be5412f706a9ee, type: 3}
+  category: 1
 --- !u!1 &7519379404793597595
 GameObject:
   m_ObjectHideFlags: 0
