@@ -88,6 +88,19 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+
+    public GameObject SpawnDropGun(GameObject objectToDrop, Vector3 spotOfDrop)
+    {
+        if (objectToDrop != null && boardHolder != null)
+        {
+            GameObject newItem = Instantiate(objectToDrop, spotOfDrop, Quaternion.identity);
+            newItem.transform.SetParent(boardHolder.transform);
+
+            return newItem; //mi serve il return per capire poi quanti proiettili assegnare all'arma
+        }
+        return null;
+    }
+
     internal void decreaseEnemies()
     {
         nEnemies--;

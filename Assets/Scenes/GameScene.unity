@@ -2016,7 +2016,7 @@ PrefabInstance:
     - target: {fileID: 2083683913443830006, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
       propertyPath: startingWeapon
       value: 
-      objectReference: {fileID: 2573384855557751439, guid: 3d3373d70d8a9994698c8e7f6a2ea3e4, type: 3}
+      objectReference: {fileID: 5457891620495391742, guid: 68f50b6017b501b4f9bcf0bca60f80bb, type: 3}
     - target: {fileID: 2621190405173459873, guid: 072704719a60aa14b8b06f009ec375e7, type: 3}
       propertyPath: m_SortingLayer
       value: 1
