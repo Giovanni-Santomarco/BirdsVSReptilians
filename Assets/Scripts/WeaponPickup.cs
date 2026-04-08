@@ -10,9 +10,10 @@ public class WeaponPickup : MonoBehaviour
     [Header("Interfaccia")]
     public TextMeshPro messageText; //per dire all'utente che se preme E potrà raccogliere l'arma
 
-
     private bool canPickup = false;
     private InventoryManager playerInventory;
+
+    public int savedAmmo = -1;  //se il valore -1 allora significa che l'arma non ha mai sparato neanche un colpo
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -33,7 +34,7 @@ public class WeaponPickup : MonoBehaviour
         {
             if(playerInventory != null)
             {
-                playerInventory.PickupWeapon(weaponToEquip, transform);
+                playerInventory.PickupWeapon(weaponToEquip, transform, savedAmmo);
                 Destroy(gameObject);    //gameObject si intende l'oggetto in cui si trova lo script da non confondere con GameObject
             }
         }

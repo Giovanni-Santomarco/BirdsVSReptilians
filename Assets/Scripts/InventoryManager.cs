@@ -25,62 +25,77 @@ public class InventoryManager : MonoBehaviour
     }
 
 
-    public void PickupWeapon(GameObject weapon, Transform positionWeaponOnTheGround)
+    public void PickupWeapon(GameObject weapon, Transform positionWeaponOnTheGround, int ammoToTransfer = -1)
     {
-        int emptySlotIndex = -1;
-        for(int i=0; i < slots.Length; i++)
+        //scopriamo che tipo di arma stiamo raccogliendo: se raccolgo una sideArm avrà colpi infiniti altrimenti se raccolgo una primary allora avrà un certo numero di colpi
+        WeaponInfo info = weapon.GetComponent<WeaponInfo>();
+        if (info == null) return;
+
+        //decidiamo in quale slot deve andare: se è Sidearm va nello slot 0, altrimenti nello slot 1
+        int targetSlot = (info.category == WeaponCategory.Sidearm) ? 0 : 1;
+
+        if (slots[targetSlot] != null)
         {
-            if (slots[i] == null)
-            {
-                emptySlotIndex = i;
-                break;
-            }
+            //viene droppata l'arma nel caso in cui lo slot in cui si vuole mettere l'arma è già occupato da un altra arma
+            DropWeapon(targetSlot, positionWeaponOnTheGround.position);
         }
 
-        //se abbiamo già tutti gli slot pieni devo droppare la mia arma attuale
-        if(emptySlotIndex == -1)
-        {
-            DropCurrentWeapon(positionWeaponOnTheGround); // does not effect currentSlotIndex
-            EquipWeapon(weapon, currentSlotIndex);        // does not effect currentSlotIndex
-        }
-        else
-        {
-            EquipWeapon(weapon, emptySlotIndex);          
-            SwitchToSlot(emptySlotIndex);                 //effects currentSlotIndex
-        }
+        //equipaggiamo la nuova arma nel suo slot dedicato e la mettiamo in mano
+        EquipWeapon(weapon, targetSlot, ammoToTransfer);
+        SwitchToSlot(targetSlot);
     }
 
 
-    void DropCurrentWeapon(Transform positionWeaponOnTheGround)
+    
+    void DropWeapon(int indexSlot, Vector3 positionWeaponOnTheGround)
     {
-        GameObject currentWeapon = slots[currentSlotIndex];
-        if (currentWeapon != null)
+        GameObject weaponToDrop = slots[indexSlot];
+        if (weaponToDrop != null)
         {
-            WeaponInfo info = currentWeapon.GetComponent<WeaponInfo>();
+            WeaponInfo info = weaponToDrop.GetComponent<WeaponInfo>();
+            GunController gunCtrl = weaponToDrop.GetComponent<GunController>();
+
             if (info != null && info.pickupPrefab != null)
             {
                 if (levelManager != null)
                 {
-                    levelManager.SpawnDrop(info.pickupPrefab, positionWeaponOnTheGround);
+                    GameObject droppedItem = levelManager.SpawnDropGun(info.pickupPrefab, positionWeaponOnTheGround);   //ricorda SpawnDropGun ritorna un riferimento all'arma
+
+                    //TRASFERIAMO I COLPI ALL'OGGETTO A TERRA
+                    if (droppedItem != null && gunCtrl != null)
+                    {
+                        WeaponPickup pickupScript = droppedItem.GetComponent<WeaponPickup>();
+                        if (pickupScript != null)
+                        {
+                            pickupScript.savedAmmo = gunCtrl.currentAmmo;
+                        }
+                    }
                 }
-                else
+                else  //nel caso qualcosa vada storto
                 {
-                    
-                    Instantiate(info.pickupPrefab, positionWeaponOnTheGround.position, Quaternion.identity);
+                    Instantiate(info.pickupPrefab, positionWeaponOnTheGround, Quaternion.identity);
                 }
             }
-            Destroy(currentWeapon);
-            slots[currentSlotIndex] = null;
+            Destroy(weaponToDrop);
+            slots[indexSlot] = null;
         }
     }
 
 
-    void EquipWeapon(GameObject weapon, int indexSlot)
+    void EquipWeapon(GameObject weapon, int indexSlot, int ammoToTransfer)
     {
         GameObject newWeapon = Instantiate(weapon, weaponHolder);
-        newWeapon.GetComponent<GunController>().setShooter("player");
+        GunController gunCtrl = newWeapon.GetComponent<GunController>();
+        gunCtrl.setShooter("player");
         newWeapon.transform.localPosition = Vector3.zero;
         newWeapon.transform.localRotation = Quaternion.identity;
+
+        //se l'arma NON è nuova (-1), sovrascriviamo i suoi proiettili
+        if (ammoToTransfer != -1)
+        {
+            gunCtrl.currentAmmo = ammoToTransfer;
+        }
+
         slots[indexSlot] = newWeapon;
     }
 
@@ -89,6 +104,9 @@ public class InventoryManager : MonoBehaviour
     {
         //se l'indice è quello dell'arma vecchia non faccio nulla
         if (indexSlot == currentSlotIndex) return;
+
+        //se lo slot selezionato non contiene armi
+        if (slots[indexSlot] == null) return;
 
         //metto "in inventario" l'arma che avevo prima in mano
         if (slots[currentSlotIndex] != null)
@@ -149,5 +167,21 @@ public class InventoryManager : MonoBehaviour
     public GameObject getCurrentWeapon()
     {
         return this.slots[currentSlotIndex];
+    }
+
+
+    // NUOVA FUNZIONE: Viene chiamata dal GunController quando finiscono i colpi -> l'arma viene distrutta se i colpi finiscono
+    public void BreakCurrentWeapon()
+    {
+        if (slots[currentSlotIndex] != null)
+        {
+            // Distruggiamo l'arma
+            Destroy(slots[currentSlotIndex]);
+            slots[currentSlotIndex] = null;
+
+            // Cambiamo automaticamente all'altra arma rimasta
+            int otherSlot = (currentSlotIndex == 0) ? 1 : 0;
+            SwitchToSlot(otherSlot);
+        }
     }
 }
