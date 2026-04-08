@@ -13,6 +13,10 @@ public class InventoryManager : MonoBehaviour
 
     private LevelManager levelManager;
 
+    public GameObject[] sidearmUpgrades;
+
+    private int currentSidearmLevel = 0;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -182,6 +186,49 @@ public class InventoryManager : MonoBehaviour
             // Cambiamo automaticamente all'altra arma rimasta
             int otherSlot = (currentSlotIndex == 0) ? 1 : 0;
             SwitchToSlot(otherSlot);
+        }
+    }
+
+
+    public void UpgradeSidearm()
+    {
+        //aumentiamo il livello dell'arma
+        currentSidearmLevel++;
+
+        //ma dobbiamo controllare se non abbiamo l'arma già al massimo livello
+        if (currentSidearmLevel < sidearmUpgrades.Length)
+        {
+            GameObject nextSidearm = sidearmUpgrades[currentSidearmLevel];
+
+            //distruggo la vecchia sidearm
+            if (slots[0] != null)
+            {
+                Destroy(slots[0]);
+                slots[0] = null;
+            }
+
+            //equipaggio la nuova sidearm
+            EquipWeapon(nextSidearm, 0, -1);
+
+            //se il giocatore aveva già la sidearm in mano durante l'upgrade, la mostriamo subito
+            if (currentSlotIndex == 0)
+            {
+                slots[0].SetActive(true);
+            }
+            else
+            {
+                //altrimenti la nascondiamo nell'inventario finché non la seleziona
+                slots[0].SetActive(false);
+            }
+
+            //potrebbe essere utile aggiungere un suono quando si ha un upgrade dell'arma
+            // AudioManager.instance.PlaySFX(upgradeSound, transform.position);
+
+            Debug.Log("Sidearm potenziata al livello: " + currentSidearmLevel);
+        }
+        else
+        {
+            Debug.Log("La Sidearm è già al livello massimo!");
         }
     }
 }

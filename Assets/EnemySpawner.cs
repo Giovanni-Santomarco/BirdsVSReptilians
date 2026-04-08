@@ -87,6 +87,7 @@ public class EnemySpawner : MonoBehaviour
         if (level % 3 == 0)
         {
             enemiesToSpawn.Add(bossEnemy);
+            levelManager.setNBosses(1); //per il momento ok, ma sarebbe da cambiare con level / 3: ex se siamo al livello 9 spawno 3 boss
             targetEnemyCount--;
             targetTotalStrength -= bossEnemy.strength;
 
