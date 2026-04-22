@@ -44,9 +44,8 @@ public class GameManager : MonoBehaviour
 
     IEnumerator GameOver()
     {
-        
         // Cover the screen
-        //transitionAnimator.SetTrigger("StartTransition");
+        transitionAnimator.SetTrigger("StartTransition");
 
         // 2. Wait for the animation to completely finish
         // We use WaitForSecondsRealtime so it works even if you paused the game (Time.timeScale = 0)
@@ -55,6 +54,9 @@ public class GameManager : MonoBehaviour
         // 3. Perform the heavy lifting while the screen is covered
         //SceneManager.LoadScene("MainMenu");
         gameOverMenuUI.SetActive(true);
+        transitionAnimator.SetTrigger("EndTransition");
+        yield return new WaitForSecondsRealtime(transitionTime/4);
+        Time.timeScale = 0f;
     }
     void Update()
     {
@@ -86,6 +88,7 @@ public class GameManager : MonoBehaviour
 
     public void onExitButton()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
     }
 }
