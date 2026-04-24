@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 
 
-//tutti gli audio saranno creati da questa classe: nel momento in cui ci serve istanziare un audio, questa classe crea
+//tutti gli audio sfx saranno creati da questa classe: nel momento in cui ci serve istanziare un audio, questa classe crea
 //un gameObject della durata della risorsa audio (alla fine della sua durata verrà distrutto)
 //questo ci permette di non avere bug come avere nemici che nel momento in cui muoiono interrompono i loro suoni bruscamente
 //idem per il player quando muore o quando cambia arma prima che una risorsa audio finisca
