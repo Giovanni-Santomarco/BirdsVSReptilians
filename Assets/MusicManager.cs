@@ -1,14 +1,17 @@
 using UnityEngine;
-using UnityEngine.Audio; // Required for Audio Mixer classes
+using UnityEngine.Audio;
+using UnityEngine.UI; // Required for Audio Mixer classes
 
 [RequireComponent(typeof(AudioSource))]
 public class MusicManager : MonoBehaviour
 {
     public AudioClip menuSong;
 
-    //public AudioMixer mainMixer;
+    public AudioMixer mainMixer;
 
     public AudioMixerGroup mixerGroup;
+
+    public Slider musicSlider;
 
     //private readonly string volumeParameter = "MusicVol";
     private AudioSource audioSource;
@@ -45,12 +48,12 @@ public class MusicManager : MonoBehaviour
     /// The slider should be set to Min Value: 0.0001 and Max Value: 1.
     /// </summary>
     ///
-    /*
+    
     public void SetMusicVolume()
     {
         float volume = musicSlider.value;
         // Convert 0-1 slider value to -80 to 0 decibels
         mainMixer.SetFloat("MusicVol", Mathf.Log10(volume) * 20);
     }
-    */
+    
 }
