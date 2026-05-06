@@ -939,6 +939,7 @@ MonoBehaviour:
   - {fileID: 8345019430456001570, guid: 8951abd215a45904ab2b468b139992fa, type: 3}
   - {fileID: 1882839372250655306, guid: 7913a050b5a90364db89510373d7aca5, type: 3}
   - {fileID: 39565587178966572, guid: 8dfafee1d146eb449a1ad87799e04448, type: 3}
+  - {fileID: 689673566800051629, guid: 78860ed6c4ba570448e21a058654ac69, type: 3}
   nonPhysWallPrefab:
   - {fileID: 6272670408160083574, guid: 6f3bf3020b5b1344299fece53d86ab3d, type: 3}
   - {fileID: 7719396348410690022, guid: f21ac03f33d82544faf92a8bbf0af2f4, type: 3}
