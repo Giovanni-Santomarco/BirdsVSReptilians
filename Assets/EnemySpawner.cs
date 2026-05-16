@@ -86,15 +86,18 @@ public class EnemySpawner : MonoBehaviour
         // 2. Handle the Boss (Specific 2: if and only if level is a multiple of 3)
         if (level % 3 == 0)
         {
-            enemiesToSpawn.Add(bossEnemy);
-            levelManager.setNBosses(1); //per il momento ok, ma sarebbe da cambiare con level / 3: ex se siamo al livello 9 spawno 3 boss
-            targetEnemyCount--;
-            targetTotalStrength -= bossEnemy.strength;
+            for (int i = 0; i < (level / 3); i++)
+            {
+                enemiesToSpawn.Add(bossEnemy);
+                levelManager.setNBosses(1); //per il momento ok, ma sarebbe da cambiare con level / 3: ex se siamo al livello 9 spawno 3 boss
+                targetEnemyCount--;
+                targetTotalStrength -= bossEnemy.strength;
 
-            // Safety clamp: The boss must spawn but it may consume too much strength -> no  strength enough to spawn needed enemies.
-            // If it is so, set targetTotalStrength so that it is possible to spawn other enemies.
-            float minRequiredStrength = targetEnemyCount * standardEnemies[0].strength;
-            targetTotalStrength = Mathf.Max(targetTotalStrength, minRequiredStrength);
+                // Safety clamp: The boss must spawn but it may consume too much strength -> no  strength enough to spawn needed enemies.
+                // If it is so, set targetTotalStrength so that it is possible to spawn other enemies.
+                float minRequiredStrength = targetEnemyCount * standardEnemies[0].strength;
+                targetTotalStrength = Mathf.Max(targetTotalStrength, minRequiredStrength);
+            }
         }
 
         // 3. Populate standard enemies using mathematical approximation (Specific 5)

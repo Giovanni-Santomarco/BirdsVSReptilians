@@ -36,6 +36,10 @@ public class MapManager : MonoBehaviour
     private int[,] gridData;
     private List<Vector2> freeTales;
 
+    //padding
+    private int heightPadding = 4;
+    private int widthPadding = 7;
+
     // Simple class to track our miners
     private class Walker
     {
@@ -57,7 +61,7 @@ public class MapManager : MonoBehaviour
     {
         gridWidth = Mathf.RoundToInt(baseCaseGridWidth * Mathf.Pow(1f + widthIncreasePercentage, level - 1));
         gridHeight = Mathf.RoundToInt(baseCaseGridWidth * Mathf.Pow(1f + heightIncreasePercentage, level - 1));
-        maxFloorCount = Mathf.RoundToInt(gridHeight*gridWidth*floorPercentage);
+        maxFloorCount = Mathf.RoundToInt((gridHeight-heightPadding)*(gridWidth-widthPadding)*floorPercentage);
     }
 
     void SetupGrid()
@@ -100,9 +104,9 @@ public class MapManager : MonoBehaviour
                 // 1. Move
                 walkers[i].position += walkers[i].direction;
 
-                // 2. Clamp position to grid bounds (leave 1 tile padding for walls)
-                walkers[i].position.x = Mathf.Clamp(walkers[i].position.x, 1, gridWidth - 2);
-                walkers[i].position.y = Mathf.Clamp(walkers[i].position.y, 1, gridHeight - 2);
+                // 2. Clamp position to grid bounds (leave some tiles padding for walls)
+                walkers[i].position.x = Mathf.Clamp(walkers[i].position.x, widthPadding, gridWidth - widthPadding - 1);
+                walkers[i].position.y = Mathf.Clamp(walkers[i].position.y, heightPadding, gridHeight -heightPadding - 1);
 
                 // 3. Carve Floor
                 if (gridData[walkers[i].position.x, walkers[i].position.y] != 1)

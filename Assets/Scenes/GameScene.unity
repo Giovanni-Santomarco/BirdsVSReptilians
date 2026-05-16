@@ -924,13 +924,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelManager: {fileID: 1267907843}
-  baseCaseGridWidth: 13
-  baseCaseGridHeight: 13
-  floorPercentage: 0.3
+  baseCaseGridWidth: 34
+  baseCaseGridHeight: 31
+  floorPercentage: 0.35
   widthIncreasePercentage: 0.1
   heightIncreasePercentage: 0.1
   tileSize: 2
-  chanceToChangeDir: 0.5
+  chanceToChangeDir: 0.35
   chanceToSpawnWalker: 0.05
   chanceToDestroyWalker: 0.05
   floorPrefab:
@@ -1170,7 +1170,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: REPTILIANS HAVE TAKEN OVER
+  m_text: BIRDS HAVE TAKEN OVER
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1445,10 +1445,10 @@ MonoBehaviour:
   - {fileID: 3887826559819806324, guid: cb2421fce1ff7944a8bf8da8e53c2d71, type: 3}
   - {fileID: 7246991954694227996, guid: f259723b244f93445b8861f863f09822, type: 3}
   bossEnemyAsGameObject: {fileID: 3305549402613063066, guid: a6185cb63778f5f498421d6996786f97, type: 3}
-  baseEnemyCountLevel1: 6
+  baseEnemyCountLevel1: 10
   countIncreasePercentage: 0.2
   strengthIncreasePercentage: 0.3
-  chanceToSpawnRandomEnemy: 0.25
+  chanceToSpawnRandomEnemy: 0.1
   basicEnemyStrenth: 1
   nonBasicEnemyStrenth: 2
   shotgunEnemyStrenth: 3
