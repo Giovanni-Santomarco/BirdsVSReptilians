@@ -7,4 +7,10 @@ public class MenuManager : MonoBehaviour
     {
         SceneManager.LoadScene("GameScene");
     }
+
+    public void UscireDalGioco()
+    {
+        Application.Quit();
+        Debug.Log("Il giocatore è uscito dal gioco!");
+    }
 }
