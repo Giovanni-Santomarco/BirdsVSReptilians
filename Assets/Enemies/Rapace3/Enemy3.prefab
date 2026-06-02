@@ -384,6 +384,7 @@ MonoBehaviour:
   weaponHolder: {fileID: 8513500818460098746}
   chanceToDropAMedikit: 0.1
   chanceToDropAGun: 0
+  isBoss: 0
 --- !u!210 &4249835902638120173
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -430,6 +431,7 @@ MonoBehaviour:
   enemyMovement: {fileID: 3074120772215651950}
   reloadTime: 5
   magazine: 3
+  gracePeriod: 3
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 64

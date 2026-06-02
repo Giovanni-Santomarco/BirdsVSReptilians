@@ -695,6 +695,7 @@ MonoBehaviour:
   enemyMovement: {fileID: 8086599881407291128}
   reloadTime: 4
   magazine: 15
+  gracePeriod: 3
 --- !u!114 &7980525364583787043
 MonoBehaviour:
   m_ObjectHideFlags: 0
