@@ -147,5 +147,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94cbb6dd3f4f385459373bb38510deea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeHeal: 50
+  lifeHeal: 200
   timeToLive: 10

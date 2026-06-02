@@ -519,7 +519,7 @@ MonoBehaviour:
   medikit: {fileID: 5224596743304994958, guid: c0b2fb762813a0e4a86f87368fe66e37, type: 3}
   weaponHolder: {fileID: 2910746194010501812}
   chanceToDropAMedikit: 0.05
-  chanceToDropAGun: 0.1
+  chanceToDropAGun: 0.2
   isBoss: 0
 --- !u!114 &6035225162061555330
 MonoBehaviour:
@@ -554,6 +554,7 @@ MonoBehaviour:
   enemyMovement: {fileID: 2591500873009682620}
   reloadTime: 6
   magazine: 1
+  gracePeriod: 3
   laserLine: {fileID: 2614074939444734284}
   aimDuration: 0.5
   laserDistance: 2

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class ShootManagerForEnemy : MonoBehaviour
@@ -15,18 +16,34 @@ public class ShootManagerForEnemy : MonoBehaviour
     protected int magazine = 5;
     protected int bulletCounter = 0;
 
+    [SerializeField]
+    protected float gracePeriod = 5.0f;
+    protected bool isReadyToShootAfterIdle = false;
+
+
     protected virtual void Start()
     {
         if (gunManager != null && gunManager.getWeapon() != null)
         {
             gunController = gunManager.getWeapon().GetComponent<GunController>();
         }
+        StartCoroutine(EnableShootingTimer());
+    }
+
+    IEnumerator EnableShootingTimer()
+    {
+        // Mette in pausa l'esecuzione di questa funzione per qualche secondo
+        yield return new WaitForSeconds(gracePeriod);
+        isReadyToShootAfterIdle = true; // Sblocca lo sparo
     }
 
     // Update is called once per frame
     protected void Update()
     {
-        ShootingMechanics();
+        if (isReadyToShootAfterIdle)
+        {
+            ShootingMechanics();
+        }
     }
 
     protected virtual void ShootingMechanics()
