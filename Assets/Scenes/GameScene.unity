@@ -939,7 +939,6 @@ MonoBehaviour:
   - {fileID: 8345019430456001570, guid: 8951abd215a45904ab2b468b139992fa, type: 3}
   - {fileID: 1882839372250655306, guid: 7913a050b5a90364db89510373d7aca5, type: 3}
   - {fileID: 39565587178966572, guid: 8dfafee1d146eb449a1ad87799e04448, type: 3}
-  - {fileID: 689673566800051629, guid: 78860ed6c4ba570448e21a058654ac69, type: 3}
   nonPhysWallPrefab:
   - {fileID: 6272670408160083574, guid: 6f3bf3020b5b1344299fece53d86ab3d, type: 3}
   - {fileID: 7719396348410690022, guid: f21ac03f33d82544faf92a8bbf0af2f4, type: 3}
@@ -1445,7 +1444,7 @@ MonoBehaviour:
   - {fileID: 3887826559819806324, guid: cb2421fce1ff7944a8bf8da8e53c2d71, type: 3}
   - {fileID: 7246991954694227996, guid: f259723b244f93445b8861f863f09822, type: 3}
   bossEnemyAsGameObject: {fileID: 3305549402613063066, guid: a6185cb63778f5f498421d6996786f97, type: 3}
-  baseEnemyCountLevel1: 10
+  baseEnemyCountLevel1: 15
   countIncreasePercentage: 0.2
   strengthIncreasePercentage: 0.3
   chanceToSpawnRandomEnemy: 0.1
@@ -1775,9 +1774,9 @@ RectTransform:
   - {fileID: 1577758192}
   m_Father: {fileID: 727564422}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 191.6344, y: -43.401123}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -740, y: 340}
   m_SizeDelta: {x: 130, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2067656948
