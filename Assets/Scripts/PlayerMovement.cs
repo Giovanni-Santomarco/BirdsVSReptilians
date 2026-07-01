@@ -57,6 +57,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (Time.timeScale == 0f) return;
+
         // 2. ANIMAZIONE
         bool isMoving = moveInput.magnitude > 0;
         animator.SetBool("isWalking", isMoving);
