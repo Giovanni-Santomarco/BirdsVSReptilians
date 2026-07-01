@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Impostazioni Cursore")]
+    public Texture2D crosshairTexture;
+
     public GameObject gameOverMenuUI;
     public LevelManager levelManager;
     public Animator transitionAnimator;
@@ -15,6 +18,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        SetCustomCursor();
         InitGame();
     }
 
@@ -95,5 +99,16 @@ public class GameManager : MonoBehaviour
     public int GetCurrentLevel()
     {
         return level;
+    }
+
+    void SetCustomCursor()
+    {
+        if (crosshairTexture != null)
+        {
+            // Calcoliamo il centro dell'immagine cursore.
+            Vector2 hotspot = new Vector2(crosshairTexture.width / 2f, crosshairTexture.height / 2f);
+
+            Cursor.SetCursor(crosshairTexture, hotspot, CursorMode.Auto);
+        }
     }
 }
