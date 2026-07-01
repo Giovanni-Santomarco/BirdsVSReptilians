@@ -274,10 +274,13 @@ public class Enemy_Movement : MonoBehaviour
     {
         agent.SetDestination(PlayerLocation.position);
 
-        currentWalkDirection = agent.desiredVelocity.normalized;
+        if (!agent.pathPending)
+        {
+            currentWalkDirection = agent.desiredVelocity.normalized;
+            moveInput = currentWalkDirection * speed;
+        }
 
-        moveInput = currentWalkDirection.normalized * speed;
-        isMoving = true;
+        isMoving = moveInput.sqrMagnitude > 0.01f; // deriva isMoving dal movimento reale, non a priori
         lookTarget = PlayerLocation.position;
 
         //nel caso più nemici sono stati aggrati nello stesso tempo cerco di non uccidere la cpu
@@ -313,6 +316,7 @@ public class Enemy_Movement : MonoBehaviour
         }
 
         moveInput = isMoving ? currentWalkDirection * speed : Vector2.zero;
+        isMoving = moveInput.sqrMagnitude > 0.01f;
         lookTarget = PlayerLocation.position;
 
         waitTime = Time.time + ComputeWaitTime();

@@ -472,6 +472,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 800
+  playerDead: {fileID: 2726597098038122000, guid: f49b84366b2c74b4abedb6d06baca681, type: 3}
 --- !u!210 &6456960167757654539
 SortingGroup:
   m_ObjectHideFlags: 0
