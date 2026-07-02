@@ -5,6 +5,7 @@ A top-down roguelite shooter made in Unity.
 ### 🚀 Killer Features
 * **Procedural Generation:** Explore randomly generated levels that scale in difficulty.
 * **Smart Combat:** Face off against complex enemy AI designed to hunt you down.
+* **Many Guns:** Discover all the 22 different guns.
 
 ---
 
