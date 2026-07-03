@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
@@ -16,6 +17,10 @@ public class InventoryManager : MonoBehaviour
     public GameObject[] sidearmUpgrades;
 
     private int currentSidearmLevel = 0;
+
+    [Header("UI Pop-Up Upgrade")]
+    public GameObject upgradePopup;
+    public float popupDuration = 3.5f;  
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -221,6 +226,11 @@ public class InventoryManager : MonoBehaviour
                 slots[0].SetActive(false);
             }
 
+            if (upgradePopup != null)
+            {
+                StartCoroutine(ShowUpgradePopup());
+            }
+
             //potrebbe essere utile aggiungere un suono quando si ha un upgrade dell'arma
             // AudioManager.instance.PlaySFX(upgradeSound, transform.position);
 
@@ -230,5 +240,15 @@ public class InventoryManager : MonoBehaviour
         {
             Debug.Log("La Sidearm è già al livello massimo!");
         }
+    }
+
+
+    private IEnumerator ShowUpgradePopup()
+    {
+        upgradePopup.SetActive(true);
+
+        yield return new WaitForSeconds(popupDuration);
+
+        upgradePopup.SetActive(false);
     }
 }
