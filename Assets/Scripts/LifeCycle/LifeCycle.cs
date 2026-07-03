@@ -8,6 +8,8 @@ public abstract class LifeCycle : MonoBehaviour
     internal LevelManager levelManager;
     internal HealAndDamageFeedback feedback;
 
+    protected bool isDead = false;
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -17,13 +19,22 @@ public abstract class LifeCycle : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        currentHealth -= damage;
-        if (currentHealth <= 0)
+        if (isDead)
         {
-            Die();
+            return;
         }
 
-        feedback.StartHitAnimation();
+        currentHealth -= damage;
+
+        if (currentHealth <= 0)
+        {
+            isDead = true;
+            Die();
+        }
+        else
+        {
+            feedback.StartHitAnimation();
+        }
     }
 
     public abstract void Die();
