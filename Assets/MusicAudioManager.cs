@@ -60,4 +60,14 @@ public class MusicAudioManager : MonoBehaviour
             currentTrackIndex = (currentTrackIndex + 1) % playlist.Length;
         }
     }
+
+    public void SkipTrack()
+    {
+        //since we have PlayThroughPlaylist() that makes the next song start as soon as the last ends
+        //we can force stop a song to basically skip it and go to the next
+        if (audioSource != null)
+        {
+            audioSource.Stop();
+        }
+    }
 }
