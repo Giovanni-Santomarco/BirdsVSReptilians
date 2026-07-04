@@ -45,10 +45,13 @@ public class HealAndDamageFeedback : MonoBehaviour
 
     private IEnumerator FlashRoutine(Color color, float duration)
     {
-        // PASSO 1: Colora tutti i pezzi di rosso
+        // PASSO 1: Colora tutti i pezzi
         for (int i = 0; i < spriteRenderers.Length; i++)
         {
-            spriteRenderers[i].color = color;
+            if (spriteRenderers[i] != null)
+            {
+                spriteRenderers[i].color = color;
+            }
         }
 
         // PASSO 2: Aspetta
@@ -57,7 +60,10 @@ public class HealAndDamageFeedback : MonoBehaviour
         // PASSO 3: Rimetti a ogni pezzo il suo colore originale
         for (int i = 0; i < spriteRenderers.Length; i++)
         {
-            spriteRenderers[i].color = coloriOriginali[i];
+            if (spriteRenderers[i] != null)
+            {
+                spriteRenderers[i].color = coloriOriginali[i];
+            }
         }
     }
 }
