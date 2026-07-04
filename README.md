@@ -2,6 +2,13 @@
 
 A top-down roguelite shooter made in Unity.
 
+### 👥 Authors
+Developed by:
+* **Carlo Maria Proietti**
+* **Giovanni Santomarco**
+
+---
+
 ### 🚀 Killer Features
 * **Procedural Generation:** Explore randomly generated levels that scale in difficulty.
 * **Smart Combat:** Face off against complex enemy AI designed to hunt you down.
