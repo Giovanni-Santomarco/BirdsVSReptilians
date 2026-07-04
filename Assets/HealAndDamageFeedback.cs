@@ -45,12 +45,14 @@ public class HealAndDamageFeedback : MonoBehaviour
 
     private IEnumerator FlashRoutine(Color color, float duration)
     {
+        SpriteRenderer[] currentSprites = GetComponentsInChildren<SpriteRenderer>();
+
         // PASSO 1: Colora tutti i pezzi
-        for (int i = 0; i < spriteRenderers.Length; i++)
+        foreach (SpriteRenderer sr in currentSprites)
         {
-            if (spriteRenderers[i] != null)
+            if (sr != null)
             {
-                spriteRenderers[i].color = color;
+                sr.color = color;
             }
         }
 
@@ -58,11 +60,11 @@ public class HealAndDamageFeedback : MonoBehaviour
         yield return new WaitForSeconds(duration);
 
         // PASSO 3: Rimetti a ogni pezzo il suo colore originale
-        for (int i = 0; i < spriteRenderers.Length; i++)
+        foreach (SpriteRenderer sr in currentSprites)
         {
-            if (spriteRenderers[i] != null)
+            if (sr != null)
             {
-                spriteRenderers[i].color = coloriOriginali[i];
+                sr.color = Color.white;
             }
         }
     }
