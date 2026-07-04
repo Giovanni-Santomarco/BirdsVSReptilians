@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
 
     void InitGame()
     {
-        levelManager.GenerateLevel(level);
+        StartCoroutine(levelManager.GenerateLevel(level));
     }
     IEnumerator InitGame1()
     {
@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(transitionTime);
 
         // 3. Perform the heavy lifting while the screen is covered
-        levelManager.GenerateLevel(level);
+        yield return StartCoroutine(levelManager.GenerateLevel(level));
 
         // Add a tiny extra wait time here 
         // to stay covered for a split second after generating.
