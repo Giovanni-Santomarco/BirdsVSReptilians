@@ -1,5 +1,6 @@
 using UnityEngine;
 using NavMeshPlus.Components;
+using System.Collections;
 
 public class LevelManager : MonoBehaviour
 {
@@ -35,20 +36,24 @@ public class LevelManager : MonoBehaviour
             boardHolder.SetActive(false);
 
             // 3. Sincronizziamo i calcoli di Unity FORZATAMENTE in questo esatto millisecondo
-            Physics.SyncTransforms();
+            Physics2D.SyncTransforms();
 
             Destroy(boardHolder);
         }
         navMeshManager.GetComponent<NavMeshSurface>().RemoveData();
     }
 
-    public void GenerateLevel(int level)
+    public IEnumerator GenerateLevel(int level)
     {
         //regarding cleaning
         cleanLevel();
         boardHolder = new GameObject("BoardHolder");
         //map
         mapManager.generateMap(level);
+
+        yield return null;
+
+        Physics2D.SyncTransforms();
 
         //per il pathfinding: se devi modificare mantieni questa riga sopra lo spawn di nemici
         if (navMeshManager != null)
@@ -59,6 +64,8 @@ public class LevelManager : MonoBehaviour
         {
             Debug.LogError("problems");
         }
+
+        yield return null;
 
         //characters
         SpawnPlayer();
